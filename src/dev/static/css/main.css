@@ -1,0 +1,10 @@
+body {
+    background-color: blue;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: white;
+    font-size: 80;
+    text-align: center;
+}
