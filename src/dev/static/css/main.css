@@ -38,6 +38,14 @@ h1 {
     background-color: red;
 }
 
+.icon {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
 .post {
     background-color: white;
     border-radius: 15px;
@@ -45,6 +53,29 @@ h1 {
     font-size:16px;
     border-style: solid;
     border-color:black;
+}
+.spaced{
+    padding: 6px;
+}
+.p_header{
+    display: flex;
+    align-content:flex-start;
+    padding:3px;
+}
+
+.p_footer {
+    display: flex;
+    align-content:flex-start;
+}
+
+.ID{
+    color:gray;
+    margin-left: 10px;
+}
+
+.heart{
+    width: 50px;
+    height: 50px;
 }
 
 /* Grow */

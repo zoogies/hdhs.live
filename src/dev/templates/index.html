@@ -14,12 +14,20 @@
         <h1>Danarchy</h1>
         <div id="container">
             <div class="post">
-                <img src=""
-                <p>USERNAME</p>
-                <p>POST CONTENT LOL LOL LOL</p>
-                <p>POST ID</p>
-                <p>LIKES</p>
-                <p>STAMP</p>
+                <div class="p_header">
+                    <img class="icon spaced" src="{{url_for('static', filename='resources/user.png')}}"/>
+                    <p>USERNAME</p>
+                    <p class="ID">POST ID</p>
+                    <p class="ID">STAMP</p>
+                </div>
+                <p class="spaced">POST CONTENT LOL LOL LOL WWWWW WWWWWWWW WWWWWWW WWW WWWW WWWW WWWW BOZO</p>
+                <div class="p_footer">
+                    <!--
+                        <img class="heart" src="{{url_for('static', filename='resources/heart.png')}}"/>
+                    -->
+                    <p class="spaced">LIKES</p>
+                    <p class="spaced"><b>Click For Comments</b></p>
+                </div>
             </div>
         </div>
     </body>
