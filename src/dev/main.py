@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import json
 from flask import Flask, render_template
 from flask import g, request
 
@@ -52,4 +53,9 @@ def create_app(test_config=None):
     @app.route('/dbprev')
     def db():
         return str(query_db('select * from main'))
+    @app.route('/fetchnew')
+    def new():
+        #print(json.dumps(query_db('select * from main')))
+        #print(type(query_db('select * from main')))
+        return json.dumps(query_db('select * from main'))
     return app
