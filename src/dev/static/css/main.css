@@ -35,7 +35,7 @@ h1 {
 }
 
 #container {
-    background-color: red;
+    padding:10px;
 }
 
 .icon {
@@ -53,6 +53,7 @@ h1 {
     font-size:16px;
     border-style: solid;
     border-color:black;
+    margin-bottom: 10px;
 }
 .spaced{
     padding: 6px;

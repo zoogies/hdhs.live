@@ -2,7 +2,7 @@ function reportmistake(){
     alert('LMAO i didnt program this yet so tough luck i guess. find out who i am and let me know.');
     //TODO
 }
-
+//todo loading symbol until posts are loaded
 function init(){
     var container = !!document.getElementById("container");
     if (container) {
@@ -18,12 +18,9 @@ function init(){
             if (cs.length >= 1)
         {
             for (i=0; i < cs.length; i++){
-                header = document.createElement("div");
-                header.textContent = cs[i][2];
-                //TODO header.setAttribute('onclick','selectAvailable(this)');
-                header.setAttribute('class','p_header')
-                //console.log(el);
-                //container.appendChild(el);
+                header = '<div class="post"><div class="p_header"><img class="icon spaced" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p class="spaced">'+cs[i][4]+' Likes'+'</p><p class="spaced"><b>Click For Comments</b></p></div></div>'
+                document.getElementById("container").innerHTML += header;
+                
                 console.log(header)
             }
         }
