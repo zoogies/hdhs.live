@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Danarchy</title>
+        <title>hdhs live</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='resources/icon.png') }}">
         <script src="{{url_for('static', filename='js/main.js')}}"></script>
@@ -11,27 +11,44 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     </head>
     <body onload="init()">
-        <h1>Danarchy</h1>
+        <h1>HDHS LIVE</h1>
         <div>
             <p>defualt sorting is by newest, navbar goes here</p>
         </div>
         <div id="container">
-            <div class="post">
-                <div class="p_header">
-                    <img class="icon spaced" src="{{url_for('static', filename='resources/user.png')}}"/>
-                    <p>USERNAME</p>
-                    <p class="ID">POST ID</p>
-                    <p class="ID">STAMP</p>
+            <div id="loading">
+                <img src="{{url_for('static', filename='resources/load.gif')}}">
+            </div>
+            <div class="poster post">
+                <div class="posterhead">
+                    <p>Share what's on your mind:</p>
+                    <p id="charlim" class="ID">0/250 characters</p>
                 </div>
-                <p class="spaced">POST CONTENT LOL LOL LOL WWWWW WWWWWWWW WWWWWWW WWW WWWW WWWW WWWW BOZO</p>
-                <div class="p_footer">
-                    <!--
-                        <img class="heart" src="{{url_for('static', filename='resources/heart.png')}}"/>
-                    -->
-                    <p class="spaced">LIKES</p>
-                    <p class="spaced"><b>Click For Comments</b></p>
+                <div class="inputter">
+                    <textarea id="field"style="font-family:roboto; resize: none;"></textarea>
+                </div>
+                <div class="pbtn hvr-fade" onclick="post()">
+                    <p>POST</p>
                 </div>
             </div>
+            <!--
+                <div class="post">
+                    <div class="p_header">
+                        <img class="icon spaced" src="{{url_for('static', filename='resources/user.png')}}"/>
+                        <p>USERNAME</p>
+                        <p class="ID">POST ID</p>
+                        <p class="ID">STAMP</p>
+                    </div>
+                    <p class="spaced">POST CONTENT LOL LOL LOL WWWWW WWWWWWWW WWWWWWW WWW WWWW WWWW WWWW BOZO</p>
+                    <div class="p_footer">
+                        
+                        <img class="heart" src="{{url_for('static', filename='resources/heart.png')}}"/>
+                        
+                        <p class="spaced">LIKES</p>
+                        <p class="spaced"><b>Click For Comments</b></p>
+                    </div>
+                </div>
+            -->
         </div>
     </body>
 </html>
