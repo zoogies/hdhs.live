@@ -11,9 +11,26 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     </head>
     <body onload="init()">
-        <h1>HDHS LIVE</h1>
-        <div>
-            <p>defualt sorting is by newest, navbar goes here</p>
+        <div class="title">
+            <div id="logo">
+                <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
+            </div>
+            <h1>HDHS LIVE</h1>
+            <p class="tagline">A social media website only accessible on the davidson student wifi</p>
+        </div>
+        <div class="bartl">
+            <div class="bar">
+                <h2>Sort By:</h2>
+                <div onclick="s_new();" id="new" class="nav_sel">
+                    <p>New</p>
+                </div>
+                <div onclick="s_old();" id="old" class="nav_btn">
+                    <p>Old</p>
+                </div>
+                <div onclick="s_pop();" id="pop" class="nav_btn">
+                    <p>Popular</p>
+                </div>
+            </div>
         </div>
         <div id="container">
             <div id="loading">

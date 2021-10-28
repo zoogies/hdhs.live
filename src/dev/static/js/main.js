@@ -33,7 +33,7 @@ function post(){
         };
         //alert(JSON.stringify(data))
         xhr.send(JSON.stringify(data));
-        location.reload();
+        setTimeout(() => {  location.reload(); }, 50);
     }
     else{
         alert('Your post needs to be more than 0 and less than 250 characters')
@@ -69,4 +69,31 @@ function init(){
 
         var chartrack=setInterval(trackchar,100);
     }
+}
+
+//navbar shit
+function fresh(){
+    try{ //TODO run if contains THIS IS DOGSHIT
+        Document.getElementById('old').classList.remove('nav_sel');
+        Document.getElementById('old').classList.remove('nav_btn');
+        Document.getElementById('new').classList.remove('nav_sel');
+        Document.getElementById('new').classList.remove('nav_btn');
+        Document.getElementById('pop').classList.remove('nav_sel');
+        Document.getElementById('pop').classList.remove('nav_btn');
+    }
+    catch{
+        alert('Something went wrong')
+    }
+    
+    Document.getElementById('old')
+}
+
+function s_new(){
+    fresh();
+}
+function s_old(){
+    fresh();
+}
+function s_pop(){
+    fresh();
 }

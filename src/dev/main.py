@@ -59,9 +59,9 @@ def create_app(test_config=None):
         if db is not None:
             db.close()
 
-    @app.route('/dbprev')
-    def db():
-        return str(query_db('select * from main'))
+    #@app.route('/dbprev')
+    #def db():
+    #    return str(query_db('select * from main'))
 
     @app.route('/fetchnew')
     def new():
