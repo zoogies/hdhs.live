@@ -7,7 +7,7 @@ from flask import Flask, render_template
 from flask import g, request
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"198.30.181.13","174.207.98.227"]
+whitelist = ['192.168.50.1',"198.30.181.13","174.207.64.110"]
 
 #whitelist key: ryan macbook, xavier phone, ryan hotspot
 
@@ -63,11 +63,27 @@ def create_app(test_config=None):
     #def db():
     #    return str(query_db('select * from main'))
 
+    @app.route('/fetchold')
+    def old():
+        #print(json.dumps(query_db('select * from main')))
+        #print(type(query_db('select * from main')))
+        return json.dumps(query_db('select * from main'))
+    
     @app.route('/fetchnew')
     def new():
         #print(json.dumps(query_db('select * from main')))
         #print(type(query_db('select * from main')))
-        return json.dumps(query_db('select * from main'))
+        return json.dumps(query_db('select * from main order by ID desc'))
+    
+    @app.route('/fetchpop')
+    def pop():
+        return json.dumps(query_db('select * from main order by likes desc'))
+
+    @app.route('/comments',methods=['GET', 'POST'])
+    def comments():
+        #print(request.json['id'])
+        #print(type(request.json['id']))
+        return query_db('select comments from main where id="'+request.json['id']+'"')[0][0]
     
     @app.route('/post',methods=['GET', 'POST'])
     def post():
@@ -80,3 +96,6 @@ def create_app(test_config=None):
 #TODO:
 #make website split to grid of columns of posts if width is high enough
 #google analytics
+#YOU NEED LOADING SIGNS WHEN QUERYING FOR ANYTHING SO USER HAS FEEBACK
+#FIX NULL COMMENT LOADING
+#ONCE YOU OPEN COMMENTS MAKE IT CLICK TO CLOSE
