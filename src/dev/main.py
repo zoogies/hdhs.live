@@ -7,7 +7,7 @@ from flask import Flask, render_template
 from flask import g, request
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"198.30.181.13","174.207.64.110"]
+whitelist = ['192.168.50.1',"198.30.181.13","174.207.64.110","99.165.77.86"]
 
 #whitelist key: ryan macbook, xavier phone, ryan hotspot
 
@@ -83,7 +83,14 @@ def create_app(test_config=None):
     def comments():
         #print(request.json['id'])
         #print(type(request.json['id']))
-        return query_db('select comments from main where id="'+request.json['id']+'"')[0][0]
+        return json.dumps(query_db('select comments from main where id="'+request.json['id']+'"')[0][0])
+
+    @app.route('/laugh',methods=['GET', 'POST'])
+    def laugh():
+        #TODO update value here
+        val = json.dumps(query_db('select likes from main where id="'+request.json['id']+'"')[0][0])
+        execute_db('update main set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
+        return str(int(val)+1)
     
     @app.route('/post',methods=['GET', 'POST'])
     def post():
@@ -99,3 +106,5 @@ def create_app(test_config=None):
 #YOU NEED LOADING SIGNS WHEN QUERYING FOR ANYTHING SO USER HAS FEEBACK
 #FIX NULL COMMENT LOADING
 #ONCE YOU OPEN COMMENTS MAKE IT CLICK TO CLOSE
+#TRY CATCH STATEMENTS ON EVERYTHING, NOBODY SHOULD BE ABLE TO CRASH THE SERVER
+#MAYBE TEST ENDPOINTS TO MAKE SURE ALL SERVICES ARE OPERATING OK AT A GLANCE

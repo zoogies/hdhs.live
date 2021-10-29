@@ -96,6 +96,33 @@ h1 {
     margin: 0 auto;
 }
 
+.joy{
+    width:40px;
+    height:40px;
+}
+
+.combtn {
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 12px;
+    border-style: solid;
+    border-color: black;
+}
+
+.laughbtn {
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:center;
+    height:40px;
+    margin-top:15px;
+}
+
+.laughtxt {
+    font-size:20px;
+    font-weight: 900;
+}
+
 .pbtn {
     background-color: white;
     color: black;
