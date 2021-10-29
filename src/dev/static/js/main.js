@@ -9,8 +9,6 @@ function trackchar(){
 }
 
 function post(){
-    //TODO
-    //alert();
     var posttext = document.getElementById("field").value;
     if(posttext.length <= 250 && posttext.length > 0){
         //alert(posttext);
@@ -22,16 +20,13 @@ function post(){
 
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            //console.log(xhr.status);
-            //console.log(xhr.responseText);
+            //afraid to delete this...
         }};
         now = new Date();
         var data = {
             "USER": "Anonymous",
             "CONTENT": String(posttext),
-            //"STAMP": now.getHours() + ':' + now.getMinutes() + ' ' + now.getMonth() + '/' + now.getDate() + '/' + now.getFullYear()
         };
-        //alert(JSON.stringify(data))
         xhr.send(JSON.stringify(data));
         setTimeout(() => {  location.reload(); }, 500);
     }
@@ -41,19 +36,16 @@ function post(){
 }
 
 function getContent(sort){
-    fetch("http://76.181.32.163:5000/" + sort) //TODO THIS CODE IS DOGSHIT AND CANNOT BE PUBLISHED.
+    fetch("http://76.181.32.163:5000/" + sort)
         .then(response => {
         return response.json();
-        }).then(cs => {
-            //I Have an immense hatred for js and im just gonna fucking do the operations in here since thats all im allowed to do i guess   
+        }).then(cs => {  
             console.log(cs);
             if (cs.length >= 1)
         {
             for (i=0; i < cs.length; i++){
-                header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://assets.stickpng.com/images/586294223796e30ac446872f.png"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
+                header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                 document.getElementById("container").innerHTML += header;
-                
-                //console.log(header)
             }
         }
         });
@@ -66,7 +58,6 @@ function flushcontainer(){
     }
 }
 
-//todo loading symbol until posts are loaded
 function init(){
     //detect container
     var container = !!document.getElementById("container");
@@ -85,7 +76,7 @@ function init(){
 
 //navbar shit
 function fresh(){
-    try{ //TODO run if contains
+    try{
         document.getElementById('old').classList.remove('nav_sel');
         document.getElementById('old').classList.remove('nav_btn');
         document.getElementById('new').classList.remove('nav_sel');
@@ -174,12 +165,10 @@ function querycomments(id){
         var data = {
             "id": String(id),
         };
-        //alert(JSON.stringify(data))
         xhr.send(JSON.stringify(data))
 }
 
 function loadcomments(post){
-    //TODO ALLOW FLAGGING OF OPEN/CLOSED STRINGS SO CLICKING WILL REVERSE
     //query for comments as single string, parse them and then append them programatically to the bottom of the post
     handler = document.getElementById(post).querySelector('#comclick');
     if (!handler.classList.contains('opened')){
@@ -212,6 +201,5 @@ function laugh(id){
         var data = {
             "id": String(id),
         };
-        //alert(JSON.stringify(data))
         xhr.send(JSON.stringify(data))
 }
