@@ -19,7 +19,9 @@ h1 {
 .selected {
     color: blue;
 }
-
+#end{
+    width:100%;
+}
 .bar {
     background-color: white;
     border-radius: 5px;
