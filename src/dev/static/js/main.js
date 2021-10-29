@@ -142,11 +142,17 @@ function s_pop(){
 
 function renderComments(id,comments){
     reqpost = document.getElementById(id);
+    //comcont = document.createElement('div').classList.add('comments');
+    //reqpost.appendChild(comcont); //add comment container
+    reqpost.innerHTML += document.createElement('div').innerHTML = '<div class="comments"></div>';
+    reqbox = reqpost.querySelector('.comments');
+    //input for comments TODO make sure cant overflow db
+    reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment()">Comment</a></div>' //TODO onclick
+
+    //query for comments
     for(comment in comments){
-        var node = document.createElement("p");
-        node.classList.add('comment');
-        node.appendChild(document.createTextNode(comments[comment]));
-        reqpost.appendChild(node);
+        content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="comname">Anonymous:</p><p class="comtxt">'+comments[comment]+'</div>';
+        reqbox.innerHTML += (content);
     }
 }
 
@@ -179,10 +185,10 @@ function loadcomments(post){
     }
     else{
         handler.classList.remove('opened');
-        post = document.getElementById(post)
+        post = document.getElementById(post);
         children = post.childNodes;
         var array = Array.prototype.slice.call(children);
-        [].forEach.call(children, function(child) {if(child.classList.contains('comment')){child.remove()}});
+        [].forEach.call(children, function(child) {if(child.classList.contains('comments')){child.remove()}});
         handler.innerText = "View Comments";
     }
 }
@@ -203,4 +209,17 @@ function laugh(id){
             "id": String(id),
         };
         xhr.send(JSON.stringify(data))
+}
+
+function loadinside(container) {
+    inner = document.createElement('div').innerHTML = '<div id="loading"><img src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/load.gif?raw=true"></div>';
+    container.innerHTML += inner;
+}
+
+function stopload() {
+    document.getElementById('loading').remove();
+}
+
+function leavecomment(){
+    alert(document.getElementById("commentbox").value);
 }
