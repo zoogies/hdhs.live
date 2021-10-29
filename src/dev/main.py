@@ -7,9 +7,9 @@ from flask import Flask, render_template
 from flask import g, request
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"198.30.181.13","174.207.64.110","99.165.77.86"]
+whitelist = ['192.168.50.1',"166.176.250.227","174.207.64.110","99.165.77.86"]
 
-#whitelist key: ryan macbook, xavier phone, ryan hotspot
+#whitelist key: ryan macbook, xavier phone, ryan hotspot, adam desktop
 
 def get_db():
     db = getattr(g, '_database', None)

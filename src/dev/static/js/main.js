@@ -1,5 +1,3 @@
-var validator = require('validator');
-
 function reportmistake(){
     alert('LMAO i didnt program this yet so tough luck i guess. find out who i am and let me know.');
     //TODO

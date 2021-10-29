@@ -5,10 +5,17 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='resources/icon.png') }}">
         <script src="{{url_for('static', filename='js/main.js')}}"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://hdhs.live/">
+        <meta property="og:title" content="HDHS Live">
+        <meta property="og:description" content="A davidson student only anonymous social network.">
+        <meta property="og:image" content="https://www.hilliardschools.org/davidsonwildcats/wp-content/themes/athletics-hdv-child/images/HDV_Athletic_Banner_HDV.png">
     </head>
     <body onload="init()">
         <div class="title">
