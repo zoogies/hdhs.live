@@ -140,33 +140,35 @@ function s_pop(){
     }
 }
 
-function renderComments(id,comments){
+function renderComments(id,data){
     reqpost = document.getElementById(id);
     //comcont = document.createElement('div').classList.add('comments');
     //reqpost.appendChild(comcont); //add comment container
     reqpost.innerHTML += document.createElement('div').innerHTML = '<div class="comments"></div>';
     reqbox = reqpost.querySelector('.comments');
     //input for comments TODO make sure cant overflow db
-    reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment()">Comment</a></div>' //TODO onclick
+    reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
 
     //query for comments
-    for(comment in comments){
-        content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="comname">Anonymous:</p><p class="comtxt">'+comments[comment]+'</div>';
+    for(comment in data){
+        content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p><div onclick="comlaugh('+data[comment][0])+');" class="comlaughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div></div></div>';
         reqbox.innerHTML += (content);
     }
 }
 
 function querycomments(id){
     var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://76.181.32.163:5000/comments");
+        xhr.open("POST", "http://76.181.32.163:5000/commentsnew");
 
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
-                comments = (xhr.responseText).split('|');
-                renderComments(id,comments);
+
+                jbuns = JSON.parse(xhr.responseText)
+                renderComments(id,jbuns)
+
             }
         }
         var data = {
@@ -179,6 +181,14 @@ function loadcomments(post){
     //query for comments as single string, parse them and then append them programatically to the bottom of the post
     handler = document.getElementById(post).querySelector('#comclick');
     if (!handler.classList.contains('opened')){
+        box = document.getElementById('commentbox'); 
+        if(box){
+            box.closest('.post').querySelector(".p_footer").querySelector('#comclick').innerText = "View Comments";
+            box.closest('.comments').remove();
+        }
+        
+
+        //normal behavior
         querycomments(post);
         handler.innerText = "Click To Hide Comments";
         handler.classList.add('opened');
@@ -220,6 +230,49 @@ function stopload() {
     document.getElementById('loading').remove();
 }
 
-function leavecomment(){
-    alert(document.getElementById("commentbox").value);
+function leavecomment(id){
+    var posttext = document.getElementById("commentbox").value
+    if(posttext.length <= 250 && posttext.length > 0){
+        //alert(posttext);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://76.181.32.163:5000/comment");
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            //afraid to delete this...
+        }};
+        now = new Date();
+        var data = {
+            "POST": String(id),
+            "CONTENT": String(posttext),
+            "USER": "Anonymous"
+        };
+        xhr.send(JSON.stringify(data));
+        loadcomments(id);
+        setTimeout(() => {loadcomments(id);}, 500);
+    }
+    else{
+        alert('Your comment needs to be more than 0 and less than 250 characters')
+    }
+}
+
+function comlaugh(id){
+    var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://76.181.32.163:5000/comlaugh");
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                document.getElementById('comment_' + id).innerText = xhr.responseText + ' Laughs';
+            }
+        }
+        var data = {
+            "id": String(id),
+        };
+        xhr.send(JSON.stringify(data))
 }
