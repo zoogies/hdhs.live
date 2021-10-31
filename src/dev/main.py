@@ -53,6 +53,20 @@ def create_app(test_config=None):
     @app.route('/admin')
     def admin():
         return render_template('admin.html')
+
+    @app.route('/report',methods=['GET', 'POST'])
+    def report():
+        try:
+            if request.json['type'] == 'post':
+                execute_db('insert into reports (content_id,reason,content,type) values ('+request.json['id']+',"'+request.json['reason']+'","'+query_db('select content from main where id="'+request.json['id']+'"')[0][0]+'","'+request.json['type']+'")')
+                return json.dumps('ok')
+            elif request.json['type'] == 'comment':
+                execute_db('insert into reports (content_id,reason,content,type) values ('+request.json['id']+',"'+request.json['reason']+'","'+query_db('select content from comments where id="'+request.json['id']+'"')[0][0]+'","'+request.json['type']+'")')
+                return json.dumps('ok')
+            else:
+                return json.dumps('bad')
+        except:
+            return json.dumps('bad')
     
     @app.teardown_appcontext
     def close_connection(exception):

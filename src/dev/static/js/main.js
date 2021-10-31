@@ -44,7 +44,7 @@ function getContent(sort){
             if (cs.length >= 1)
         {
             for (i=0; i < cs.length; i++){
-                header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
+                header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p>'+'<p onclick="report('+cs[i][0]+')" class="reportbtn">Report</p>'+'</div></div>'
                 document.getElementById("container").innerHTML += header;
             }
             document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>'
@@ -148,11 +148,11 @@ function renderComments(id,data){
     reqbox = reqpost.querySelector('.comments');
     //input for comments TODO make sure cant overflow db
     //commentsortdiv = '<div class="commentsort"><p class="comsbtxt">Sort By:</p><div class="comsortsel comsortbtn" onclick="sortComments('+id+',"new")"><p>New</p></div><div class="comsortbtn" onclick="sortComments('+id+',"old")"><p>Old</p></div><div class="comsortbtn" onclick="sortComments('+id+',"pop")"><p>Popular</p></div></div>'
-    reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
+    reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
 
     //query for comments
     for(comment in data){
-        content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p><div onclick="comlaugh('+data[comment][0])+');" class="comlaughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div></div></div>';
+        content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p><div onclick="comlaugh('+data[comment][0])+');" class="comlaughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p onclick="reportcomment('+data[comment][0]+')" class="reportbtncom">Report</p></div></div>';
         reqbox.innerHTML += (content);
     }
 }
@@ -274,6 +274,58 @@ function comlaugh(id){
         }
         var data = {
             "id": String(id),
+        };
+        xhr.send(JSON.stringify(data))
+}
+
+function report(id) {
+    var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://76.181.32.163:5000/report");
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                console.log(JSON.parse(xhr.responseText))
+                if (JSON.parse(xhr.responseText) == "ok"){
+                    alert('Your report has been recieved and will be reviewed by a moderator.')
+                }
+                else {
+                    alert('An issue has occurred and your report has not been recieved.')
+                }
+            }
+        }
+        var data = {
+            "id": String(id),
+            "reason": String(window.prompt('Please enter a reason for reporting this content:')),
+            "type": String("post")
+        };
+        xhr.send(JSON.stringify(data))
+}
+
+function reportcomment(id) {
+    var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://76.181.32.163:5000/report");
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                console.log(JSON.parse(xhr.responseText))
+                if (JSON.parse(xhr.responseText) == "ok"){
+                    alert('Your report has been recieved and will be reviewed by a moderator.')
+                }
+                else {
+                    alert('An issue has occurred and your report has not been recieved.')
+                }
+            }
+        }
+        var data = {
+            "id": String(id),
+            "reason": String(window.prompt('Please enter a reason for reporting this content:')),
+            "type": String("comment")
         };
         xhr.send(JSON.stringify(data))
 }
