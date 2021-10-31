@@ -7,8 +7,8 @@ from flask import Flask, render_template
 from flask import g, request
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"166.176.250.227","174.207.97.126","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192"]
-#whitelist key: ryan macbook, xavier phone, ryan hotspot, adam desktop, sabbycheeks, nathan, adam other
+whitelist = ['192.168.50.1',"166.176.250.227","174.207.97.126","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
+#whitelist key: ryan macbook, xavier phone, ryan hotspot, adam desktop, sabbycheeks, nathan, adam other, austin, connor
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -50,6 +50,10 @@ def create_app(test_config=None):
         else:
             return render_template('denied.html')
 
+    @app.route('/admin')
+    def admin():
+        return render_template('admin.html')
+    
     @app.teardown_appcontext
     def close_connection(exception):
         db = getattr(g, '_database', None)

@@ -147,6 +147,7 @@ function renderComments(id,data){
     reqpost.innerHTML += document.createElement('div').innerHTML = '<div class="comments"></div>';
     reqbox = reqpost.querySelector('.comments');
     //input for comments TODO make sure cant overflow db
+    //commentsortdiv = '<div class="commentsort"><p class="comsbtxt">Sort By:</p><div class="comsortsel comsortbtn" onclick="sortComments('+id+',"new")"><p>New</p></div><div class="comsortbtn" onclick="sortComments('+id+',"old")"><p>Old</p></div><div class="comsortbtn" onclick="sortComments('+id+',"pop")"><p>Popular</p></div></div>'
     reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
 
     //query for comments
