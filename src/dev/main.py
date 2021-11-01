@@ -42,6 +42,9 @@ def verifyip(ip):
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
+    ##########################################################################
+
+    #defualt route to server
     @app.route('/')
     def main():
         cur = get_db().cursor()
@@ -50,9 +53,30 @@ def create_app(test_config=None):
         else:
             return render_template('denied.html')
 
+    ##########################################################################
+
+    #admin panel related sockets
     @app.route('/admin')
     def admin():
         return render_template('admin.html')
+
+    @app.route('/auth',methods=['GET', 'POST'])
+    def auth():
+        with open('secretkey.txt') as f:
+            serverkey = f.read()
+            #print(serverkey)
+            #print(request.json['psk'])
+            if serverkey == request.json['psk']:
+                return "true"
+            else:
+                return "false"
+
+    ##########################################################################
+
+    #report related endpoints
+    @app.route('/fetchreports')
+    def fetchreports():
+        return json.dumps(query_db('select * from reports'))
 
     @app.route('/report',methods=['GET', 'POST'])
     def report():
@@ -67,12 +91,20 @@ def create_app(test_config=None):
                 return json.dumps('bad')
         except:
             return json.dumps('bad')
+
+    @app.route('/fetchnumreps')
+    def fetchnumreps():
+        return json.dumps(query_db('SELECT COUNT(*) FROM reports')[0][0])
+
+    ##########################################################################
     
+    #on server close execute these commands
     @app.teardown_appcontext
     def close_connection(exception):
         db = getattr(g, '_database', None)
         if db is not None:
             db.close()
+
     ##########################################################################
 
     #endpoints for post fetching:
@@ -95,6 +127,10 @@ def create_app(test_config=None):
     def comments():
         return json.dumps(query_db('select * from comments where post="'+request.json['id']+'"'))
     
+    @app.route('/fetchallcomments',methods=['GET', 'POST'])
+    def allcomments():
+        return json.dumps(query_db('select * from comments'))
+
     @app.route('/comment',methods=['GET', 'POST'])
     def leavecomment():
         req = request.json
@@ -125,3 +161,5 @@ def create_app(test_config=None):
         execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP) values ('+str(query_db('SELECT Count(*) FROM main')[0][0])+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'")')
         return "recieved"
     return app
+
+    ##########################################################################
