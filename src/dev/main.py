@@ -7,7 +7,7 @@ from flask import Flask, render_template
 from flask import g, request
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"166.176.250.227","174.207.97.126","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
+whitelist = ['192.168.50.1',"166.176.250.227","174.207.7.182","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
 #whitelist key: ryan macbook, xavier phone, ryan hotspot, adam desktop, sabbycheeks, nathan, adam other, austin, connor
 
 def get_db():
@@ -70,6 +70,43 @@ def create_app(test_config=None):
                 return "true"
             else:
                 return "false"
+    
+    @app.route('/moderate',methods=['GET', 'POST'])
+    def moderate():
+        mod_id = str(query_db('select content_id from reports where id="'+request.json['id']+'"')[0][0])
+        mod_type = request.json['type']
+        mod_action = request.json['action']
+        print(mod_id)
+        print(mod_type)
+        print(mod_action)
+        print(type(mod_id))
+        print(type(mod_type))
+        print(type(mod_action))
+        try:
+            if mod_action == 'delete':
+                try:
+                    if mod_type == 'post':
+                        execute_db('DELETE FROM main WHERE id="'+mod_id+'"')
+                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                    execute_db('DELETE FROM comments WHERE post="'+mod_id+'"')
+                    return 'ok'
+                except Exception as e:
+                    print(e)
+                    return 'bad'
+            elif mod_action == 'dismiss':
+                try:
+                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                    return 'ok'
+                except Exception as e:
+                    print(e)
+                    return 'bad'
+        except Exception as e:
+            print(e)
+            return 'bad'
+        return 'wtf'
+
+
+
 
     ##########################################################################
 

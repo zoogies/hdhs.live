@@ -55,7 +55,7 @@ function admin_querydb(value){
                 for (i=0; i < cs.length; i++){
                     //header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                     //document.getElementById("container").innerHTML += header;
-                    document.getElementById('maintable').innerHTML += '<tr><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th></th><th><button type="button" onclick="moderate('+cs[i][0]+')">Delete</button></th><th><button type="button" onclick="moderate('+cs[i][0]+')">Dismiss</button></th></tr>'
+                    document.getElementById('maintable').innerHTML += '<tr><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'delete' + '\')">Delete</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'dismiss' + '\')">Dismiss</button></th></tr>'
                 }
             }
             else if (value=="allcomments"){
@@ -73,7 +73,23 @@ function admin_querydb(value){
         });
 }
 
-function moderate(id){
-    //TODO THIS NEEDS TO BE DONE WELL SO ITS SECURE. DB FILE GETS UPLOADED TO GITHUB ANYWAYS MAYBE LOCAL FILE TO SERVER WITH GITIGNORE
+function moderate(id,type,action){
+    console.log(id,type,action)
+    var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://76.181.32.163:5000/moderate");
 
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                console.log(xhr.responseText)
+            }
+        }
+        var data = {
+            "id": String(id),
+            "type": String(type),
+            "action": String(action)
+        };
+        xhr.send(JSON.stringify(data))
 }
