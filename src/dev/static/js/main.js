@@ -296,12 +296,15 @@ function report(id) {
                 }
             }
         }
-        var data = {
-            "id": String(id),
-            "reason": String(window.prompt('Please enter a reason for reporting this content:')),
-            "type": String("post")
-        };
-        xhr.send(JSON.stringify(data))
+        var response = window.prompt('Please enter a reason for reporting this content:');
+        if (response != null) {
+            var data = {
+                "id": String(id),
+                "reason": String(response),
+                "type": String("post")
+            };
+            xhr.send(JSON.stringify(data))
+        }
 }
 
 function reportcomment(id) {
