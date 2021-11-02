@@ -73,8 +73,13 @@ def create_app(test_config=None):
     
     @app.route('/moderate',methods=['GET', 'POST'])
     def moderate():
-        mod_id = str(query_db('select content_id from reports where id="'+request.json['id']+'"')[0][0])
         mod_type = request.json['type']
+
+        if mod_type == 'post_no_rep':
+            mod_id = request.json['id']
+        else:
+            mod_id = str(query_db('select content_id from reports where id="'+request.json['id']+'"')[0][0])
+            
         mod_action = request.json['action']
         print(mod_id)
         print(mod_type)
@@ -83,30 +88,50 @@ def create_app(test_config=None):
         print(type(mod_type))
         print(type(mod_action))
         try:
-            if mod_action == 'delete':
+            if mod_type == 'post_no_rep':
                 try:
-                    if mod_type == 'post':
-                        execute_db('DELETE FROM main WHERE id="'+mod_id+'"')
-                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                    execute_db('DELETE FROM comments WHERE post="'+mod_id+'"')
-                    return 'ok'
+                    if mod_action == 'no_render':
+                        execute_db('update main set deleted="3" where id="'+mod_id+'"')
+                        return 'ok'
+                    else: #else delete normal
+                        execute_db('update main set deleted="1" where id="'+mod_id+'"')
+                        return 'ok'
                 except Exception as e:
-                    print(e)
+                    #print(e)
                     return 'bad'
-            elif mod_action == 'dismiss':
-                try:
-                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                    return 'ok'
-                except Exception as e:
-                    print(e)
-                    return 'bad'
+            else:
+                if mod_action == 'delete':
+                    try:
+                        if mod_type == 'post':
+                            execute_db('update main set deleted="1" where id="'+mod_id+'"')
+                        elif mod_type == 'comment':
+                            execute_db('update comments set deleted="1" where id="'+mod_id+'"')
+                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                        return 'ok'
+                    except Exception as e:
+                        #print(e)
+                        return 'bad'
+                elif mod_action == 'dismiss':
+                    try:
+                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                        return 'ok'
+                    except Exception as e:
+                        #print(e)
+                        return 'bad'
+                elif mod_action == 'set_no_render':
+                    try:
+                        if mod_type == 'post':
+                            execute_db('update main set deleted="2" where id="'+mod_id+'"')
+                        elif mod_type == 'comment':
+                            execute_db('update comments set deleted="2" where id="'+mod_id+'"')
+                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                        return 'ok'
+                    except:
+                        return 'bad'
         except Exception as e:
-            print(e)
+            #print(e)
             return 'bad'
         return 'wtf'
-
-
-
 
     ##########################################################################
 
@@ -171,7 +196,7 @@ def create_app(test_config=None):
     @app.route('/comment',methods=['GET', 'POST'])
     def leavecomment():
         req = request.json
-        execute_db('insert into comments (id,post,content,likes,stamp,user) values ('+str(query_db('SELECT Count(*) FROM comments')[0][0])+',"'+req["POST"]+'","'+req["CONTENT"]+'",0,"'+str(datetime.datetime.now())[0:19]+'","'+req["USER"]+'")')
+        execute_db('insert into comments (id,post,content,likes,stamp,user,deleted) values ('+str(query_db('SELECT Count(*) FROM comments')[0][0])+',"'+req["POST"]+'","'+req["CONTENT"]+'",0,"'+str(datetime.datetime.now())[0:19]+'","'+req["USER"]+'",false)')
         return "commented"
 
     ##########################################################################
@@ -195,7 +220,7 @@ def create_app(test_config=None):
     @app.route('/post',methods=['GET', 'POST'])
     def post():
         req = request.json
-        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP) values ('+str(query_db('SELECT Count(*) FROM main')[0][0])+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'")')
+        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted) values ('+str(query_db('SELECT Count(*) FROM main')[0][0])+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0)')
         return "recieved"
     return app
 

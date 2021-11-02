@@ -44,8 +44,14 @@ function getContent(sort){
             if (cs.length >= 1)
         {
             for (i=0; i < cs.length; i++){
-                header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p>'+'<p onclick="report('+cs[i][0]+')" class="reportbtn">Report</p>'+'</div></div>'
-                document.getElementById("container").innerHTML += header;
+                if(cs[i][6] == 0){
+                    header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p>'+'<p onclick="report('+cs[i][0]+')" class="reportbtn">Report</p>'+'</div></div>'
+                    document.getElementById("container").innerHTML += header;
+                }
+                else if(cs[i][6] == 1){
+                    header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
+                    document.getElementById("container").innerHTML += header;
+                }
             }
             document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>'
         }
@@ -147,13 +153,20 @@ function renderComments(id,data){
     reqpost.innerHTML += document.createElement('div').innerHTML = '<div class="comments"></div>';
     reqbox = reqpost.querySelector('.comments');
     //input for comments TODO make sure cant overflow db
-    //commentsortdiv = '<div class="commentsort"><p class="comsbtxt">Sort By:</p><div class="comsortsel comsortbtn" onclick="sortComments('+id+',"new")"><p>New</p></div><div class="comsortbtn" onclick="sortComments('+id+',"old")"><p>Old</p></div><div class="comsortbtn" onclick="sortComments('+id+',"pop")"><p>Popular</p></div></div>'
     reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
-
     //query for comments
     for(comment in data){
-        content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p><div onclick="comlaugh('+data[comment][0])+');" class="comlaughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p onclick="reportcomment('+data[comment][0]+')" class="reportbtncom">Report</p></div></div>';
-        reqbox.innerHTML += (content);
+        if(data[comment][6] == 0){
+            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p><div onclick="comlaugh('+data[comment][0])+');" class="comlaughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p onclick="reportcomment('+data[comment][0]+')" class="reportbtncom">Report</p></div></div>';
+            reqbox.innerHTML += (content);
+        }
+        else if (data[comment][6] == 1){
+            reqpost.querySelector('.leavea').remove();
+            reqpost.querySelector('.commentbox').remove();
+            reqpost.querySelector('.postcom').remove();
+            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0])+'"><Laughs>'+String(data[comment][3])+' Laughs</p></div></div>';
+            reqbox.innerHTML += (content);
+        }
     }
 }
 
