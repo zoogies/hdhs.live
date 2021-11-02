@@ -47,7 +47,7 @@ function admin_querydb(value){
                 for (i=0; i < cs.length; i++){
                     //header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                     //document.getElementById("container").innerHTML += header;
-                    document.getElementById('maintable').innerHTML += '<tr><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th><th>'+cs[i][5]+'</th><th>'+cs[i][6]+'</th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + 'post_no_rep_del' + '\',\'' + 'delete' + '\')">Delete</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + 'post_no_rep' + '\',\'' + 'no_render' + '\')">set_no_render</button></th></tr>'
+                    document.getElementById('maintable').innerHTML += '<tr id="'+cs[i][0]+'"><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th><th>'+cs[i][5]+'</th><th>'+cs[i][6]+'</th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + 'post_no_rep' + '\',\'' + 'delete_norep' + '\')">Delete</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + 'post_no_rep' + '\',\'' + 'no_render_norep' + '\')">set_no_render</button></th></tr>'
                 }
             }
             else if (value=="reports"){
@@ -55,19 +55,19 @@ function admin_querydb(value){
                 for (i=0; i < cs.length; i++){
                     //header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                     //document.getElementById("container").innerHTML += header;
-                    document.getElementById('maintable').innerHTML += '<tr><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'delete' + '\')">Delete</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'dismiss' + '\')">Dismiss</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'no_render' + '\')">set_no_render</button></th></tr>'
+                    document.getElementById('maintable').innerHTML += '<tr id="'+cs[i][0]+'"><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'delete' + '\')">Delete</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'dismiss' + '\')">Dismiss</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + cs[i][3] + '\',\'' + 'no_render' + '\')">set_no_render</button></th></tr>'
                 }
             }
             else if (value=="allcomments"){
-                admincontent.innerHTML += '<table border="1" id="maintable" style="width:700px;"><tr><th>id</th><th>post</th><th>content</th><th>likes</th><th>stamp</th><th>user</th></tr></table>';
+                admincontent.innerHTML += '<table border="1" id="maintable" style="width:700px;"><tr><th>id</th><th>post</th><th>content</th><th>likes</th><th>stamp</th><th>user</th><th>deleted</th><th>delete</th><th>set_no_render</th></tr></table>';
                 for (i=0; i < cs.length; i++){
                     //header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                     //document.getElementById("container").innerHTML += header;
-                    document.getElementById('maintable').innerHTML += '<tr><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th><th>'+cs[i][5]+'</th></th><th><button type="button" onclick="moderate('+cs[i][0]+')">Delete</button></th></tr>'
+                    document.getElementById('maintable').innerHTML += '<tr id="'+cs[i][0]+'"><th>'+cs[i][0]+'</th><th>'+cs[i][1]+'</th><th>'+cs[i][2]+'</th><th>'+cs[i][3]+'</th><th>'+cs[i][4]+'</th><th>'+cs[i][5]+'</th></th><th>'+cs[i][6]+'</th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + 'comment_no_rep' + '\',\'' + 'delete_norep' + '\')">Delete</button></th><th><button type="button" onclick="moderate(\'' + cs[i][0] + '\',\'' + 'comment_no_rep' + '\',\'' + 'no_render_norep' + '\')">set_no_render</button></th></tr>'
                 }
             }
             else if (value=="numreps"){
-                document.getElementById('reportcnt').innerHTML += '<h1 style="color:red;"><b>'+cs+' Pending Reports Need Action</b></ht>';
+                document.getElementById('reportcnt').innerHTML = '<h1 style="color:red;"><b>'+cs+' Pending Reports Need Action</b></ht>';
             }
         }
         });
@@ -83,7 +83,8 @@ function moderate(id,type,action){
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
-                location.reload();
+                document.getElementById(id).remove();
+                admin_querydb("numreps");
             }
         }
         var data = {

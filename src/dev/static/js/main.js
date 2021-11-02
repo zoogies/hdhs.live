@@ -49,7 +49,7 @@ function getContent(sort){
                     document.getElementById("container").innerHTML += header;
                 }
                 else if(cs[i][6] == 1){
-                    header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
+                    header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                     document.getElementById("container").innerHTML += header;
                 }
             }
@@ -154,6 +154,11 @@ function renderComments(id,data){
     reqbox = reqpost.querySelector('.comments');
     //input for comments TODO make sure cant overflow db
     reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
+    if(document.getElementById(id).querySelector('#comclick').classList.contains('deleted_post')){
+        reqpost.querySelector('.leavea').remove();
+        reqpost.querySelector('.commentbox').remove();
+        reqpost.querySelector('.postcom').remove();
+    }
     //query for comments
     for(comment in data){
         if(data[comment][6] == 0){
@@ -161,9 +166,6 @@ function renderComments(id,data){
             reqbox.innerHTML += (content);
         }
         else if (data[comment][6] == 1){
-            reqpost.querySelector('.leavea').remove();
-            reqpost.querySelector('.commentbox').remove();
-            reqpost.querySelector('.postcom').remove();
             content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0])+'"><Laughs>'+String(data[comment][3])+' Laughs</p></div></div>';
             reqbox.innerHTML += (content);
         }
@@ -182,7 +184,6 @@ function querycomments(id){
 
                 jbuns = JSON.parse(xhr.responseText)
                 renderComments(id,jbuns)
-
             }
         }
         var data = {
@@ -338,10 +339,13 @@ function reportcomment(id) {
                 }
             }
         }
-        var data = {
-            "id": String(id),
-            "reason": String(window.prompt('Please enter a reason for reporting this content:')),
-            "type": String("comment")
-        };
-        xhr.send(JSON.stringify(data))
+        var response = window.prompt('Please enter a reason for reporting this content:');
+        if (response != null){
+            var data = {
+                "id": String(id),
+                "reason": String(response),
+                "type": String("comment")
+            };
+            xhr.send(JSON.stringify(data))
+        }
 }

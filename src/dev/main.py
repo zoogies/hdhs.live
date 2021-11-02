@@ -74,13 +74,13 @@ def create_app(test_config=None):
     @app.route('/moderate',methods=['GET', 'POST'])
     def moderate():
         mod_type = request.json['type']
+        mod_action = request.json['action']
 
-        if mod_type == 'post_no_rep':
+        if mod_action == 'no_render_norep' or mod_action == 'delete_norep':
             mod_id = request.json['id']
         else:
             mod_id = str(query_db('select content_id from reports where id="'+request.json['id']+'"')[0][0])
             
-        mod_action = request.json['action']
         print(mod_id)
         print(mod_type)
         print(mod_action)
@@ -88,46 +88,34 @@ def create_app(test_config=None):
         print(type(mod_type))
         print(type(mod_action))
         try:
-            if mod_type == 'post_no_rep':
+            if mod_action == 'delete':
                 try:
-                    if mod_action == 'no_render':
-                        execute_db('update main set deleted="3" where id="'+mod_id+'"')
-                        return 'ok'
-                    else: #else delete normal
+                    if mod_type == 'post':
                         execute_db('update main set deleted="1" where id="'+mod_id+'"')
-                        return 'ok'
+                    elif mod_type == 'comment':
+                        execute_db('update comments set deleted="1" where id="'+mod_id+'"')
+                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                    return 'ok'
                 except Exception as e:
                     #print(e)
                     return 'bad'
-            else:
-                if mod_action == 'delete':
-                    try:
-                        if mod_type == 'post':
-                            execute_db('update main set deleted="1" where id="'+mod_id+'"')
-                        elif mod_type == 'comment':
-                            execute_db('update comments set deleted="1" where id="'+mod_id+'"')
-                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                        return 'ok'
-                    except Exception as e:
-                        #print(e)
-                        return 'bad'
-                elif mod_action == 'dismiss':
-                    try:
-                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                        return 'ok'
-                    except Exception as e:
-                        #print(e)
-                        return 'bad'
-                elif mod_action == 'set_no_render':
-                    try:
-                        if mod_type == 'post':
-                            execute_db('update main set deleted="2" where id="'+mod_id+'"')
-                        elif mod_type == 'comment':
-                            execute_db('update comments set deleted="2" where id="'+mod_id+'"')
-                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                        return 'ok'
-                    except:
-                        return 'bad'
+            elif mod_action == 'dismiss':
+                try:
+                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                    return 'ok'
+                except Exception as e:
+                    #print(e)
+                    return 'bad'
+            elif mod_action == 'no_render':
+                try:
+                    if mod_type == 'post':
+                        execute_db('update main set deleted="2" where id="'+mod_id+'"')
+                    elif mod_type == 'comment':
+                        execute_db('update comments set deleted="2" where id="'+mod_id+'"')
+                    execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
+                    return 'ok'
+                except:
+                    return 'bad'
         except Exception as e:
             #print(e)
             return 'bad'
