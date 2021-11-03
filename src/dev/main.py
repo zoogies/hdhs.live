@@ -2,9 +2,11 @@ import os
 import sqlite3
 import random
 import datetime
+import base64
 import json
 from flask import Flask, render_template
 from flask import g, request
+from flask import send_file
 
 DATABASE = 'danarchy.db'
 whitelist = ['192.168.50.1',"166.176.250.227","174.207.7.182","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
@@ -64,8 +66,6 @@ def create_app(test_config=None):
     def auth():
         with open('secretkey.txt') as f:
             serverkey = f.read()
-            #print(serverkey)
-            #print(request.json['psk'])
             if serverkey == request.json['psk']:
                 return "true"
             else:
@@ -81,12 +81,6 @@ def create_app(test_config=None):
         else:
             mod_id = str(query_db('select content_id from reports where id="'+request.json['id']+'"')[0][0])
             
-        print(mod_id)
-        print(mod_type)
-        print(mod_action)
-        print(type(mod_id))
-        print(type(mod_type))
-        print(type(mod_action))
         try:
             if mod_action == 'delete':
                 try:
@@ -97,14 +91,14 @@ def create_app(test_config=None):
                     execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
                     return 'ok'
                 except Exception as e:
-                    #print(e)
+                    print(e)
                     return 'bad'
             elif mod_action == 'dismiss':
                 try:
                     execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
                     return 'ok'
                 except Exception as e:
-                    #print(e)
+                    print(e)
                     return 'bad'
             elif mod_action == 'no_render':
                 try:
@@ -117,7 +111,7 @@ def create_app(test_config=None):
                 except:
                     return 'bad'
         except Exception as e:
-            #print(e)
+            print(e)
             return 'bad'
         return 'wtf'
 
@@ -209,7 +203,24 @@ def create_app(test_config=None):
     def post():
         req = request.json
         execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted) values ('+str(query_db('SELECT Count(*) FROM main')[0][0])+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0)')
+        if req['attachment'] != 'none':
+            newfilename = str(query_db('SELECT Count(*) FROM attachments')[0][0]) + '.' + req['attachment'].split('.')[1]
+            with open("static/attachments/"+newfilename,"wb") as fh:
+                print(req)
+                print(str(req['bytes']))
+                print(base64.b64decode(req['bytes']))
+                fh.write(base64.b64decode(req['bytes']))
+            execute_db('insert into attachments ("postid,name") values ('+req['id']+','+newfilename+')')
         return "recieved"
-    return app
 
     ##########################################################################
+
+    #endpoints for attachments:
+    @app.route('/getattachment',methods=['GET', 'POST'])
+    def getattachment():
+        req = request.json
+        return 'static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]
+
+    ##########################################################################
+    
+    return app

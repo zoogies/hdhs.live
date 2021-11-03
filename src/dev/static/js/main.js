@@ -8,7 +8,7 @@ function trackchar(){
     elem.innerText = document.getElementById("field").value.length + "/250 characters";
 }
 
-function post(){
+function post_post(){
     var posttext = document.getElementById("field").value;
     if(posttext.length <= 250 && posttext.length > 0){
         //alert(posttext);
@@ -23,12 +23,29 @@ function post(){
             //afraid to delete this...
         }};
         now = new Date();
-        var data = {
-            "USER": "Anonymous",
-            "CONTENT": String(posttext),
-        };
-        xhr.send(JSON.stringify(data));
-        setTimeout(() => {  location.reload(); }, 500);
+        //get value of box containing choose file
+        file = document.getElementById('selector').files[0];
+        if(file){
+            getBase64(file).then(bytes => {
+                var data = {
+                    "USER": "Anonymous",
+                    "CONTENT": String(posttext),
+                    "attachment": String(file['name']),
+                    "bytes": String(bytes),
+                };
+                xhr.send(JSON.stringify(data));
+                setTimeout(() => {  location.reload(); }, 500);    
+            })
+        }
+        else{
+            var data = {
+                "USER": "Anonymous",
+                "CONTENT": String(posttext),
+                "attachment": 'none',
+            };
+            xhr.send(JSON.stringify(data));
+            setTimeout(() => {  location.reload(); }, 500);
+        }
     }
     else{
         alert('Your post needs to be more than 0 and less than 250 characters')
@@ -45,8 +62,29 @@ function getContent(sort){
         {
             for (i=0; i < cs.length; i++){
                 if(cs[i][6] == 0){
-                    header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><div onclick="laugh('+cs[i][0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p>'+'<p onclick="report('+cs[i][0]+')" class="reportbtn">Report</p>'+'</div></div>'
+                    header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p>'
                     document.getElementById("container").innerHTML += header;
+                    //see if attachment exists and if so load it to the end
+                    if (cs[i][7] != null){
+                        post = cs[i]
+                        //if there is an attachment we need to ask the db to get it
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "http://76.181.32.163:5000/getattachment");
+
+                        xhr.setRequestHeader("Accept", "application/json");
+                        xhr.setRequestHeader("Content-Type", "application/json");
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == XMLHttpRequest.DONE) {
+                                document.getElementById(post[0]).innerHTML+='<div class="attachment"><img class="attachment" src="'+xhr.responseText+'"/></div>'
+                                document.getElementById(post[0]).innerHTML+='<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+post[4]+'  Laughs'+'</p><div onclick="laugh('+post[0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+post[0]+')"><b>View Comments</b></p>'+'<p onclick="report('+post[0]+')" class="reportbtn">Report</p></div></div>'
+                            }
+                        }
+                        var data = {
+                            "id": String(cs[i][7]),
+                        };
+                        xhr.send(JSON.stringify(data))
+                    }
                 }
                 else if(cs[i][6] == 1){
                     header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
@@ -348,4 +386,18 @@ function reportcomment(id) {
             };
             xhr.send(JSON.stringify(data))
         }
+}
+
+function getBase64(file) {
+    console.log('promising')
+    return new Promise((resolve) => {
+        console.log('promising')
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            console.log('promising')
+            //console.log(reader.result.replace(/^data:image\/(png|jpg);base64,/, ""));
+            resolve(reader.result.replace(/^data:image\/(png|jpg);base64,/, ""));
+        };
+    });
 }

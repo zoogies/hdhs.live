@@ -212,16 +212,6 @@ h1 {
     font-size:20px;
 }
 
-.pbtn {
-    background-color: white;
-    color: black;
-    text-align: center;
-    border-radius: 12px;
-    border-style: solid;
-    border-color: black;
-    width:98%;
-}
-
 #container {
     padding:10px;
 }
@@ -368,4 +358,33 @@ h1 {
     padding:5px;
     padding-top:10px;
     margin:2px;
+}
+
+/* attachments */
+.attachment{
+    max-width:100%;
+    max-height:100%;
+}
+
+/* post bar */
+.pbtn {
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 12px;
+    border-style: solid;
+    border-color: black;
+    width:68%;
+}
+.postbar{
+    display:flex;
+    flex-wrap:nowrap;
+}
+.uploadfile{
+    width:30%;
+    margin:0px;
+    padding:10px;
+}
+.uploadtxt{
+    margin:0px;
 }
