@@ -1,5 +1,5 @@
 function reportmistake(){
-    alert('LMAO i didnt program this yet so tough luck i guess. find out who i am and let me know.');
+    alert('i didnt program this yet so tough luck i guess. find out who i am and let me know.');
     //TODO
 }
 
@@ -20,7 +20,8 @@ function post_post(){
 
         xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            //afraid to delete this...
+            alert(xhr.responseText) //this is what we do when the post is done uploading
+            setTimeout(() => {  location.reload(); }, 500); 
         }};
         now = new Date();
         //get value of box containing choose file
@@ -33,8 +34,8 @@ function post_post(){
                     "attachment": String(file['name']),
                     "bytes": String(bytes),
                 };
-                xhr.send(JSON.stringify(data));
-                setTimeout(() => {  location.reload(); }, 500);    
+                console.log('sending data over xhr')
+                xhr.send(JSON.stringify(data));   
             })
         }
         else{
@@ -52,6 +53,35 @@ function post_post(){
     }
 }
 
+function attachmentPost(i){
+    if (i[7] != null){
+        console.log('started load image post ',i)
+        post = i
+        //if there is an attachment we need to ask the db to get it
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://76.181.32.163:5000/getattachment");
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                console.log('response '+xhr.responseText + ' ' + post[0])
+                document.getElementById(i[0]).innerHTML+='<div class="embed"><img class="attachment" src="'+xhr.responseText+'"/></div>'
+                document.getElementById(i[0]).innerHTML+='<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+i[4]+'  Laughs'+'</p><div onclick="laugh('+i[0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+i[0]+')"><b>View Comments</b></p>'+'<p onclick="report('+i[0]+')" class="reportbtn">Report</p></div></div>'
+            }
+        }
+        var data = {
+            "id": String(i[7]),
+        };
+        console.log('attempting xhr '+i[7]);
+        xhr.send(JSON.stringify(data))
+    }
+    else{ //if post does not have image
+        document.getElementById(i[0]).innerHTML+='<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+i[4]+'  Laughs'+'</p><div onclick="laugh('+i[0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+i[0]+')"><b>View Comments</b></p>'+'<p onclick="report('+i[0]+')" class="reportbtn">Report</p></div></div>'
+    }
+}
+
 function getContent(sort){
     fetch("http://76.181.32.163:5000/" + sort)
         .then(response => {
@@ -61,32 +91,13 @@ function getContent(sort){
             if (cs.length >= 1)
         {
             for (i=0; i < cs.length; i++){
-                if(cs[i][6] == 0){
+                if(cs[i][6] == 0){ //if post completely visible
                     header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced">'+cs[i][2]+'</p>'
                     document.getElementById("container").innerHTML += header;
                     //see if attachment exists and if so load it to the end
-                    if (cs[i][7] != null){
-                        post = cs[i]
-                        //if there is an attachment we need to ask the db to get it
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "http://76.181.32.163:5000/getattachment");
-
-                        xhr.setRequestHeader("Accept", "application/json");
-                        xhr.setRequestHeader("Content-Type", "application/json");
-
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState == XMLHttpRequest.DONE) {
-                                document.getElementById(post[0]).innerHTML+='<div class="attachment"><img class="attachment" src="'+xhr.responseText+'"/></div>'
-                                document.getElementById(post[0]).innerHTML+='<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+post[4]+'  Laughs'+'</p><div onclick="laugh('+post[0]+');" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div><p class="spaced combtn" id="comclick" onclick="loadcomments('+post[0]+')"><b>View Comments</b></p>'+'<p onclick="report('+post[0]+')" class="reportbtn">Report</p></div></div>'
-                            }
-                        }
-                        var data = {
-                            "id": String(cs[i][7]),
-                        };
-                        xhr.send(JSON.stringify(data))
-                    }
+                    attachmentPost(cs[i]);
                 }
-                else if(cs[i][6] == 1){
+                else if(cs[i][6] == 1){ //if post is removed but not shadowbanned render it limited
                     header = '<div class="post" id="'+cs[i][0]+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+cs[i][1]+'</p><p class="ID">'+'#'+cs[i][0]+'</p><p class="ID">'+cs[i][5]+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+cs[i][4]+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="loadcomments('+cs[i][0]+')"><b>View Comments</b></p></div></div>'
                     document.getElementById("container").innerHTML += header;
                 }
@@ -394,6 +405,7 @@ function getBase64(file) {
         console.log('promising')
 
         const reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onloadend = () => {
             console.log('promising')
             //console.log(reader.result.replace(/^data:image\/(png|jpg);base64,/, ""));

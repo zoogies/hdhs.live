@@ -9,7 +9,7 @@ from flask import g, request
 from flask import send_file
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"166.176.250.227","174.207.7.182","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
+whitelist = ['192.168.50.1',"166.176.250.227","174.207.6.228","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
 #whitelist key: ryan macbook, xavier phone, ryan hotspot, adam desktop, sabbycheeks, nathan, adam other, austin, connor
 
 def get_db():
@@ -202,16 +202,19 @@ def create_app(test_config=None):
     @app.route('/post',methods=['GET', 'POST'])
     def post():
         req = request.json
-        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted) values ('+str(query_db('SELECT Count(*) FROM main')[0][0])+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0)')
+        postid = str(query_db('SELECT Count(*) FROM main')[0][0])
+        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted) values ('+postid+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0)')
         if req['attachment'] != 'none':
-            newfilename = str(query_db('SELECT Count(*) FROM attachments')[0][0]) + '.' + req['attachment'].split('.')[1]
+            attachmentid = str(query_db('SELECT Count(*) FROM attachments')[0][0])
+            newfilename =  attachmentid + '.' + req['attachment'].split('.')[1]
             with open("static/attachments/"+newfilename,"wb") as fh:
                 print(req)
                 print(str(req['bytes']))
                 print(base64.b64decode(req['bytes']))
                 fh.write(base64.b64decode(req['bytes']))
-            execute_db('insert into attachments ("postid,name") values ('+req['id']+','+newfilename+')')
-        return "recieved"
+            execute_db('insert into attachments (postid,name) values ('+postid+',"'+newfilename+'")')
+            execute_db('update main set attachmentid=("'+attachmentid+'") where id="'+postid+'"')
+        return "done"
 
     ##########################################################################
 
@@ -219,7 +222,7 @@ def create_app(test_config=None):
     @app.route('/getattachment',methods=['GET', 'POST'])
     def getattachment():
         req = request.json
-        return 'static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]
+        return 'http://76.181.32.163:5000/static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]
 
     ##########################################################################
     
