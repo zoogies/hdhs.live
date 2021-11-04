@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Normal Tag Stuff -->
         <title>hdhs live</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="icon" href="{{ url_for('static', filename='resources/icon.png') }}">
-        <script src="{{url_for('static', filename='js/main.js')}}"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <!-- Javascript-->
+        <script src="{{url_for('static', filename='js/main.js')}}"></script>
+        <script src="{{url_for('static', filename='js/rewrite.js')}}"></script>
+        <script src="{{url_for('static', filename='js/navbar.js')}}"></script>
+        <script src="{{url_for('static', filename='js/reporting.js')}}"></script>
+        <script src="{{url_for('static', filename='js/laughing.js')}}"></script>
+        <script src="{{url_for('static', filename='js/loading.js')}}"></script>
+        <script src="{{url_for('static', filename='js/posting.js')}}"></script>
+        <script src="{{url_for('static', filename='js/frontend.js')}}"></script>
+
+        <!-- Roboto font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
 
+        <!-- Metadata for embeds -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="http://hdhs.live/">
         <meta property="og:title" content="HDHS Live">
@@ -33,7 +46,7 @@
                 <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
             </div>
             <h1>HDHS LIVE</h1>
-            <p class="tagline">A social media website only accessible on the davidson student wifi</p>
+            <p class="tagline">A social media website for davidson students</p>
         </div>
         <div class="bartl">
             <div class="bar">

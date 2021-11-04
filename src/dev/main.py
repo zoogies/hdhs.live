@@ -9,8 +9,6 @@ from flask import g, request
 from flask import send_file
 
 DATABASE = 'danarchy.db'
-whitelist = ['192.168.50.1',"166.176.250.227","174.207.6.228","99.165.77.86","174.207.34.73","65.60.253.61","75.23.201.192","65.60.252.241,","65.186.54.121"]
-#whitelist key: ryan macbook, xavier phone, ryan hotspot, adam desktop, sabbycheeks, nathan, adam other, austin, connor
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -30,17 +28,6 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
-#RESTRICT ACCESS CODE:
-def verifyip(ip):
-    if ip[0:7] == "192.149":
-        return True
-    else:
-        if ip in whitelist:
-            return True
-        else:
-            return False
-
-
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
@@ -50,10 +37,7 @@ def create_app(test_config=None):
     @app.route('/')
     def main():
         cur = get_db().cursor()
-        if verifyip(request.remote_addr):
-            return render_template('index.html')
-        else:
-            return render_template('denied.html')
+        return render_template('index.html')
 
     ##########################################################################
 
@@ -114,6 +98,11 @@ def create_app(test_config=None):
             print(e)
             return 'bad'
         return 'wtf'
+    
+    #test http requests
+    @app.route('/test',methods=['GET', 'POST'])
+    def test():
+        return 'recieved'
 
     ##########################################################################
 
@@ -152,17 +141,17 @@ def create_app(test_config=None):
     ##########################################################################
 
     #endpoints for post fetching:
-    @app.route('/fetchold')
-    def old():
-        return json.dumps(query_db('select * from main'))
-    
-    @app.route('/fetchnew')
-    def new():
-        return json.dumps(query_db('select * from main order by ID desc'))
-    
-    @app.route('/fetchpop')
-    def pop():
-        return json.dumps(query_db('select * from main order by likes desc'))
+    @app.route('/fetchposts',methods=['GET', 'POST'])
+    def fetchposts():
+        order = request.json['order']
+        if order == 'old':
+            return json.dumps(query_db('select * from main'))
+        elif order == 'new':
+            return json.dumps(query_db('select * from main order by ID desc'))
+        elif order == 'pop':
+            return json.dumps(query_db('select * from main order by likes desc'))
+        else:
+            return 'bad request'
 
     ##########################################################################
 
@@ -186,15 +175,16 @@ def create_app(test_config=None):
     #endpoints for laughing:
     @app.route('/laugh',methods=['GET', 'POST'])
     def laugh():
-        val = json.dumps(query_db('select likes from main where id="'+request.json['id']+'"')[0][0])
-        execute_db('update main set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
-        return str(int(val)+1)
-    
-    @app.route('/comlaugh',methods=['GET', 'POST'])
-    def comlaugh():
-        val = json.dumps(query_db('select likes from comments where id="'+request.json['id']+'"')[0][0])
-        execute_db('update comments set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
-        return str(int(val)+1)
+        if request.json['type'] == 'post':
+            val = json.dumps(query_db('select likes from main where id="'+request.json['id']+'"')[0][0])
+            execute_db('update main set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
+            return str(int(val)+1)
+        elif request.json['type'] == 'comment':
+            val = json.dumps(query_db('select likes from comments where id="'+request.json['id']+'"')[0][0])
+            execute_db('update comments set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
+            return str(int(val)+1)
+        else:
+            return 'ERROR SOME SHIT GOIN ON IN THE SERVER' 
     
     ##########################################################################
 
