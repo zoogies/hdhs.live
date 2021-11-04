@@ -13,7 +13,7 @@ function getContent(sort){
         content = JSON.parse(response)
         for (p in content){
             //set current post to the row of content we are indexing from our lump json
-            post = content[p]
+            var post = content[p]
 
             //assign instance variables for each loop to concatenate easier
             post_id = post[0]
@@ -35,7 +35,7 @@ function getContent(sort){
                 //set our post content presets
                 var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
                 var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
-                var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="loadcomments('+post_id+')"><b>View Comments</b></p>'+postreportbtn+'</div></div>'
+                var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p>'+postreportbtn+'</div></div>'
                 //if our current post contains an attachment
                 if (attachment_id != null){
                     //if there is an attachment we need to ask the db for its path on the server
@@ -46,11 +46,18 @@ function getContent(sort){
                     //send a xhr request using our async function we wrote and act based on the result
                     basicxhr('getattachment', data)
                     .then(function (response) {
+                        //parse the response as a json
+                        response = JSON.parse(response);
+                        
+                        //pepepains
+                        var postreportbtn = '<p onclick="report(\'' +response[1]+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
+                        var postlaughbtn = '<div onclick="laugh(\'' +response[1]+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
+                        var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+response[2]+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+response[1]+')"><b>View Comments</b></p>'+postreportbtn+'</div></div>'
+
                         //embed our attachment with the fetched path to our post
-                        console.log('appending image to ',post[0]) //TODO same issue as before with images appending to one specific div
-                        document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+response+'"/></div>'
+                        document.getElementById(response[1]).innerHTML+='<div class="embed"><img class="attachment" src="'+response[0]+'"/></div>'
                         //embed the defualt footer to the post
-                        document.getElementById(post_id).innerHTML+=footer;
+                        document.getElementById(response[1]).innerHTML+=footer;
                     })
                     .catch(function (err) {
                         console.error('An error has occured!', err.statusText);
@@ -64,7 +71,7 @@ function getContent(sort){
             }
             else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
                 //define a limited post where the content is banned and append it to our main container
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="loadcomments('+post_id+')"><b>View Comments</b></p></div></div>'
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
                 //append the post to the container
                 document.getElementById("container").innerHTML += header;
             }

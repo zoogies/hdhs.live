@@ -212,7 +212,7 @@ def create_app(test_config=None):
     @app.route('/getattachment',methods=['GET', 'POST'])
     def getattachment():
         req = request.json
-        return 'http://76.181.32.163:5000/static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]
+        return json.dumps([('http://76.181.32.163:5000/static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]),(query_db('select id from main where attachmentid="'+req['id']+'"')[0][0]),query_db('select likes from main where attachmentid="'+req['id']+'"')[0][0]])
 
     ##########################################################################
     
