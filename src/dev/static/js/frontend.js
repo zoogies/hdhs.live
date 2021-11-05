@@ -24,6 +24,7 @@ function getContent(sort){
             stamp = post[5]
             deleted_status = post[6]
             attachment_id = post[7]
+            num_comments = post[8]
 
             //if post completely visible
             if(deleted_status == 0){ 
@@ -35,7 +36,7 @@ function getContent(sort){
                 //set our post content presets
                 var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
                 var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
-                var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p>'+postreportbtn+'</div></div>'
+                var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
                 //if our current post contains an attachment
                 if (attachment_id != null){
                     //if there is an attachment we need to ask the db for its path on the server
@@ -52,7 +53,7 @@ function getContent(sort){
                         //pepepains
                         var postreportbtn = '<p onclick="report(\'' +response[1]+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
                         var postlaughbtn = '<div onclick="laugh(\'' +response[1]+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
-                        var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+response[2]+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+response[1]+')"><b>View Comments</b></p>'+postreportbtn+'</div></div>'
+                        var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+response[2]+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+response[1]+')"><b>View '+response[3]+' Comments</b></p>'+postreportbtn+'</div></div>'
 
                         //embed our attachment with the fetched path to our post
                         document.getElementById(response[1]).innerHTML+='<div class="embed"><img class="attachment" src="'+response[0]+'"/></div>'
@@ -171,18 +172,29 @@ function refreshcomments(post){
     }
     //if our box is already open
     else{
-        //remove its opened class
-        handler.classList.remove('opened');
-        //get the given post
-        post = document.getElementById(post);
-        //get all children of our post
-        children = post.childNodes;
-        //cut our children into an array
-        var array = Array.prototype.slice.call(children);
-        //for all children in our array, remove them if they contain the .comments class
-        [].forEach.call(children, function(child) {if(child.classList.contains('comments')){child.remove()}});
-        //set our box text back to defualt
-        handler.innerText = "View Comments";
+        //generate our request data
+        var data = {
+            'id': String(post),
+        }
+        //fetch the number of comments
+        basicxhr('numcomments', data)
+        .then(function (response) {
+            //remove its opened class
+            handler.classList.remove('opened');
+            //get the given post
+            post = document.getElementById(post);
+            //get all children of our post
+            children = post.childNodes;
+            //cut our children into an array
+            var array = Array.prototype.slice.call(children);
+            //for all children in our array, remove them if they contain the .comments class
+            [].forEach.call(children, function(child) {if(child.classList.contains('comments')){child.remove()}});
+            //set our box text back to defualt
+            handler.innerText = "View "+response+" Comments";
+        })
+        .catch(function (err) {
+            console.error('An error occured!', err.statusText);
+        });
     }
 }
 

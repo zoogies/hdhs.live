@@ -76,8 +76,8 @@ function leavecomment(id){
         basicxhr('comment', data)
         .then(function (response) {
             //call our waterfall of frontend functions to refresh the comment content without a hard refresh
-            setTimeout(() => {refreshcomments(id);}, 500); //first time unloads box
-            setTimeout(() => {refreshcomments(id);}, 500); //second time reloads box
+            setTimeout(() => {refreshcomments(id);}, 1); //first time unloads box
+            setTimeout(() => {refreshcomments(id);}, 50); //second time reloads box
         })
         .catch(function (err) {
             console.error('An error occured!', err.statusText);

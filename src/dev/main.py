@@ -145,11 +145,11 @@ def create_app(test_config=None):
     def fetchposts():
         order = request.json['order']
         if order == 'old':
-            return json.dumps(query_db('select * from main'))
+            return json.dumps(query_db('select * from main where deleted != 3'))
         elif order == 'new':
-            return json.dumps(query_db('select * from main order by ID desc'))
+            return json.dumps(query_db('select * from main where deleted != 3 order by ID desc'))
         elif order == 'pop':
-            return json.dumps(query_db('select * from main order by likes desc'))
+            return json.dumps(query_db('select * from main where deleted != 3 order by likes desc'))
         else:
             return 'bad request'
 
@@ -164,10 +164,17 @@ def create_app(test_config=None):
     def allcomments():
         return json.dumps(query_db('select * from comments'))
 
+    @app.route('/numcomments',methods=['GET', 'POST'])
+    def numcomments():
+        return str(query_db('select comment_count from main where id="'+request.json['id']+'"')[0][0])
+
     @app.route('/comment',methods=['GET', 'POST'])
     def leavecomment():
         req = request.json
+        #execute the comment to the comment table
         execute_db('insert into comments (id,post,content,likes,stamp,user,deleted) values ('+str(query_db('SELECT Count(*) FROM comments')[0][0])+',"'+req["POST"]+'","'+req["CONTENT"]+'",0,"'+str(datetime.datetime.now())[0:19]+'","'+req["USER"]+'",false)')
+        #update main table comment amount to reflect new comment count
+        execute_db('update main set comment_count=('+str((query_db('select comment_count from main where id="'+req['POST']+'"')[0][0])+1)+') where id="'+req['POST']+'"')
         return "commented"
 
     ##########################################################################
@@ -193,7 +200,7 @@ def create_app(test_config=None):
     def post():
         req = request.json
         postid = str(query_db('SELECT Count(*) FROM main')[0][0])
-        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted) values ('+postid+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0)')
+        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
         if req['attachment'] != 'none':
             attachmentid = str(query_db('SELECT Count(*) FROM attachments')[0][0])
             newfilename =  attachmentid + '.' + req['attachment'].split('.')[1]
@@ -212,7 +219,7 @@ def create_app(test_config=None):
     @app.route('/getattachment',methods=['GET', 'POST'])
     def getattachment():
         req = request.json
-        return json.dumps([('http://76.181.32.163:5000/static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]),(query_db('select id from main where attachmentid="'+req['id']+'"')[0][0]),query_db('select likes from main where attachmentid="'+req['id']+'"')[0][0]])
+        return json.dumps([('http://76.181.32.163:5000/static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]),(query_db('select id from main where attachmentid="'+req['id']+'"')[0][0]),query_db('select likes from main where attachmentid="'+req['id']+'"')[0][0],(query_db('select comment_count from main where attachmentid="'+req['id']+'"')[0][0])])
 
     ##########################################################################
     
