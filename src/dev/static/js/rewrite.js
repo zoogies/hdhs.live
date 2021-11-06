@@ -24,3 +24,15 @@ function basicxhr(route,data){
         xhr.send(JSON.stringify(data));
         });
 }
+
+//file xhr
+function filexhr(file,data){
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append('USER', data['USER']);
+    formData.append('text', data['CONTENT']);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://76.181.32.163:5000/postimage', true);
+    xhr.send(formData);
+}

@@ -6,84 +6,76 @@ function getContent(sort){
         "order": String(sort),
     }
 
-    //send xhr request to get all posts in database in order of our sort
-    basicxhr('fetchposts', data)
+    //get all the images and their post ids
+    basicxhr('getattachment', data)
     .then(function (response) {
-        //create content variable out of json parsed response from server
-        content = JSON.parse(response)
-        for (p in content){
-            //set current post to the row of content we are indexing from our lump json
-            var post = content[p]
+        //parse the response as a json
+        var attachment_table = JSON.parse(response);
 
-            //assign instance variables for each loop to concatenate easier
-            post_id = post[0]
-            post_user = post[1]
-            post_content = post[2]
-            comments = post[3]
-            likes = post[4]
-            stamp = post[5]
-            deleted_status = post[6]
-            attachment_id = post[7]
-            num_comments = post[8]
+        //send xhr request to get all posts in database in order of our sort
+        basicxhr('fetchposts', data)
+        .then(function (response) {
+            //create content variable out of json parsed response from server
+            content = JSON.parse(response)
+            for (p in content){
+                //set current post to the row of content we are indexing from our lump json
+                var post = content[p]
 
-            //if post completely visible
-            if(deleted_status == 0){ 
-                //define a basic post without decorators
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
-                //append our generated post to the container
-                document.getElementById("container").innerHTML += header;
+                //assign instance variables for each loop to concatenate easier
+                post_id = post[0]
+                post_user = post[1]
+                post_content = post[2]
+                comments = post[3]
+                likes = post[4]
+                stamp = post[5]
+                deleted_status = post[6]
+                attachment_id = post[7]
+                num_comments = post[8]
 
-                //set our post content presets
-                var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
-                var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
-                var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
-                //if our current post contains an attachment
-                if (attachment_id != null){
-                    //if there is an attachment we need to ask the db for its path on the server
-                    //set our data to our attachment id of the post we want to fetch content pathing for
-                    var data = {
-                        "id": String(attachment_id),
-                    };
-                    //send a xhr request using our async function we wrote and act based on the result
-                    basicxhr('getattachment', data)
-                    .then(function (response) {
-                        //parse the response as a json
-                        response = JSON.parse(response);
-                        
-                        //pepepains
-                        var postreportbtn = '<p onclick="report(\'' +response[1]+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
-                        var postlaughbtn = '<div onclick="laugh(\'' +response[1]+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
-                        var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+response[2]+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+response[1]+')"><b>View '+response[3]+' Comments</b></p>'+postreportbtn+'</div></div>'
+                //if post completely visible
+                if(deleted_status == 0){ 
+                    //define a basic post without decorators
+                    if(post_content != ''){
+                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
+                    }
+                    else{
+                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div>'
+                    }
+                    //append our generated post to the container
+                    document.getElementById("container").innerHTML += header;
 
+                    //set our post content presets
+                    var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
+                    var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
+                    var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
+                    //if our current post contains an attachment
+                    if (attachment_id != null){
                         //embed our attachment with the fetched path to our post
-                        document.getElementById(response[1]).innerHTML+='<div class="embed"><img class="attachment" src="'+response[0]+'"/></div>'
+                        document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://76.181.32.163:5000/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
                         //embed the defualt footer to the post
-                        document.getElementById(response[1]).innerHTML+=footer;
-                    })
-                    .catch(function (err) {
-                        console.error('An error has occured!', err.statusText);
-                    });
+                        document.getElementById(post_id).innerHTML+=footer;
+                    }
+                    //if post does not have image
+                    else{
+                        //append the normal footer without the attachment to our container
+                        document.getElementById(post_id).innerHTML+=footer;
+                    }
                 }
-                //if post does not have image
-                else{
-                    //append the normal footer without the attachment to our container
-                    document.getElementById(post_id).innerHTML+=footer;
+                else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
+                    //define a limited post where the content is banned and append it to our main container
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
+                    //append the post to the container
+                    document.getElementById("container").innerHTML += header;
                 }
             }
-            else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
-                //define a limited post where the content is banned and append it to our main container
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
-                //append the post to the container
-                document.getElementById("container").innerHTML += header;
-            }
-        }
 
-        //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-        document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>'
+            //append to the bottom of our container a fun little easter egg post telling the user they reached the end
+            document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>'
+        })
+        .catch(function (err) {
+            console.error('An error occured!', err);
+        });
     })
-    .catch(function (err) {
-        console.error('An error occured!', err);
-    });
 }
 
 //function to destroy all posts in main container

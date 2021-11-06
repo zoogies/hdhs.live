@@ -1,33 +1,52 @@
+#imports
 import os
 import sqlite3
 import random
 import datetime
 import base64
 import json
+import requests
+from requests.structures import CaseInsensitiveDict
 from flask import Flask, render_template
 from flask import g, request
 from flask import send_file
 
+#global variables
 DATABASE = 'danarchy.db'
+headers = CaseInsensitiveDict()
+headers["User-Agent"] = "curl/7.68.0"
+headers["Authorization"] = "Bearer f3213625c42436"
+#file handling
+UPLOAD_FOLDER = '/static/attachments'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'heic'}
 
+#connecting to our db
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+#executing a db change
 def execute_db(cmd):
     con = sqlite3.connect(DATABASE)
     c = con.cursor()
     c.execute(cmd)
     con.commit()
 
+#probing db for data
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+#check for if a file is allowed
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+#main flask top level function
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
@@ -35,9 +54,24 @@ def create_app(test_config=None):
 
     #defualt route to server
     @app.route('/')
-    def main():
+    def main(): 
+        #when developing from home it only routes through local addr so break the validation loop
+        if str(request.remote_addr) == "192.168.50.1":
+            return render_template('index.html')
+
+        #create cursor to probe db with
         cur = get_db().cursor()
-        return render_template('index.html')
+
+        #set url and header data so we can detect users location
+        url = "https://ipinfo.io/"+str(request.remote_addr)
+        resp = requests.get(url, headers=headers)
+
+        #if the response comes from ohio give them the main page
+        if resp.json()['region'] == 'Ohio':
+            return render_template('index.html')
+        #else shoot them down
+        else:
+            return render_template('denied.html')
 
     ##########################################################################
 
@@ -46,6 +80,7 @@ def create_app(test_config=None):
     def admin():
         return render_template('admin.html')
 
+    #authenticate incoming request key with the servers local key
     @app.route('/auth',methods=['GET', 'POST'])
     def auth():
         with open('secretkey.txt') as f:
@@ -55,6 +90,7 @@ def create_app(test_config=None):
             else:
                 return "false"
     
+    #admin side handling function to modify content and manage reports
     @app.route('/moderate',methods=['GET', 'POST'])
     def moderate():
         mod_type = request.json['type']
@@ -125,6 +161,7 @@ def create_app(test_config=None):
         except:
             return json.dumps('bad')
 
+    #grab the number of open reports
     @app.route('/fetchnumreps')
     def fetchnumreps():
         return json.dumps(query_db('SELECT COUNT(*) FROM reports')[0][0])
@@ -160,6 +197,7 @@ def create_app(test_config=None):
     def comments():
         return json.dumps(query_db('select * from comments where post="'+request.json['id']+'"'))
     
+    #this is an admin side function to view every comment on the site
     @app.route('/fetchallcomments',methods=['GET', 'POST'])
     def allcomments():
         return json.dumps(query_db('select * from comments'))
@@ -201,26 +239,34 @@ def create_app(test_config=None):
         req = request.json
         postid = str(query_db('SELECT Count(*) FROM main')[0][0])
         execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
-        if req['attachment'] != 'none':
+        return "done"
+
+    @app.route('/postimage',methods=['POST'])
+    def postimg():
+        #detect if theres a file in the request
+        if request.files['file']:
+            #nab the file from the request
+            uploaded_file = request.files['file']
+        
+        #generate post id and insert our post to the main table
+        postid = str(query_db('SELECT Count(*) FROM main')[0][0])
+        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+request.form['USER']+'","'+request.form['text']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
+        
+        #if the filename isnt empty
+        if uploaded_file.filename != '':
             attachmentid = str(query_db('SELECT Count(*) FROM attachments')[0][0])
-            newfilename =  attachmentid + '.' + req['attachment'].split('.')[1]
-            with open("static/attachments/"+newfilename,"wb") as fh:
-                print(req)
-                print(str(req['bytes']))
-                print(base64.b64decode(req['bytes']))
-                fh.write(base64.b64decode(req['bytes']))
+            newfilename =  attachmentid +'.'+ uploaded_file.filename.split('.')[1] 
+            uploaded_file.save("static/attachments/"+newfilename)
             execute_db('insert into attachments (postid,name) values ('+postid+',"'+newfilename+'")')
             execute_db('update main set attachmentid=("'+attachmentid+'") where id="'+postid+'"')
-        return "done"
+        return render_template('index.html')
 
     ##########################################################################
 
     #endpoints for attachments:
     @app.route('/getattachment',methods=['GET', 'POST'])
     def getattachment():
-        req = request.json
-        return json.dumps([('http://76.181.32.163:5000/static/attachments/'+query_db('select name from attachments where id="'+req['id']+'"')[0][0]),(query_db('select id from main where attachmentid="'+req['id']+'"')[0][0]),query_db('select likes from main where attachmentid="'+req['id']+'"')[0][0],(query_db('select comment_count from main where attachmentid="'+req['id']+'"')[0][0])])
-
+        return json.dumps(query_db('select * from attachments'))
     ##########################################################################
     
     return app
