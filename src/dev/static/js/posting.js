@@ -9,25 +9,27 @@ function posst(){
 
     //make sure our post text is not 0 and less than 250
     if((posttext.length <= 250 && posttext.length > 0) || file != null){
-        
-        //get file type
-        type = file.type.split('/')[1]
-        //check extensions
-        if(!['png','jpg','gif','jpeg'].includes(type)){
-            //if not approved extension tell the user
-            alert('Invalid Image Format! You can only submit png jpg or gifs!')
-            return;
-        }
-
-        //check file size
-        if (file.size > 6000000) {
-            //if the file is more than 6 mb
-            alert('Your image is way too big! Please keep the size under 6mb. Google "image compressor" to make it smaller.')
-            return; //break the post function
-        }
 
         //if we have a file selected
         if(file){
+
+            //get file type
+            type = file.type.split('/')[1]
+
+            //check extensions
+            if(!['png','jpg','gif','jpeg'].includes(type)){
+                //if not approved extension tell the user
+                alert('Invalid Image Format! You can only submit png jpg or gifs!')
+                return;
+            }
+
+            //check file size
+            if (file.size > 6000000) {
+                //if the file is more than 6 mb
+                alert('Your image is way too big! Please keep the size under 6mb. Google "image compressor" to make it smaller.')
+                return; //break the post function
+            }
+
             var data = {
                 "USER": "Anonymous",
                 "CONTENT": String(posttext),
