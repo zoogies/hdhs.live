@@ -6,7 +6,6 @@ body {
 h1 {
     color: white;
     text-align: center;
-    font-size: 60px;
     white-space:nowrap;
     margin:0px;
 }
@@ -128,9 +127,12 @@ h1 {
     justify-content:start;
 }
 
+#titletext{
+    font-size: 16vw;
+}
+
 #logo{
-    width:100px;
-    height:100px;
+    width:16vw;
 }
 
 .bartl {
@@ -210,6 +212,14 @@ h1 {
 
 .laughtxt {
     font-size:20px;
+}
+
+#toplevel{
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
+    overflow-x: hidden;
 }
 
 #container {

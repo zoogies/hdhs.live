@@ -18,6 +18,12 @@
         <script src="{{url_for('static', filename='js/posting.js')}}"></script>
         <script src="{{url_for('static', filename='js/frontend.js')}}"></script>
 
+        <!-- Overscroll ios -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+        <!-- header color ios -->
+        <meta name="theme-color" content="#001AAC">
+
         <!-- Roboto font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,46 +47,48 @@
         </script>
     </head>
     <body onload="init()">
-        <div class="title">
-            <div id="logo">
-                <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
+        <div id="toplevel">
+            <div class="title">
+                <div id="logo">
+                    <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
+                </div>
+                <h1 id="titletext">HDHS LIVE</h1>
+                <!--<p class="tagline">A social media website for davidson students</p>-->
             </div>
-            <h1>HDHS LIVE</h1>
-            <p class="tagline">A social media website for davidson students</p>
-        </div>
-        <div class="bartl">
-            <div class="bar">
-                <h2>Sort By:</h2>
-                <div onclick="s_new();" id="new" class="nav_sel">
-                    <p>New</p>
-                </div>
-                <div onclick="s_old();" id="old" class="nav_btn">
-                    <p>Old</p>
-                </div>
-                <div onclick="s_pop();" id="pop" class="nav_btn">
-                    <p>Popular</p>
-                </div>
-            </div>
-        </div>
-        <div id="container">
-            <div id="loading">
-                <img src="{{url_for('static', filename='resources/load.gif')}}">
-            </div>
-            <div id="save" class="poster post">
-                <div class="posterhead">
-                    <p>Share what's on your mind:</p>
-                    <p id="charlim" class="ID">0/250 characters</p>
-                </div>
-                <div class="inputter">
-                    <textarea autocomplete="off" id="field" style="font-family:roboto; resize: none;" maxlength="250"></textarea>
-                </div>
-                <div class="postbar">
-                    <div class="pbtn hvr-fade" onclick="posst()">
-                        <p>POST</p>
+            <div class="bartl">
+                <div class="bar">
+                    <h2>Sort By:</h2>
+                    <div onclick="s_new();" id="new" class="nav_sel">
+                        <p>New</p>
                     </div>
-                    <div class="uploadfile">
-                        <p class="uploadtxt">Upload a file to go with your post:</p>
-                        <input id="selector" name="file" type="file"/>
+                    <div onclick="s_old();" id="old" class="nav_btn">
+                        <p>Old</p>
+                    </div>
+                    <div onclick="s_pop();" id="pop" class="nav_btn">
+                        <p>Popular</p>
+                    </div>
+                </div>
+            </div>
+            <div id="container">
+                <div id="loading">
+                    <img src="{{url_for('static', filename='resources/load.gif')}}">
+                </div>
+                <div id="save" class="poster post">
+                    <div class="posterhead">
+                        <p>Share what's on your mind:</p>
+                        <p id="charlim" class="ID">0/250 characters</p>
+                    </div>
+                    <div class="inputter">
+                        <textarea autocomplete="off" id="field" style="font-family:roboto; resize: none;" maxlength="250"></textarea>
+                    </div>
+                    <div class="postbar">
+                        <div class="pbtn hvr-fade" onclick="posst()">
+                            <p>POST</p>
+                        </div>
+                        <div class="uploadfile">
+                            <p class="uploadtxt">Upload a file to go with your post:</p>
+                            <input id="selector" name="file" type="file"/>
+                        </div>
                     </div>
                 </div>
             </div>
