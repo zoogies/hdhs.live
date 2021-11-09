@@ -57,15 +57,14 @@
             </div>
             <div class="bartl">
                 <div class="bar">
-                    <h2>Sort By:</h2>
                     <div onclick="s_new();" id="new" class="nav_sel">
-                        <p>New</p>
+                        <p class="navtxt">New</p>
                     </div>
                     <div onclick="s_old();" id="old" class="nav_btn">
-                        <p>Old</p>
+                        <p class="navtxt">Old</p>
                     </div>
                     <div onclick="s_pop();" id="pop" class="nav_btn">
-                        <p>Popular</p>
+                        <p class="navtxt">Popular</p>
                     </div>
                 </div>
             </div>
@@ -81,14 +80,20 @@
                     <div class="inputter">
                         <textarea autocomplete="off" id="field" style="font-family:roboto; resize: none;" maxlength="250"></textarea>
                     </div>
+                    <div class="labels">
+                        <p class="label">Username:</p>
+                        <p class="label">Attach an image:</p>
+                    </div>
                     <div class="postbar">
-                        <div class="pbtn hvr-fade" onclick="posst()">
-                            <p>POST</p>
+                        <div class="name">
+                            <input placeholder="Anonymous" id="name" type="text" maxlength="12" autocomplete="off">
                         </div>
                         <div class="uploadfile">
-                            <p class="uploadtxt">Upload a file to go with your post:</p>
                             <input id="selector" name="file" type="file"/>
                         </div>
+                    </div>
+                    <div class="pbtn hvr-fade" onclick="posst()">
+                        <p class="ptxt">POST</p>
                     </div>
                 </div>
             </div>

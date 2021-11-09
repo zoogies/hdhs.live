@@ -36,17 +36,17 @@ function getContent(sort){
                 if(deleted_status == 0){ 
                     //define a basic post without decorators
                     if(post_content != ''){
-                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
+                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="http://76.181.32.163:5000/static/resources/user.png"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
                     }
                     else{
-                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div>'
+                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="http://76.181.32.163:5000/static/resources/user.png"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div>'
                     }
                     //append our generated post to the container
                     document.getElementById("container").innerHTML += header;
 
                     //set our post content presets
                     var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
-                    var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
+                    var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://76.181.32.163:5000/static/resources/joy.png"/></div>'
                     var footer = '<div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="spaced combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
                     //if our current post contains an attachment
                     if (attachment_id != null){
@@ -63,14 +63,14 @@ function getContent(sort){
                 }
                 else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
                     //define a limited post where the content is banned and append it to our main container
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon spaced" src="http://76.181.32.163:5000/static/resources/user.png"/><p>'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="spaced laughtxt">'+likes+'  Laughs'+'</p><p class="spaced combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
                     //append the post to the container
                     document.getElementById("container").innerHTML += header;
                 }
             }
 
             //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-            document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>'
+            document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="http://76.181.32.163:5000/static/resources/end.png"/></div>'
         })
         .catch(function (err) {
             console.error('An error occured!', err);
@@ -111,12 +111,12 @@ function renderComments(id,data){
     for(comment in data){
         //declare our static preset elements for comment actions
         var comreportbtn = '<p onclick="report(\'' +data[comment][0]+ '\',\'' + 'comment'+ '\')" class="reportbtncom">Report</p>'
-        var comlaughbtn = '<div onclick="laugh(\'' +data[comment][0]+ '\',\'' + 'comment'+ '\')" class="comlaughbtn"><p>Laugh</p><img class="joy" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/joy.png?raw=true"/></div>'
+        var comlaughbtn = '<div onclick="laugh(\'' +data[comment][0]+ '\',\'' + 'comment'+ '\')" class="comlaughbtn"><p>Laugh</p><img class="joy" src="http://76.181.32.163:5000/static/resources/joy.png"/></div>'
 
         // if the deleted status of the comment is 0 (not banned at all)
         if(data[comment][6] == 0){
             // awful, disgusting string of a comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0]+'"><Laughs>'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.innerHTML += (content);
@@ -124,7 +124,7 @@ function renderComments(id,data){
         // else if the deleted status of the comment is 1 (directly banned)
         else if (data[comment][6] == 1){
             // awful, disgusting string of a visible banned comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/user.png?raw=true"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0])+'"><Laughs>'+String(data[comment][3])+' Laughs</p></div></div>';
+            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class-"comliketxt" id="comment_'+String(data[comment][0])+'"><Laughs>'+String(data[comment][3])+' Laughs</p></div></div>';
             
             //append our comment to the parent post container
             reqbox.innerHTML += (content);

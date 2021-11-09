@@ -16,6 +16,7 @@ function basicxhr(route,data){
             }
         };
         xhr.onerror = function () {
+            //this is where its rejecting on mobile TODO HTTPS
             reject({
                 status: this.status,
                 statusText: xhr.statusText

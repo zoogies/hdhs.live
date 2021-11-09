@@ -6,6 +6,11 @@ function posst(){
     var posttext = document.getElementById("field").value;
     //get value of box containing choose file
     file = document.getElementById('selector').files[0];
+    //get the users desired name
+    var name = document.getElementById('name').value;
+    if (name == ""){
+        name = "Anonymous";
+    }
 
     //make sure our post text is not 0 and less than 250
     if((posttext.length <= 250 && posttext.length > 0) || file != null){
@@ -31,7 +36,7 @@ function posst(){
             }
 
             var data = {
-                "USER": "Anonymous",
+                "USER": String(name),
                 "CONTENT": String(posttext),
                 "attachment": String(file['name']),
             };
@@ -43,7 +48,7 @@ function posst(){
         else{
             //set defualts with the text data user has entered
             var data = {
-                "USER": "Anonymous",
+                "USER": String(name),
                 "CONTENT": String(posttext),
                 "attachment": 'none',
             };
