@@ -20,7 +20,12 @@ h1 {
 
 .comment{
     display:flex;
-    flex-wrap:nowrap;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-color: rgb(231, 231, 231);
+    border-radius: 12px;
+    padding:8px;
+    margin-top: 10px;
 }
 .comments{
     padding:2px;
@@ -32,14 +37,14 @@ h1 {
 }
 
 .commentbox {
-    width:85%;
+    width:79%;
 }
 .postcom{
-    width:15%;
+    width:25%;
     background-color: white;
     color: black;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 10px;
     margin:1px;
     padding:1px;
     border-style: solid;
@@ -55,15 +60,18 @@ h1 {
 }
 
 .commentactionbound {
-    margin-left: auto; 
-    margin-right: 0;
     display:flex;
     flex-wrap:nowrap;
+    margin:0px;
 }
 
 .comdate{
     color:gray;
     padding-right:10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:6px;
+    margin-bottom:6px;
 }
 
 .comlaughbtn{
@@ -81,6 +89,7 @@ h1 {
 }
 .comliketxt{
     font-weight:bold;
+    margin-bottom: 3px;
 }
 
 .compfp{
@@ -88,7 +97,8 @@ h1 {
 }
 
 .comtxt{
-    padding-left: 10px;
+    width: 100%;
+    margin:0px;
 }
 
 .comname{
@@ -210,6 +220,8 @@ h1 {
     border-radius: 12px;
     border-style: solid;
     border-color: black;
+    margin-top:0px;
+    margin-bottom: 0px;
 }
 
 .laughbtn {
@@ -217,12 +229,14 @@ h1 {
     flex-wrap:nowrap;
     align-items:center;
     height:40px;
-    margin-top:15px;
+    margin-top:0px;
 }
 
 .laughtxt {
-    font-size:20px;
+    font-size:auto;
     margin:0px;
+    padding:4px;
+    font-weight: bold;
 }
 
 #toplevel{
@@ -258,8 +272,13 @@ h1 {
     border-style: solid;
     border-color:black;
     margin-bottom: 10px;
+    padding-bottom: 5px;
 }
 .spaced{
+    margin:0px;
+    margin-left: 5px;
+    margin-right:5px;
+    margin-bottom: 5px;;
 }
 
 .p_header{
@@ -275,7 +294,9 @@ h1 {
 
 .ID{
     color:gray;
-    margin-left: 10px;
+    margin: 0px;
+    padding-top: 12px;
+    padding-left: 8px;
 }
 
 .heart{
@@ -368,6 +389,8 @@ h1 {
     border-color: black;
     padding:5px;
     padding-top:8px;
+    margin-top:0px;
+    margin-bottom: 0px;
 }
 
 .reportbtncom {
@@ -379,7 +402,8 @@ h1 {
     border-color: black;
     padding:5px;
     padding-top:10px;
-    margin:2px;
+    margin-top:0px;
+    margin-bottom: 0px;
 }
 
 /* attachments */
@@ -432,4 +456,15 @@ h1 {
     margin:0px;
     margin-top:3px;
     margin-bottom:3px;
+}
+
+.comheader {
+    display:flex;
+    width:100%;
+}
+
+.uname {
+    margin:0px;
+    padding-left: 4px;
+    padding-top:12px;
 }
