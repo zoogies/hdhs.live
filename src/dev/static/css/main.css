@@ -275,10 +275,10 @@ h1 {
     padding-bottom: 5px;
 }
 .spaced{
-    margin:0px;
+    margin-top:10px;
     margin-left: 5px;
     margin-right:5px;
-    margin-bottom: 5px;;
+    margin-bottom: 10px;;
 }
 
 .p_header{
