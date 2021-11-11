@@ -195,6 +195,8 @@ function refreshcomments(post){
 function trackchar(){
     var elem = document.getElementById("charlim"); //get character limit text
     elem.innerText = document.getElementById("field").value.length + "/250 characters"; //change to reflect new value entered in textbox
+
+    console.log(window.pageYOffset)
 }
 
 //function to gather all new comments
