@@ -2,7 +2,7 @@
 
 //append loading icon while waiting for database return for main posts
 function loadinside(container) {
-    inner = document.createElement('div').innerHTML = '<div id="loading"><img src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/load.gif?raw=true"></div>';
+    inner = document.createElement('div').innerHTML = '<div id="loading"><img src="http://76.181.32.163:5000/static/resources/load.gif"></div>';
     container.innerHTML += inner;
 }
 
