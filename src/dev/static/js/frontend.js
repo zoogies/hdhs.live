@@ -1,81 +1,96 @@
-function getContent(sort){
+var attachment_table;
+
+function getContent(sort,start){
     //send a xhr request using our async function we wrote and act based on the result
 
     //specify our sort so the db knows how to return the data in the right order
     var data = {
         "order": String(sort),
+        "start": String(start),
+        "numloaded": String(numloaded),
     }
 
     //get all the images and their post ids
     basicxhr('getattachment', data)
     .then(function (response) {
         //parse the response as a json
-        var attachment_table = JSON.parse(response);
+        attachment_table = JSON.parse(response);
 
         //send xhr request to get all posts in database in order of our sort
         basicxhr('fetchposts', data)
         .then(function (response) {
-            //create content variable out of json parsed response from server
-            content = JSON.parse(response)
-            for (p in content){
-                //set current post to the row of content we are indexing from our lump json
-                var post = content[p]
-
-                //assign instance variables for each loop to concatenate easier
-                post_id = post[0]
-                post_user = post[1]
-                post_content = post[2]
-                comments = post[3]
-                likes = post[4]
-                stamp = post[5]
-                deleted_status = post[6]
-                attachment_id = post[7]
-                num_comments = post[8]
-
-                //if post completely visible
-                if(deleted_status == 0){ 
-                    //define a basic post without decorators
-                    if(post_content != ''){
-                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
-                    }
-                    else{
-                        header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div>'
-                    }
-                    //append our generated post to the container
-                    document.getElementById("container").innerHTML += header;
-
-                    //set our post content presets
-                    var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
-                    var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://76.181.32.163:5000/static/resources/joy.png"/></div>'
-                    var footer = '<div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
-                    //if our current post contains an attachment
-                    if (attachment_id != null){
-                        //embed our attachment with the fetched path to our post
-                        document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://76.181.32.163:5000/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
-                        //embed the defualt footer to the post
-                        document.getElementById(post_id).innerHTML+=footer;
-                    }
-                    //if post does not have image
-                    else{
-                        //append the normal footer without the attachment to our container
-                        document.getElementById(post_id).innerHTML+=footer;
-                    }
-                }
-                else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
-                    //define a limited post where the content is banned and append it to our main container
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><p class="combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
-                    //append the post to the container
-                    document.getElementById("container").innerHTML += header;
-                }
-            }
-
-            //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-            document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="http://76.181.32.163:5000/static/resources/end.png"/></div>'
+            renderContent(response);
         })
         .catch(function (err) {
             console.error('An error occured!', err);
         });
     })
+}
+
+//render the content to the end of the main container
+function renderContent(response){
+    //create content variable out of json parsed response from server
+    content = JSON.parse(response)
+
+    //update our numloaded
+    numloaded += content.length;
+    //console.log('loaded',numloaded)
+
+    //iterate over all our loaded posts and render them
+    for (p in content){
+        //set current post to the row of content we are indexing from our lump json
+        var post = content[p]
+
+        //assign instance variables for each loop to concatenate easier
+        post_id = post[0]
+        post_user = post[1]
+        post_content = post[2]
+        comments = post[3]
+        likes = post[4]
+        stamp = post[5]
+        deleted_status = post[6]
+        attachment_id = post[7]
+        num_comments = post[8]
+
+        //if post completely visible
+        if(deleted_status == 0){ 
+            //define a basic post without decorators
+            if(post_content != ''){
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
+            }
+            else{
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div>'
+            }
+            //append our generated post to the container
+            document.getElementById("container").innerHTML += header;
+
+            //set our post content presets
+            var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
+            var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://76.181.32.163:5000/static/resources/joy.png"/></div>'
+            var footer = '<div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
+            //if our current post contains an attachment
+            if (attachment_id != null){
+                //embed our attachment with the fetched path to our post
+                document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://76.181.32.163:5000/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
+                //embed the defualt footer to the post
+                document.getElementById(post_id).innerHTML+=footer;
+            }
+            //if post does not have image
+            else{
+                //append the normal footer without the attachment to our container
+                document.getElementById(post_id).innerHTML+=footer;
+            }
+        }
+        else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
+            //define a limited post where the content is banned and append it to our main container
+            header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><p class="combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
+            //append the post to the container
+            document.getElementById("container").innerHTML += header;
+        }
+    }
+
+    //append to the bottom of our container a fun little easter egg post telling the user they reached the end
+    //document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="http://76.181.32.163:5000/static/resources/end.png"/></div>'
 }
 
 //function to destroy all posts in main container
@@ -195,8 +210,62 @@ function refreshcomments(post){
 function trackchar(){
     var elem = document.getElementById("charlim"); //get character limit text
     elem.innerText = document.getElementById("field").value.length + "/250 characters"; //change to reflect new value entered in textbox
+}
 
-    console.log(window.pageYOffset)
+//function that tracks users scroll progress and will request more content be appended if the user is within 80% of the end of the timeline
+//updates every second
+function trackscroll(){
+    //attempt to path to our divs if they are not loaded yet
+    if(tl == null || ctn == null){
+        var tl = document.getElementById('toplevel');
+        var ctn = document.getElementById('container');
+    }
+    //get percentage of content the user has scrolled through
+    var percentScroll = tl.scrollTop / ctn.offsetHeight;
+    //console.log(percentScroll);
+    //if the user has scrolled past 70% of the posts we need to load more
+    if(percentScroll >= .70){
+        loadMore();
+        //console.log('loading more')
+    }
+}
+
+//declare bool to ensure we dont trigger this twice before loadcompletes 
+var querying = false;
+//declare bool that triggers when we reach the end of the content
+var capped = false;
+//get numloaded for certain sort types
+var numloaded  = 0;
+
+//contact the server and request a specified amount of new posts to append to our DOM
+function loadMore(){
+    //if we arent at the bottom of the tl get posts
+    if(capped == false){
+        //setup our headers
+        var data = {
+            'order':String(section), //get our current section so server knows which tab to select from
+            'start':String(parseInt(document.getElementById('container').lastChild.id)), //index that we want to start at
+            'numloaded': String(numloaded),
+        }
+
+        //if not already triggered
+        if (querying == false){
+            //change bool
+            querying = true;
+
+            if(data['start'] == '0'){
+                capped = true;
+                return
+            }
+
+            basicxhr('fetchposts',data).then(function (response) {
+                renderContent(response);
+                querying = false;
+            }).catch(function (err) {
+                console.error('An error occured!', err.statusText);
+            });
+        }
+    }
 }
 
 //function to gather all new comments

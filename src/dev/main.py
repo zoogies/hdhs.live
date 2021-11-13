@@ -181,14 +181,42 @@ def create_app(test_config=None):
     @app.route('/fetchposts',methods=['GET', 'POST'])
     def fetchposts():
         order = request.json['order']
-        if order == 'old':
-            return json.dumps(query_db('select * from main where deleted != 3'))
-        elif order == 'new':
-            return json.dumps(query_db('select * from main where deleted != 3 order by ID desc'))
-        elif order == 'pop':
-            return json.dumps(query_db('select * from main where deleted != 3 order by likes desc'))
+        start = request.json['start']
+        numloaded = int(request.json['numloaded'])
+
+        #if we are doing a first load or type change do the standard procedure
+        if start == 'fresh':
+            if order == 'old':
+                return json.dumps(query_db('select * from main where deleted != 3 order by ID asc LIMIT 15'))
+            elif order == 'new':
+                return json.dumps(query_db('select * from main where deleted != 3 order by ID desc LIMIT 15'))
+            elif order == 'pop':
+                return json.dumps(query_db('select * from main where deleted != 3 order by likes desc LIMIT 15'))
+            else:
+                return 'bad request'
         else:
-            return 'bad request'
+            start = int(start)
+            if order == 'old':
+                print((('select * from main where deleted != 3 AND id BETWEEN '+str(start + 1)+' AND '+str(start + 16)+' LIMIT 15')))
+                return json.dumps(query_db('select * from main where deleted != 3 AND id BETWEEN '+str(start + 1)+' AND '+str(start + 16)+' LIMIT 15'))
+            elif order == 'new':
+                #for some reason 24 is the ceiling final request for the bottom of the content
+                if start == 24:
+                    print('balls')
+                    return json.dumps(query_db('select * from main where deleted != 3 AND id BETWEEN 0 AND 23 order by ID desc'))
+                else:
+                    return json.dumps(query_db('select * from main where deleted != 3 AND id BETWEEN '+str(start - 16)+' AND '+str(start - 1)+' order by ID desc LIMIT 15'))
+            elif order == 'pop':
+                #grab all posts in desc order of popular
+                result = query_db('select * from main where deleted != 3 order by likes desc')
+                final = [] #create blank list
+                #run loop 15 times
+                for i in range(15):
+                    final.append(result[i + numloaded]) #add 15 next posts in the correct order
+                return json.dumps(final)
+            else:
+                return 'bad request'
+
 
     ##########################################################################
 

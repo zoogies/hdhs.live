@@ -7,7 +7,7 @@ function init(){
     //if we are on a page route with a container in it
     if (container) {
         //query to recieve new posts on load
-        getContent("new");
+        getContent("new","fresh");
 
         //get our loading symbol appended by loading waterfall and remove it
         var ld = document.getElementById("loading");
@@ -15,5 +15,6 @@ function init(){
 
         //intialize our character input tracking function to run in a loop every 100ms
         var chartrack=setInterval(trackchar,100);
+        var scrolltrack=setInterval(trackscroll,1000);
     }
 }
