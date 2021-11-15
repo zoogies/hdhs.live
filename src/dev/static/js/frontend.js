@@ -83,7 +83,13 @@ function renderContent(response){
         }
         else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
             //define a limited post where the content is banned and append it to our main container
-            header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><p class="combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>'
+            //if our post has comments in it allow it to have the expand button
+            if(num_comments != 0){
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><p class="combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>';
+            }
+            else{
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://76.181.32.163:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
+            }
             //append the post to the container
             document.getElementById("container").innerHTML += header;
         }
