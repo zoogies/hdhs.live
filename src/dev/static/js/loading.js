@@ -2,11 +2,11 @@
 
 //append loading icon while waiting for database return for main posts
 function loadinside(container) {
-    inner = document.createElement('div').innerHTML = '<div id="loading"><img src="http://76.181.32.163:5000/static/resources/load.gif"></div>';
-    container.innerHTML += inner;
+    //inner = document.createElement('div').innerHTML = '<div id="loading"><img src="http://76.181.32.163:5000/static/resources/load.gif"></div>';
+    //container.innerHTML += inner;
 }
 
 //remove main container loading icon
 function stopload() {
-    document.getElementById('loading').remove();
+    //document.getElementById('loading').remove();
 }

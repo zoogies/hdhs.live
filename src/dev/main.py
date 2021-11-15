@@ -46,6 +46,10 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+#take string possibly dirty with quotes and clean them
+def clean(string):
+    return string.replace('"','"+"""+"')
+print(clean('"'))
 #main flask top level function
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -56,22 +60,23 @@ def create_app(test_config=None):
     @app.route('/')
     def main(): 
         #when developing from home it only routes through local addr so break the validation loop
-        if str(request.remote_addr) == "192.168.50.1":
-            return render_template('index.html')
+        #if str(request.remote_addr) == "192.168.50.1":
+        #    return render_template('index.html')
 
         #create cursor to probe db with
         cur = get_db().cursor()
 
         #set url and header data so we can detect users location
-        url = "https://ipinfo.io/"+str(request.remote_addr)
-        resp = requests.get(url, headers=headers)
+        #url = "https://ipinfo.io/"+str(request.remote_addr)
+        #resp = requests.get(url, headers=headers)
 
         #if the response comes from ohio give them the main page
-        if resp.json()['region'] == 'Ohio':
-            return render_template('index.html')
+        #if resp.json()['region'] == 'Ohio':
+        #    return render_template('index.html')
         #else shoot them down
-        else:
-            return render_template('denied.html')
+        #else:
+        #    return render_template('denied.html')
+        return render_template('index.html')
 
     ##########################################################################
 
@@ -266,7 +271,7 @@ def create_app(test_config=None):
     def post():
         req = request.json
         postid = str(query_db('SELECT Count(*) FROM main')[0][0])
-        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+req['USER']+'","'+req['CONTENT']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
+        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+req['USER']+'","'+ req['CONTENT'].replace('"','“') +'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
         return "done"
 
     @app.route('/postimage',methods=['POST'])
@@ -278,7 +283,7 @@ def create_app(test_config=None):
         
         #generate post id and insert our post to the main table
         postid = str(query_db('SELECT Count(*) FROM main')[0][0])
-        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+request.form['USER']+'","'+request.form['text']+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
+        execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+request.form['USER']+'","'+request.form['text'].replace('"','“')+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
         
         #if the filename isnt empty
         if uploaded_file.filename != '':

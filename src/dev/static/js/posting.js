@@ -1,7 +1,17 @@
 //what actual refactored code does to an mf:
 
+//state variables
+var currentlyPosting = false;
+
 //function to post a post along with optional image attached
 function posst(){
+    //make sure we arent already processing a request
+    if(currentlyPosting){
+        return;
+    }
+    //update state variable
+    currentlyPosting = true;
+
     //get our post text from the field
     var posttext = document.getElementById("field").value;
     //get value of box containing choose file
@@ -67,6 +77,8 @@ function posst(){
     else{
         alert('Your post needs to be more than 0 and less than 250 characters or contain an image')
     }
+    //reset our state variable
+    currentlyPosting = false;
 }
 
 //function to comment under a post

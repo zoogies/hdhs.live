@@ -230,7 +230,7 @@ function trackscroll(){
     var percentScroll = tl.scrollTop / ctn.offsetHeight;
     //console.log(percentScroll);
     //if the user has scrolled past 70% of the posts we need to load more
-    if(percentScroll >= .70){
+    if(percentScroll >= .50){
         loadMore();
         //console.log('loading more')
     }
