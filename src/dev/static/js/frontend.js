@@ -95,8 +95,8 @@ function renderContent(response){
         }
     }
 
-    //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-    //document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="http://76.181.32.163:5000/static/resources/end.png"/></div>'
+    //do some shit with the load icon
+    loadicon();
 }
 
 //function to destroy all posts in main container
@@ -250,7 +250,7 @@ function loadMore(){
         //setup our headers
         var data = {
             'order':String(section), //get our current section so server knows which tab to select from
-            'start':String(parseInt(document.getElementById('container').lastChild.id)), //index that we want to start at
+            'start':String(parseInt(document.getElementById('container').lastChild.previousSibling.id)), //index that we want to start at
             'numloaded': String(numloaded),
         }
 

@@ -1,4 +1,4 @@
-#imports
+# imports
 import os
 import sqlite3
 import random
@@ -11,404 +11,584 @@ from flask import Flask, render_template
 from flask import g, request
 from flask import send_file
 
-#import custom logging class
+# import custom logging class
 from logs import logmaker
-#log a server restart
-logmaker('daily').log('server reset','INTERNAL')
 
-#global variables
-DATABASE = 'danarchy.db'
+# log a server restart
+logmaker("daily").log("server reset", "INTERNAL")
+
+# global variables
+DATABASE = "danarchy.db"
 headers = CaseInsensitiveDict()
 headers["User-Agent"] = "curl/7.68.0"
 headers["Authorization"] = "Bearer f3213625c42436"
-#file handling
-UPLOAD_FOLDER = '/static/attachments'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'heic'}
+# file handling
+UPLOAD_FOLDER = "/static/attachments"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "heic"}
 
-#connecting to our db
+# connecting to our db
 def get_db():
     try:
-        logmaker('daily').log('database connect','INTERNAL')
-        db = getattr(g, '_database', None)
+        logmaker("daily").log("database connect", "INTERNAL")
+        db = getattr(g, "_database", None)
         if db is None:
             db = g._database = sqlite3.connect(DATABASE)
         return db
     except Exception as e:
-        logmaker('daily').log('failure - '+e,'INTERNAL')
-        return 'bad'
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        return "bad"
 
-#executing a db change
+
+# executing a db change
 def execute_db(cmd):
     try:
-        logmaker('daily').log('database execute','INTERNAL')
+        logmaker("daily").log("database execute", "INTERNAL")
         con = sqlite3.connect(DATABASE)
         c = con.cursor()
         c.execute(cmd)
         con.commit()
     except Exception as e:
-        logmaker('daily').log('failure - '+e,'INTERNAL')
-        return 'bad'
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        return "bad"
 
-#probing db for data
+
+# probing db for data
 def query_db(query, args=(), one=False):
     try:
-        logmaker('daily').log('database query','INTERNAL')
+        logmaker("daily").log("database query", "INTERNAL")
         cur = get_db().execute(query, args)
         rv = cur.fetchall()
         cur.close()
         return (rv[0] if rv else None) if one else rv
     except Exception as e:
-        logmaker('daily').log('failure - '+e,'INTERNAL')
-        return 'bad'
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        return "bad"
 
-#check for if a file is allowed
+
+# check for if a file is allowed
 def allowed_file(filename):
     try:
-        logmaker('daily').log('filename validate','INTERNAL')
-        return '.' in filename and \
-            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+        logmaker("daily").log("filename validate", "INTERNAL")
+        return (
+            "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+        )
     except Exception as e:
-        logmaker('daily').log('failure - '+e,'INTERNAL')
-        return 'bad'
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        return "bad"
 
-#main flask top level function
+
+# main flask top level function
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
     ##########################################################################
 
-    #defualt route to server
-    @app.route('/')
-    def main(): 
+    # defualt route to server
+    @app.route("/")
+    def main():
         try:
-            logmaker('daily').log('route main',request.remote_addr)
-            #when developing from home it only routes through local addr so break the validation loop
-            #if str(request.remote_addr) == "192.168.50.1":
+            logmaker("daily").log("route main", request.remote_addr)
+            # when developing from home it only routes through local addr so break the validation loop
+            # if str(request.remote_addr) == "192.168.50.1":
             #    return render_template('index.html')
 
-            #create cursor to probe db with
+            # create cursor to probe db with
             cur = get_db().cursor()
 
-            #set url and header data so we can detect users location
-            #url = "https://ipinfo.io/"+str(request.remote_addr)
-            #resp = requests.get(url, headers=headers)
+            # set url and header data so we can detect users location
+            # url = "https://ipinfo.io/"+str(request.remote_addr)
+            # resp = requests.get(url, headers=headers)
 
-            #if the response comes from ohio give them the main page
-            #if resp.json()['region'] == 'Ohio':
+            # if the response comes from ohio give them the main page
+            # if resp.json()['region'] == 'Ohio':
             #    return render_template('index.html')
-            #else shoot them down
-            #else:
+            # else shoot them down
+            # else:
             #    return render_template('denied.html')
-            return render_template('index.html')
+            return render_template("index.html")
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return 'bad'
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return "bad"
 
     ##########################################################################
 
-    #admin panel related sockets
-    @app.route('/admin')
+    # admin panel related sockets
+    @app.route("/admin")
     def admin():
         try:
-            logmaker('daily').log('route admin',request.remote_addr)
-            return render_template('admin.html')
+            logmaker("daily").log("route admin", request.remote_addr)
+            return render_template("admin.html")
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return 'bad'
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return "bad"
 
-    #authenticate incoming request key with the servers local key
-    @app.route('/auth',methods=['GET', 'POST'])
+    # authenticate incoming request key with the servers local key
+    @app.route("/auth", methods=["GET", "POST"])
     def auth():
         try:
-            with open('secretkey.txt') as f:
+            with open("secretkey.txt") as f:
                 serverkey = f.read()
-                if serverkey == request.json['psk']:
-                    logmaker('daily').log('auth pass',request.remote_addr)
+                if serverkey == request.json["psk"]:
+                    logmaker("daily").log("auth pass", request.remote_addr)
                     return "true"
                 else:
-                    logmaker('daily').log('auth fail',request.remote_addr)
+                    logmaker("daily").log("auth fail", request.remote_addr)
                     return "false"
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return 'bad'
-    
-    #admin side handling function to modify content and manage reports
-    @app.route('/moderate',methods=['GET', 'POST'])
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return "bad"
+
+    # admin side handling function to modify content and manage reports
+    @app.route("/moderate", methods=["GET", "POST"])
     def moderate():
         try:
-            mod_type = request.json['type']
-            mod_action = request.json['action']
+            mod_type = request.json["type"]
+            mod_action = request.json["action"]
 
-            if mod_action == 'no_render_norep' or mod_action == 'delete_norep':
-                mod_id = request.json['id']
+            if mod_action == "no_render_norep" or mod_action == "delete_norep":
+                mod_id = request.json["id"]
             else:
-                mod_id = str(query_db('select content_id from reports where id="'+request.json['id']+'"')[0][0])
-                
+                mod_id = str(
+                    query_db(
+                        'select content_id from reports where id="'
+                        + request.json["id"]
+                        + '"'
+                    )[0][0]
+                )
+
             try:
-                if mod_action == 'delete':
+                if mod_action == "delete":
                     try:
-                        logmaker('daily').log('report delete',request.remote_addr)
-                        if mod_type == 'post':
-                            execute_db('update main set deleted="1" where id="'+mod_id+'"')
-                        elif mod_type == 'comment':
-                            execute_db('update comments set deleted="1" where id="'+mod_id+'"')
-                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                        return 'ok'
+                        logmaker("daily").log("report delete", request.remote_addr)
+                        if mod_type == "post":
+                            execute_db(
+                                'update main set deleted="1" where id="' + mod_id + '"'
+                            )
+                        elif mod_type == "comment":
+                            execute_db(
+                                'update comments set deleted="1" where id="'
+                                + mod_id
+                                + '"'
+                            )
+                        execute_db(
+                            'DELETE FROM reports WHERE content_id="' + mod_id + '"'
+                        )
+                        return "ok"
                     except Exception as e:
                         print(e)
-                        return 'bad'
-                elif mod_action == 'dismiss':
+                        return "bad"
+                elif mod_action == "dismiss":
                     try:
-                        logmaker('daily').log('report dismiss',request.remote_addr)
-                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                        return 'ok'
+                        logmaker("daily").log("report dismiss", request.remote_addr)
+                        execute_db(
+                            'DELETE FROM reports WHERE content_id="' + mod_id + '"'
+                        )
+                        return "ok"
                     except Exception as e:
                         print(e)
-                        return 'bad'
-                elif mod_action == 'no_render':
+                        return "bad"
+                elif mod_action == "no_render":
                     try:
-                        logmaker('daily').log('report invisible',request.remote_addr)
-                        if mod_type == 'post':
-                            execute_db('update main set deleted="2" where id="'+mod_id+'"')
-                        elif mod_type == 'comment':
-                            execute_db('update comments set deleted="2" where id="'+mod_id+'"')
-                        execute_db('DELETE FROM reports WHERE content_id="'+mod_id+'"')
-                        return 'ok'
+                        logmaker("daily").log("report invisible", request.remote_addr)
+                        if mod_type == "post":
+                            execute_db(
+                                'update main set deleted="2" where id="' + mod_id + '"'
+                            )
+                        elif mod_type == "comment":
+                            execute_db(
+                                'update comments set deleted="2" where id="'
+                                + mod_id
+                                + '"'
+                            )
+                        execute_db(
+                            'DELETE FROM reports WHERE content_id="' + mod_id + '"'
+                        )
+                        return "ok"
                     except:
-                        logmaker('daily').log('failure bad_request',request.remote_addr)
-                        return 'bad'
+                        logmaker("daily").log(
+                            "failure bad_request", request.remote_addr
+                        )
+                        return "bad"
             except Exception as e:
                 print(e)
-                return 'bad'
+                return "bad"
 
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return 'bad'
-        return 'wtf'
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return "bad"
+        return "wtf"
 
     ##########################################################################
 
-    #report related endpoints
-    @app.route('/fetchreports')
+    # report related endpoints
+    @app.route("/fetchreports")
     def fetchreports():
         try:
-            logmaker('daily').log('fetch reports',request.remote_addr)
-            return json.dumps(query_db('select * from reports'))
+            logmaker("daily").log("fetch reports", request.remote_addr)
+            return json.dumps(query_db("select * from reports"))
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return 'bad'
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return "bad"
 
-    @app.route('/report',methods=['GET', 'POST'])
+    @app.route("/report", methods=["GET", "POST"])
     def report():
         try:
-            if request.json['type'] == 'post':
-                logmaker('daily').log('report post',request.remote_addr)
-                execute_db('insert into reports (content_id,reason,content,type) values ('+request.json['id']+',"'+request.json['reason']+'","'+query_db('select content from main where id="'+request.json['id']+'"')[0][0]+'","'+request.json['type']+'")')
-                return json.dumps('ok')
-            elif request.json['type'] == 'comment':
-                logmaker('daily').log('report comment',request.remote_addr)
-                execute_db('insert into reports (content_id,reason,content,type) values ('+request.json['id']+',"'+request.json['reason']+'","'+query_db('select content from comments where id="'+request.json['id']+'"')[0][0]+'","'+request.json['type']+'")')
-                return json.dumps('ok')
+            if request.json["type"] == "post":
+                logmaker("daily").log("report post", request.remote_addr)
+                execute_db(
+                    "insert into reports (content_id,reason,content,type) values ("
+                    + request.json["id"]
+                    + ',"'
+                    + request.json["reason"]
+                    + '","'
+                    + query_db(
+                        'select content from main where id="' + request.json["id"] + '"'
+                    )[0][0]
+                    + '","'
+                    + request.json["type"]
+                    + '")'
+                )
+                return json.dumps("ok")
+            elif request.json["type"] == "comment":
+                logmaker("daily").log("report comment", request.remote_addr)
+                execute_db(
+                    "insert into reports (content_id,reason,content,type) values ("
+                    + request.json["id"]
+                    + ',"'
+                    + request.json["reason"]
+                    + '","'
+                    + query_db(
+                        'select content from comments where id="'
+                        + request.json["id"]
+                        + '"'
+                    )[0][0]
+                    + '","'
+                    + request.json["type"]
+                    + '")'
+                )
+                return json.dumps("ok")
             else:
-                logmaker('daily').log('failure bad_request',request.remote_addr)
-                return json.dumps('bad')
+                logmaker("daily").log("failure bad_request", request.remote_addr)
+                return json.dumps("bad")
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
-    #grab the number of open reports
-    @app.route('/fetchnumreps')
+    # grab the number of open reports
+    @app.route("/fetchnumreps")
     def fetchnumreps():
         try:
-            logmaker('daily').log('fetch num_reports',request.remote_addr)
-            return json.dumps(query_db('SELECT COUNT(*) FROM reports')[0][0])
+            logmaker("daily").log("fetch num_reports", request.remote_addr)
+            return json.dumps(query_db("SELECT COUNT(*) FROM reports")[0][0])
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
     ##########################################################################
-    
-    #on server close execute these commands
+
+    # on server close execute these commands
     @app.teardown_appcontext
     def close_connection(exception):
-        db = getattr(g, '_database', None)
+        db = getattr(g, "_database", None)
         if db is not None:
             db.close()
 
     ##########################################################################
 
-    #endpoints for post fetching:
-    @app.route('/fetchposts',methods=['GET', 'POST'])
+    # endpoints for post fetching:
+    @app.route("/fetchposts", methods=["GET", "POST"])
     def fetchposts():
         try:
-            order = request.json['order']
-            start = request.json['start']
-            numloaded = int(request.json['numloaded'])
+            order = request.json["order"]
+            start = request.json["start"]
+            numloaded = int(request.json["numloaded"])
 
-            #if we are doing a first load or type change do the standard procedure
-            if start == 'fresh':
-                if order == 'old':
-                    logmaker('daily').log('fetch old',request.remote_addr)
-                    return json.dumps(query_db('select * from main where deleted != 3 order by ID asc LIMIT 15'))
-                elif order == 'new':
-                    logmaker('daily').log('fetch new',request.remote_addr)
-                    return json.dumps(query_db('select * from main where deleted != 3 order by ID desc LIMIT 15'))
-                elif order == 'pop':
-                    logmaker('daily').log('fetch pop',request.remote_addr)
-                    return json.dumps(query_db('select * from main where deleted != 3 order by likes desc LIMIT 15'))
+            # if we are doing a first load or type change do the standard procedure
+            if start == "fresh":
+                if order == "old":
+                    logmaker("daily").log("fetch old", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 3 order by ID asc LIMIT 15"
+                        )
+                    )
+                elif order == "new":
+                    logmaker("daily").log("fetch new", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 3 order by ID desc LIMIT 15"
+                        )
+                    )
+                elif order == "pop":
+                    logmaker("daily").log("fetch pop", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 3 order by likes desc LIMIT 15"
+                        )
+                    )
                 else:
-                    logmaker('daily').log('failure bad_request',request.remote_addr)
-                    return 'bad request'
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
+                    return "bad request"
             else:
                 start = int(start)
-                if order == 'old':
-                    logmaker('daily').log('fetch old',request.remote_addr)
-                    return json.dumps(query_db('select * from main where deleted != 3 AND id BETWEEN '+str(start + 1)+' AND '+str(start + 16)+' LIMIT 15'))
-                elif order == 'new':
-                    logmaker('daily').log('fetch new',request.remote_addr)
-                    #for some reason 24 is the ceiling final request for the bottom of the content
-                    if start == 24:
-                        print('balls')
-                        return json.dumps(query_db('select * from main where deleted != 3 AND id BETWEEN 0 AND 23 order by ID desc'))
-                    else:
-                        return json.dumps(query_db('select * from main where deleted != 3 AND id BETWEEN '+str(start - 16)+' AND '+str(start - 1)+' order by ID desc LIMIT 15'))
-                elif order == 'pop':
-                    logmaker('daily').log('fetch pop',request.remote_addr)
-                    #grab all posts in desc order of popular
-                    result = query_db('select * from main where deleted != 3 order by likes desc')
-                    final = [] #create blank list
-                    #run loop 15 times
+                if order == "old":
+                    logmaker("daily").log("fetch old", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 3 AND id BETWEEN "
+                            + str(start + 1)
+                            + " AND "
+                            + str(start + 16)
+                            + " LIMIT 15"
+                        )
+                    )
+                elif order == "new":
+                    logmaker("daily").log("fetch new", request.remote_addr)
+                    # for some reason 24 is the ceiling final request for the bottom of the content
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 3 AND id BETWEEN "
+                            + str(start - 16)
+                            + " AND "
+                            + str(start - 1)
+                            + " order by ID desc LIMIT 15"
+                        )
+                    )
+                elif order == "pop":
+                    logmaker("daily").log("fetch pop", request.remote_addr)
+                    # grab all posts in desc order of popular
+                    result = query_db(
+                        "select * from main where deleted != 3 order by likes desc"
+                    )
+                    final = []  # create blank list
+                    # run loop 15 times
                     for i in range(15):
-                        final.append(result[i + numloaded]) #add 15 next posts in the correct order
+                        final.append(
+                            result[i + numloaded]
+                        )  # add 15 next posts in the correct order
                     return json.dumps(final)
                 else:
-                    logmaker('daily').log('failure bad_request',request.remote_addr)
-                    return 'bad request'
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
+                    return "bad request"
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
-
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
     ##########################################################################
 
-    #endpoints for comments:
-    @app.route('/commentsnew',methods=['GET', 'POST'])
+    # endpoints for comments:
+    @app.route("/commentsnew", methods=["GET", "POST"])
     def comments():
         try:
-            logmaker('daily').log('fetch new_comments',request.remote_addr)
-            return json.dumps(query_db('select * from comments where post="'+request.json['id']+'"'))
+            logmaker("daily").log("fetch new_comments", request.remote_addr)
+            return json.dumps(
+                query_db(
+                    'select * from comments where post="' + request.json["id"] + '"'
+                )
+            )
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
-    
-    #this is an admin side function to view every comment on the site
-    @app.route('/fetchallcomments',methods=['GET', 'POST'])
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
+
+    # this is an admin side function to view every comment on the site
+    @app.route("/fetchallcomments", methods=["GET", "POST"])
     def allcomments():
         try:
-            logmaker('daily').log('fetch all_comments',request.remote_addr)
-            return json.dumps(query_db('select * from comments'))
+            logmaker("daily").log("fetch all_comments", request.remote_addr)
+            return json.dumps(query_db("select * from comments"))
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
-    @app.route('/numcomments',methods=['GET', 'POST'])
+    @app.route("/numcomments", methods=["GET", "POST"])
     def numcomments():
         try:
-            logmaker('daily').log('fetch num_comments',request.remote_addr)
-            return str(query_db('select comment_count from main where id="'+request.json['id']+'"')[0][0])
+            logmaker("daily").log("fetch num_comments", request.remote_addr)
+            return str(
+                query_db(
+                    'select comment_count from main where id="'
+                    + request.json["id"]
+                    + '"'
+                )[0][0]
+            )
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
-    @app.route('/comment',methods=['GET', 'POST'])
+    @app.route("/comment", methods=["GET", "POST"])
     def leavecomment():
         try:
-            logmaker('daily').log('post comment',request.remote_addr)
+            logmaker("daily").log("post comment", request.remote_addr)
             req = request.json
-            #execute the comment to the comment table
-            execute_db('insert into comments (id,post,content,likes,stamp,user,deleted) values ('+str(query_db('SELECT Count(*) FROM comments')[0][0])+',"'+req["POST"]+'","'+req["CONTENT"]+'",0,"'+str(datetime.datetime.now())[0:19]+'","'+req["USER"]+'",false)')
-            #update main table comment amount to reflect new comment count
-            execute_db('update main set comment_count=('+str((query_db('select comment_count from main where id="'+req['POST']+'"')[0][0])+1)+') where id="'+req['POST']+'"')
+            # execute the comment to the comment table
+            execute_db(
+                "insert into comments (id,post,content,likes,stamp,user,deleted) values ("
+                + str(query_db("SELECT Count(*) FROM comments")[0][0])
+                + ',"'
+                + req["POST"]
+                + '","'
+                + req["CONTENT"]
+                + '",0,"'
+                + str(datetime.datetime.now())[0:19]
+                + '","'
+                + req["USER"]
+                + '",false)'
+            )
+            # update main table comment amount to reflect new comment count
+            execute_db(
+                "update main set comment_count=("
+                + str(
+                    (
+                        query_db(
+                            'select comment_count from main where id="'
+                            + req["POST"]
+                            + '"'
+                        )[0][0]
+                    )
+                    + 1
+                )
+                + ') where id="'
+                + req["POST"]
+                + '"'
+            )
             return "commented"
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
     ##########################################################################
 
-    #endpoints for laughing:
-    @app.route('/laugh',methods=['GET', 'POST'])
+    # endpoints for laughing:
+    @app.route("/laugh", methods=["GET", "POST"])
     def laugh():
         try:
-            if request.json['type'] == 'post':
-                logmaker('daily').log('laugh post',request.remote_addr)
-                val = json.dumps(query_db('select likes from main where id="'+request.json['id']+'"')[0][0])
-                execute_db('update main set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
-                return str(int(val)+1)
-            elif request.json['type'] == 'comment':
-                logmaker('daily').log('laugh comment',request.remote_addr)
-                val = json.dumps(query_db('select likes from comments where id="'+request.json['id']+'"')[0][0])
-                execute_db('update comments set likes=('+str( int(val) + 1)+') where id="'+request.json['id']+'"')
-                return str(int(val)+1)
+            if request.json["type"] == "post":
+                logmaker("daily").log("laugh post", request.remote_addr)
+                val = json.dumps(
+                    query_db(
+                        'select likes from main where id="' + request.json["id"] + '"'
+                    )[0][0]
+                )
+                execute_db(
+                    "update main set likes=("
+                    + str(int(val) + 1)
+                    + ') where id="'
+                    + request.json["id"]
+                    + '"'
+                )
+                return str(int(val) + 1)
+            elif request.json["type"] == "comment":
+                logmaker("daily").log("laugh comment", request.remote_addr)
+                val = json.dumps(
+                    query_db(
+                        'select likes from comments where id="'
+                        + request.json["id"]
+                        + '"'
+                    )[0][0]
+                )
+                execute_db(
+                    "update comments set likes=("
+                    + str(int(val) + 1)
+                    + ') where id="'
+                    + request.json["id"]
+                    + '"'
+                )
+                return str(int(val) + 1)
             else:
-                logmaker('daily').log('failure bad_request',request.remote_addr)
-                return 'ERROR SOME SHIT GOIN ON IN THE SERVER' 
+                logmaker("daily").log("failure bad_request", request.remote_addr)
+                return "ERROR SOME SHIT GOIN ON IN THE SERVER"
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
-    
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
+
     ##########################################################################
 
-    #endpoints for posting:
-    @app.route('/post',methods=['GET', 'POST'])
+    # endpoints for posting:
+    @app.route("/post", methods=["GET", "POST"])
     def post():
         try:
-            logmaker('daily').log('post text',request.remote_addr)
+            logmaker("daily").log("post text", request.remote_addr)
             req = request.json
-            postid = str(query_db('SELECT Count(*) FROM main')[0][0])
-            execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+req['USER']+'","'+ req['CONTENT'].replace('"','“') +'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
+            postid = str(query_db("SELECT Count(*) FROM main")[0][0])
+            execute_db(
+                "insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ("
+                + postid
+                + ',"'
+                + req["USER"]
+                + '","'
+                + req["CONTENT"].replace('"', "“")
+                + '",'
+                + str(0)
+                + ',"'
+                + str(datetime.datetime.now())[0:19]
+                + '",0,0)'
+            )
             return "done"
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
-    @app.route('/postimage',methods=['POST'])
+    @app.route("/postimage", methods=["POST"])
     def postimg():
         try:
-            logmaker('daily').log('post image',request.remote_addr)
-            #detect if theres a file in the request
-            if request.files['file']:
-                #nab the file from the request
-                uploaded_file = request.files['file']
-            
-            #generate post id and insert our post to the main table
-            postid = str(query_db('SELECT Count(*) FROM main')[0][0])
-            execute_db('insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ('+postid+',"'+request.form['USER']+'","'+request.form['text'].replace('"','“')+'",'+ str(0)+',"'+str(datetime.datetime.now())[0:19]+'",0,0)')
-            
-            #if the filename isnt empty
-            if uploaded_file.filename != '':
-                attachmentid = str(query_db('SELECT Count(*) FROM attachments')[0][0])
-                newfilename =  attachmentid +'.'+ uploaded_file.filename.split('.')[1] 
-                uploaded_file.save("static/attachments/"+newfilename)
-                execute_db('insert into attachments (postid,name) values ('+postid+',"'+newfilename+'")')
-                execute_db('update main set attachmentid=("'+attachmentid+'") where id="'+postid+'"')
-            return render_template('index.html')
+            logmaker("daily").log("post image", request.remote_addr)
+            # detect if theres a file in the request
+            if request.files["file"]:
+                # nab the file from the request
+                uploaded_file = request.files["file"]
+
+            # generate post id and insert our post to the main table
+            postid = str(query_db("SELECT Count(*) FROM main")[0][0])
+            execute_db(
+                "insert into main (ID,USER,CONTENT,LIKES,STAMP,deleted,comment_count) values ("
+                + postid
+                + ',"'
+                + request.form["USER"]
+                + '","'
+                + request.form["text"].replace('"', "“")
+                + '",'
+                + str(0)
+                + ',"'
+                + str(datetime.datetime.now())[0:19]
+                + '",0,0)'
+            )
+
+            # if the filename isnt empty
+            if uploaded_file.filename != "":
+                attachmentid = str(query_db("SELECT Count(*) FROM attachments")[0][0])
+                newfilename = attachmentid + "." + uploaded_file.filename.split(".")[1]
+                uploaded_file.save("static/attachments/" + newfilename)
+                execute_db(
+                    "insert into attachments (postid,name) values ("
+                    + postid
+                    + ',"'
+                    + newfilename
+                    + '")'
+                )
+                execute_db(
+                    'update main set attachmentid=("'
+                    + attachmentid
+                    + '") where id="'
+                    + postid
+                    + '"'
+                )
+            return render_template("index.html")
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
     ##########################################################################
 
-    #endpoints for attachments:
-    @app.route('/getattachment',methods=['GET', 'POST'])
+    # endpoints for attachments:
+    @app.route("/getattachment", methods=["GET", "POST"])
     def getattachment():
         try:
-            logmaker('daily').log('fetch attachment_table',request.remote_addr)
-            return json.dumps(query_db('select * from attachments'))
+            logmaker("daily").log("fetch attachment_table", request.remote_addr)
+            return json.dumps(query_db("select * from attachments"))
         except Exception as e:
-            logmaker('daily').log('failure - '+e + ' - ','INTERNAL')
-            return json.dumps('bad')
+            logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+            return json.dumps("bad")
 
     ##########################################################################
-    
+
     return app
