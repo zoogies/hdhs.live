@@ -1,7 +1,7 @@
 function basicxhr(route,data){
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://76.181.32.163:5000/"+route);
+        xhr.open("POST", "http://hdhs.live/"+route);
         xhr.setRequestHeader("Accept","apllication/json");
         xhr.setRequestHeader("Content-Type","application/json");
         xhr.onload = function () {
@@ -34,6 +34,6 @@ function filexhr(file,data){
     formData.append('text', data['CONTENT']);
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://76.181.32.163:5000/postimage', true);
+    xhr.open('POST', 'http://hdhs.live/postimage', true);
     xhr.send(formData);
 }

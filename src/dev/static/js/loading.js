@@ -8,5 +8,5 @@ function loadicon() {
     }
 
     //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-    document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="http://76.181.32.163:5000/static/resources/load.gif"/></div>'
+    document.getElementById("container").innerHTML += '<div id="end"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>'
 }

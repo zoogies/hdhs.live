@@ -32,7 +32,7 @@ function posst(){
             type = file.type.split('/')[1]
 
             //check extensions
-            if(!['png','jpg','gif','jpeg'].includes(type)){
+            if(!['png','jpg','gif','jpeg','.mp4'].includes(type)){
                 //if not approved extension tell the user
                 alert('Invalid Image Format! You can only submit png jpg or gifs!')
                 return;
