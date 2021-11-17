@@ -320,6 +320,17 @@ h1 {
 }
 #loading {
     text-align:center;
+    width:150px;
+    height:150px;
+    left:0;
+    right:0;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    position: relative;
+    width: 150px;
+    height: 150px;
 }
 #field {
     width:98%;
