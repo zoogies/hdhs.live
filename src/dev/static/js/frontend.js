@@ -27,6 +27,10 @@ function getContent(sort,start){
     })
 }
 
+//set list of allowed content types
+var videotypes = ['mp4','mov','quicktime']
+var phototypes = ['png','jpg','gif','jpeg']
+
 //render the content to the end of the main container
 function renderContent(response){
     //create content variable out of json parsed response from server
@@ -68,10 +72,35 @@ function renderContent(response){
             var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
             var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://hdhs.live/static/resources/joy.png"/></div>'
             var footer = '<div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
+            
             //if our current post contains an attachment
             if (attachment_id != null){
-                //embed our attachment with the fetched path to our post
-                document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
+                console.log(post_id)
+                try{
+                    var attachmentExtension = attachment_table[attachment_id][2].split('.')[1]
+                    path = 'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]
+                    console.log(path)
+                }
+                catch{
+                    var attachmentExtension = 'png'
+                    path = 'http://hdhs.live/static/resources/error.png'
+                }
+
+                //if its an allowed video
+                if(videotypes.includes(attachmentExtension)){
+                    //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
+                    document.getElementById(post_id).innerHTML+='<div class="embed"><video class="attachment" controls><source src="'+path+'#t=0.001"></video></div>'
+                }
+                //else if its an allowed photo
+                else if(phototypes.includes(attachmentExtension)){
+                    //embed a photo with a src of our attachment to post
+                    document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+path+'"/></div>'
+                }
+                //throw an error to make my life easier
+                else{
+                    console.error('bad attachment type recieved for post '+post_id+' with attachmentid '+attachment_id)
+                }
+                
                 //embed the defualt footer to the post
                 document.getElementById(post_id).innerHTML+=footer;
             }
@@ -261,7 +290,7 @@ function loadMore(){
 
             if(data['start'] == '0'){
                 capped = true;
-                return
+                return;
             }
 
             basicxhr('fetchposts',data).then(function (response) {

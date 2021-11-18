@@ -32,24 +32,25 @@ function posst(){
             type = file.type.split('/')[1]
 
             //check extensions
-            if(!['png','jpg','gif','jpeg','.mp4'].includes(type)){
+            if(!['png','jpg','gif','jpeg','mp4','quicktime','mov'].includes(type)){
                 //if not approved extension tell the user
-                alert('Invalid Image Format! You can only submit png jpg or gifs!')
+                alert('Invalid Image Format! You can only submit png jpg or gifs, not "'+String(type)+'"!')
                 return;
             }
 
             //check file size
-            if (file.size > 6000000) {
-                //if the file is more than 6 mb
-                alert('Your image is way too big! Please keep the size under 6mb. Google "image compressor" to make it smaller.')
+            if (file.size > 10000000) {
+                //if the file is more than 10 mb
+                alert('Your image is way too big! Please keep the size under 10mb. Google "image compressor" to make it smaller.')
                 return; //break the post function
             }
 
             var data = {
                 "USER": String(name),
                 "CONTENT": String(posttext),
-                "attachment": String(file['name']),
+                "attachment": String(file['name']).replace(/[.](?=.*[.])/g, ""),
             };
+
             //send a xhr request using our async function we wrote and act based on the result
             filexhr(file,data)
             setTimeout(() => {  location.reload(); }, 500); 

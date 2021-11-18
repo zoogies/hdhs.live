@@ -1,15 +1,11 @@
 # imports
-import os
 import sqlite3
-import random
 import datetime
-import base64
+import re
 import json
-import requests
 from requests.structures import CaseInsensitiveDict
 from flask import Flask, render_template
 from flask import g, request
-from flask import send_file
 
 # import custom logging class
 from logs import logmaker
@@ -22,9 +18,6 @@ DATABASE = "danarchy.db"
 headers = CaseInsensitiveDict()
 headers["User-Agent"] = "curl/7.68.0"
 headers["Authorization"] = "Bearer f3213625c42436"
-# file handling
-UPLOAD_FOLDER = "/static/attachments"
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "heic"}
 
 # connecting to our db
 def get_db():
@@ -60,18 +53,6 @@ def query_db(query, args=(), one=False):
         rv = cur.fetchall()
         cur.close()
         return (rv[0] if rv else None) if one else rv
-    except Exception as e:
-        logmaker("daily").log("failure - " + str(e), "INTERNAL")
-        return "bad"
-
-
-# check for if a file is allowed
-def allowed_file(filename):
-    try:
-        logmaker("daily").log("filename validate", "INTERNAL")
-        return (
-            "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-        )
     except Exception as e:
         logmaker("daily").log("failure - " + str(e), "INTERNAL")
         return "bad"
@@ -548,7 +529,14 @@ def postimg():
         # if the filename isnt empty
         if uploaded_file.filename != "":
             attachmentid = str(query_db("SELECT Count(*) FROM attachments")[0][0])
-            newfilename = attachmentid + "." + uploaded_file.filename.split(".")[1]
+            newfilename = uploaded_file.filename
+            newfilename = (
+                attachmentid
+                + "."
+                + re.sub(r"\.(?![^.]*$)", "", newfilename).split(".")[1]
+            )
+            newfilename = newfilename.lower()
+
             uploaded_file.save("static/attachments/" + newfilename)
             execute_db(
                 "insert into attachments (postid,name) values ("
