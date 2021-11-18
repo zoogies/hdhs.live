@@ -318,16 +318,18 @@ def fetchposts():
                 )
             elif order == "new":
                 logmaker("daily").log("fetch new", request.remote_addr)
-                # for some reason 24 is the ceiling final request for the bottom of the content
-                return json.dumps(
-                    query_db(
-                        "select * from main where deleted != 3 AND id BETWEEN "
-                        + str(start - 16)
-                        + " AND "
-                        + str(start - 1)
-                        + " order by ID desc LIMIT 15"
-                    )
+
+                value = query_db(
+                    "select * from main where deleted != 3 AND id BETWEEN "
+                    + str(start - 16)
+                    + " AND "
+                    + str(start - 1)
+                    + " order by ID desc LIMIT 15"
                 )
+
+                # if numloaded == value[len(value) - 1][0]: #if the users cached count of the db for that tab is equal
+
+                return json.dumps(value)
             elif order == "pop":
                 logmaker("daily").log("fetch pop", request.remote_addr)
                 # grab all posts in desc order of popular

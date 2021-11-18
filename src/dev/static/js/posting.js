@@ -52,8 +52,9 @@ function posst(){
             };
 
             //send a xhr request using our async function we wrote and act based on the result
-            filexhr(file,data)
-            setTimeout(() => {  location.reload(); }, 500); 
+            filexhr(file,data).then(function (response) {
+                location.reload();
+            })
         }
         //if we are doing a normal text post
         else{
@@ -64,10 +65,9 @@ function posst(){
                 "attachment": 'none',
             };
             //send a xhr request using our async function we wrote and act based on the result
-            basicxhr('post', data)
-            .then(function (response) {
+            basicxhr('post', data).then(function (response) {
                 //this is what we do when the post is done uploading
-                setTimeout(() => {  location.reload(); }, 500); 
+                location.reload();
             })
             .catch(function (err) {
                 console.error('An error occured!', err.statusText);
