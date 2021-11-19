@@ -283,21 +283,21 @@ def fetchposts():
                 logmaker("daily").log("fetch old", request.remote_addr)
                 return json.dumps(
                     query_db(
-                        "select * from main where deleted != 3 order by ID asc LIMIT 15"
+                        "select * from main where deleted != 2 order by ID asc LIMIT 15"
                     )
                 )
             elif order == "new":
                 logmaker("daily").log("fetch new", request.remote_addr)
                 return json.dumps(
                     query_db(
-                        "select * from main where deleted != 3 order by ID desc LIMIT 15"
+                        "select * from main where deleted != 2 order by ID desc LIMIT 15"
                     )
                 )
             elif order == "pop":
                 logmaker("daily").log("fetch pop", request.remote_addr)
                 return json.dumps(
                     query_db(
-                        "select * from main where deleted != 3 order by likes desc LIMIT 15"
+                        "select * from main where deleted != 2 order by likes desc LIMIT 15"
                     )
                 )
             else:
@@ -309,7 +309,7 @@ def fetchposts():
                 logmaker("daily").log("fetch old", request.remote_addr)
                 return json.dumps(
                     query_db(
-                        "select * from main where deleted != 3 AND id BETWEEN "
+                        "select * from main where deleted != 2 AND id BETWEEN "
                         + str(start + 1)
                         + " AND "
                         + str(start + 16)
@@ -320,7 +320,7 @@ def fetchposts():
                 logmaker("daily").log("fetch new", request.remote_addr)
 
                 value = query_db(
-                    "select * from main where deleted != 3 AND id BETWEEN "
+                    "select * from main where deleted != 2 AND id BETWEEN "
                     + str(start - 16)
                     + " AND "
                     + str(start - 1)
@@ -334,7 +334,7 @@ def fetchposts():
                 logmaker("daily").log("fetch pop", request.remote_addr)
                 # grab all posts in desc order of popular
                 result = query_db(
-                    "select * from main where deleted != 3 order by likes desc"
+                    "select * from main where deleted != 2 order by likes desc"
                 )
                 final = []  # create blank list
                 # run loop 15 times
