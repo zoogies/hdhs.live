@@ -1,4 +1,5 @@
 var attachment_table;
+var scrolledtobottom = false;
 
 function getContent(sort,start){
     //send a xhr request using our async function we wrote and act based on the result
@@ -45,6 +46,12 @@ function renderContent(response){
         //set current post to the row of content we are indexing from our lump json
         var post = content[p]
 
+        if(post[0] == 'end'){
+            scrolledtobottom = true;
+            loadicon();
+            return;
+        }
+
         //assign instance variables for each loop to concatenate easier
         post_id = post[0]
         post_user = post[1]
@@ -75,11 +82,11 @@ function renderContent(response){
             
             //if our current post contains an attachment
             if (attachment_id != null){
-                console.log(post_id)
+                //console.log(post_id)
                 try{
                     var attachmentExtension = attachment_table[attachment_id][2].split('.')[1]
                     path = 'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]
-                    console.log(path)
+                    //console.log(path)
                 }
                 catch{
                     var attachmentExtension = 'png'
@@ -250,18 +257,20 @@ function trackchar(){
 //function that tracks users scroll progress and will request more content be appended if the user is within 80% of the end of the timeline
 //updates every second
 function trackscroll(){
-    //attempt to path to our divs if they are not loaded yet
-    if(tl == null || ctn == null){
-        var tl = document.getElementById('toplevel');
-        var ctn = document.getElementById('container');
-    }
-    //get percentage of content the user has scrolled through
-    var percentScroll = tl.scrollTop / ctn.offsetHeight;
-    //console.log(percentScroll);
-    //if the user has scrolled past 70% of the posts we need to load more
-    if(percentScroll >= .50){
-        loadMore();
-        //console.log('loading more')
+    if(!scrolledtobottom){
+        //attempt to path to our divs if they are not loaded yet
+        if(tl == null || ctn == null){
+            var tl = document.getElementById('toplevel');
+            var ctn = document.getElementById('container');
+        }
+        //get percentage of content the user has scrolled through
+        var percentScroll = tl.scrollTop / ctn.offsetHeight;
+        //console.log(percentScroll);
+        //if the user has scrolled past 70% of the posts we need to load more
+        if(percentScroll >= .50){
+            loadMore();
+            //console.log('loading more')
+        }
     }
 }
 

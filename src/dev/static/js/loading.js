@@ -6,7 +6,14 @@ function loadicon() {
     if (document.contains(document.getElementById("loading"))) {
         document.getElementById("loading").remove();  
     }
-
-    //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-    document.getElementById("container").innerHTML += '<div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>'
+    else if (document.contains(document.getElementById("endcard"))) {
+        document.getElementById("endcard").remove();  
+    }
+    if(!scrolledtobottom){
+        //append to the bottom of our container a fun little easter egg post telling the user they reached the end
+        document.getElementById("container").innerHTML += '<div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>'
+    }
+    else{
+        document.getElementById("container").innerHTML += '<div id="endcard"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>';
+    }
 }

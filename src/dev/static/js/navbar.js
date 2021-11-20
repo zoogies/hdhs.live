@@ -13,6 +13,8 @@ function fresh(){
         
         //reset our numloaded
         numloaded = 0;
+
+        scrolledtobottom = false;
     }
     catch{
         alert('Something went wrong')
@@ -22,6 +24,7 @@ function fresh(){
 function s_new(){
     try{
         //content
+        loadicon();
         flushcontainer();
         getContent("new",'fresh');
 
@@ -42,6 +45,7 @@ function s_new(){
 function s_old(){
     try{
         //content
+        loadicon();
         flushcontainer();
         getContent("old",'fresh');
 
@@ -61,6 +65,7 @@ function s_old(){
 function s_pop(){
     try{
         //content
+        loadicon();
         flushcontainer();
         getContent("pop",'fresh');
 

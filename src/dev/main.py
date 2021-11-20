@@ -307,25 +307,27 @@ def fetchposts():
             start = int(start)
             if order == "old":
                 logmaker("daily").log("fetch old", request.remote_addr)
-                return json.dumps(
-                    query_db(
-                        "select * from main where deleted != 2 AND id BETWEEN "
-                        + str(start + 1)
-                        + " AND "
-                        + str(start + 16)
-                        + " LIMIT 15"
-                    )
+
+                value = query_db(
+                    "select * from main where deleted != 2 AND id >= "
+                    + str(start + 1)
+                    + " LIMIT 15"
                 )
+
+                if len(value) < 15:
+                    value.append(["end"])
+
+                return json.dumps(value)
             elif order == "new":
                 logmaker("daily").log("fetch new", request.remote_addr)
 
                 value = query_db(
-                    "select * from main where deleted != 2 AND id BETWEEN "
-                    + str(start - 16)
-                    + " AND "
+                    "select * from main where deleted != 2 and id<= "
                     + str(start - 1)
                     + " order by ID desc LIMIT 15"
                 )
+                if len(value) < 15:
+                    value.append(["end"])
 
                 # if numloaded == value[len(value) - 1][0]: #if the users cached count of the db for that tab is equal
 
@@ -339,9 +341,14 @@ def fetchposts():
                 final = []  # create blank list
                 # run loop 15 times
                 for i in range(15):
-                    final.append(
-                        result[i + numloaded]
-                    )  # add 15 next posts in the correct order
+                    try:
+                        final.append(
+                            result[i + numloaded]
+                        )  # add 15 next posts in the correct order
+                    except:
+                        final.append(["end"])
+                        break
+                print(len(final))
                 return json.dumps(final)
             else:
                 logmaker("daily").log("failure bad_request", request.remote_addr)
