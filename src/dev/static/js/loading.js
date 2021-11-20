@@ -14,6 +14,6 @@ function loadicon() {
         document.getElementById("container").innerHTML += '<div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>'
     }
     else{
-        document.getElementById("container").innerHTML += '<div id="endcard"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>';
+        document.getElementById("container").innerHTML += '<div id="endcard" style="padding-bottom:90px;"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>';
     }
 }
