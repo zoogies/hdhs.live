@@ -76,9 +76,9 @@ function renderContent(response){
             document.getElementById("container").innerHTML += header;
 
             //set our post content presets
-            var postreportbtn = '<p onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn">Report</p>'
+            var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
             var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://hdhs.live/static/resources/joy.png"/></div>'
-            var footer = '<div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<p class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><b>View '+num_comments+' Comments</b></p>'+postreportbtn+'</div></div>'
+            var footer = '<div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
             
             //if our current post contains an attachment
             if (attachment_id != null){
@@ -173,7 +173,7 @@ function renderComments(id,data){
         // if the deleted status of the comment is 0 (not banned at all)
         if(data[comment][6] == 0){
             // awful, disgusting string of a comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comtxt">'+String(data[comment][2])+'</p><p class="comdate">'+String(data[comment][4])+'</p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.innerHTML += (content);
@@ -181,7 +181,7 @@ function renderComments(id,data){
         // else if the deleted status of the comment is 1 (directly banned)
         else if (data[comment][6] == 1){
             // awful, disgusting string of a visible banned comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comdate">'+String(data[comment][4])+'</p><p class="comliketxt" id="comment_'+String(data[comment][0])+'">'+String(data[comment][3])+' Laughs</p></div></div>';
+            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0])+'">'+String(data[comment][3])+' Laughs</p></div></div>';
             
             //append our comment to the parent post container
             reqbox.innerHTML += (content);
@@ -197,7 +197,7 @@ function refreshcomments(post){
     //will query for comments as single string, parse them and then append them programatically to the bottom of the post
 
     //grab our parent comment expand box
-    handler = document.getElementById(post).querySelector('#comclick');
+    handler = document.getElementById(post).querySelector('.viewcom');
 
     //if our box is not open
     if (!handler.classList.contains('opened')){
@@ -206,7 +206,7 @@ function refreshcomments(post){
         //if that box exists
         if(box){
             //change the text back to closed text
-            box.closest('.post').querySelector(".p_footer").querySelector('#comclick').innerText = "View Comments";
+            box.closest('.post').querySelector(".p_footer").querySelector('.viewcom').innerText = "View Comments";
             //remove the comment section div
             box.closest('.comments').remove();
         }
@@ -240,6 +240,7 @@ function refreshcomments(post){
             [].forEach.call(children, function(child) {if(child.classList.contains('comments')){child.remove()}});
             //set our box text back to defualt
             handler.innerText = "View "+response+" Comments";
+            //handler.style.width = "175.297px";
         })
         .catch(function (err) {
             console.error('An error occured!', err.statusText);

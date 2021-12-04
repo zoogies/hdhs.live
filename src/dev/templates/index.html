@@ -47,59 +47,61 @@
         </script>
     </head>
     <body onload="init()">
-        <div id="toplevel">
-            <div class="title">
-                <div id="logo">
-                    <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
+        <div id="page">
+            <div id="toplevel">
+                <div class="title">
+                    <div id="logo">
+                        <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
+                    </div>
+                    <h1 id="titletext">HDHS LIVE</h1>
+                    <!--<p class="tagline">A social media website for davidson students</p>-->
                 </div>
-                <h1 id="titletext">HDHS LIVE</h1>
-                <!--<p class="tagline">A social media website for davidson students</p>-->
-            </div>
-            <div class="bartl">
-                <div class="bar">
-                    <div onclick="s_new();" id="new" class="nav_sel">
-                        <p class="navtxt">New</p>
-                    </div>
-                    <div onclick="s_old();" id="old" class="nav_btn">
-                        <p class="navtxt">Old</p>
-                    </div>
-                    <div onclick="s_pop();" id="pop" class="nav_btn">
-                        <p class="navtxt">Popular</p>
-                    </div>
-                    <!--
-                        <div class="nav_btn setbtn">
-                            <img class="settingsbtn" src="{{url_for('static', filename='resources/settings.png')}}">
-                            <p style="padding-top:1px;" class="navtxt">Settings</p>
+                <div class="bartl">
+                    <div class="bar">
+                        <div onclick="s_new();" id="new" class="nav_sel">
+                            <p class="navtxt">New</p>
                         </div>
-                    -->
-                </div>
-            </div>
-            <div id="container">
-                <div id="save" class="poster post">
-                    <div class="posterhead">
-                        <p>Share what's on your mind:</p>
-                        <p id="charlim" class="ID">0/250 characters</p>
-                    </div>
-                    <div class="inputter">
-                        <textarea autocomplete="off" id="field" style="font-family:roboto; resize: none;" maxlength="250"></textarea>
-                    </div>
-                    <div class="labels">
-                        <p class="label">Username:</p>
-                        <p class="label">Attach an image:</p>
-                    </div>
-                    <div class="postbar">
-                        <div class="name">
-                            <input placeholder="Anonymous" id="name" type="text" maxlength="12" autocomplete="off">
+                        <div onclick="s_old();" id="old" class="nav_btn">
+                            <p class="navtxt">Old</p>
                         </div>
-                        <div class="uploadfile">
-                            <input id="selector" name="file" type="file"/>
+                        <div onclick="s_pop();" id="pop" class="nav_btn">
+                            <p class="navtxt">Popular</p>
                         </div>
-                    </div>
-                    <div class="pbtn hvr-fade" onclick="posst()">
-                        <p class="ptxt">POST</p>
+                        <!--
+                            <div class="nav_btn setbtn">
+                                <img class="settingsbtn" src="{{url_for('static', filename='resources/settings.png')}}">
+                                <p style="padding-top:1px;" class="navtxt">Settings</p>
+                            </div>
+                        -->
                     </div>
                 </div>
-                <div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>
+                <div id="container">
+                    <div id="save" class="poster post">
+                        <div class="posterhead">
+                            <p>Share what's on your mind:</p>
+                            <p id="charlim" class="ID">0/250 characters</p>
+                        </div>
+                        <div class="inputter">
+                            <textarea autocomplete="off" id="field" style="font-family:roboto; resize: none;" maxlength="250"></textarea>
+                        </div>
+                        <div class="labels">
+                            <p class="label">Username:</p>
+                            <p class="label">Attach an image:</p>
+                        </div>
+                        <div class="postbar">
+                            <div class="name">
+                                <input placeholder="Anonymous" id="name" type="text" maxlength="12" autocomplete="off">
+                            </div>
+                            <div class="uploadfile">
+                                <input id="selector" name="file" type="file"/>
+                            </div>
+                        </div>
+                        <div class="pbtn hvr-fade" onclick="posst()">
+                            <p class="ptxt">POST</p>
+                        </div>
+                    </div>
+                    <div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>
+                </div>
             </div>
         </div>
     </body>

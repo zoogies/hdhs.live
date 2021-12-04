@@ -78,8 +78,9 @@ h1 {
     padding-right:10px;
     display: flex;
     flex-wrap: wrap;
-    margin-top:6px;
-    margin-bottom:6px;
+    margin-top:0px;
+    margin-bottom:0px;
+    width: 100%;
 }
 
 .comlaughbtn{
@@ -107,6 +108,8 @@ h1 {
 .comtxt{
     width: 100%;
     margin:0px;
+    margin-top:6px;
+    margin-bottom:6px;
     overflow-wrap: break-word;
 }
 
@@ -147,11 +150,21 @@ h1 {
 
 #titletext{
     font-size: 16vw;
+    max-width: 1091.560px;
+    max-height: 258px;
 }
+@media screen and (min-width: 771px) {
+    #titletext {
+       font-size: 126px;
+    }
+  }
+  
 
 #logo{
     width:16vw;
     padding-left: 5px;
+    max-width: 123.359px;
+    max-height: 124.438px;
 }
 
 .bartl {
@@ -232,6 +245,7 @@ h1 {
     margin-top:0px;
     margin-bottom: 0px;
     vertical-align: middle;
+    height:40px;
 }
 
 .laughbtn {
@@ -254,6 +268,10 @@ h1 {
     height: 100vh;
     -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
     overflow-x: hidden;
+    max-width: 771px;
+}
+
+#page {
 }
 
 #container {
@@ -302,6 +320,7 @@ h1 {
 .p_footer {
     display: flex;
     align-content:center;
+    align-items: center;
 }
 
 .ID{
@@ -409,6 +428,21 @@ h1 {
     padding-top: 5px;
 }
 
+.viewcom{
+    padding:5px;
+}
+
+#comclick{
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    
+}
+
+.report_txt{
+    padding:5px;
+}
+
 /* report btn */
 
 .reportbtn {
@@ -418,10 +452,11 @@ h1 {
     border-radius: 12px;
     border-style: solid;
     border-color: black;
-    padding:5px;
-    padding-top:8px;
-    margin-top:0px;
-    margin-bottom: 0px;
+    height:40px;
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    /* margin-left: auto */
 }
 
 .reportbtncom {
@@ -442,10 +477,12 @@ h1 {
     max-width:98%;
     max-height:98%;
     padding:10px;
+    width: 100%;
 }
 .embed{
     display: flex;
     justify-content: center;
+    width:100%;
 }
 
 /* post bar */
