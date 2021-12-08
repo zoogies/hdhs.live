@@ -1,5 +1,12 @@
 //what actual refactored code does to an mf:
 
+//posting pop up box
+function postingpopup(){
+    var popup = document.getElementById("popup");
+    popup.classList.remove("hide"); //show popup
+    document.getElementById('toplevel').style.overflow = 'hidden'; //disable scrolling
+}
+
 //state variables
 var currentlyPosting = false;
 
@@ -24,7 +31,7 @@ function posst(){
 
     //make sure our post text is not 0 and less than 250
     if((posttext.length <= 250 && posttext.length > 0) || file != null){
-
+        postingpopup();
         //if we have a file selected
         if(file){
 

@@ -551,3 +551,43 @@ h1 {
     width: 80px;
     text-align: center;
 }
+
+#popup{
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    
+    background: #fff;
+    z-index: 200;
+    width:300px;
+    height:300px;
+    border-radius:15px;
+    border-width: 3px;
+    border-color: black;
+    border-style:solid;
+    box-shadow:0px 0px 20px 4px #000;
+}
+.hide{
+    visibility:hidden;
+}
+#pupLogo{
+    width: 100px;
+    height:100px;
+}
+.pupText{
+    color:black;
+    font-size: 45px;
+}
+
+.pupHead{
+    display:flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#pupLoad{
+    width:180px;
+    height:180px;
+}

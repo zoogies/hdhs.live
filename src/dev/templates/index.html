@@ -48,6 +48,16 @@
     </head>
     <body onload="init()">
         <div id="page">
+            <!-- posting popup -->
+            <div id="popup" class="hide">
+                <div class="pupHead">
+                    <img id="pupLogo" src="{{ url_for('static', filename='resources/icon.png') }}">
+                    <h1 class="pupText">Posting...</h1>
+                </div>
+                <div class="pupHead">
+                    <img id="pupLoad" src="{{ url_for('static', filename='resources/load.gif') }}">
+                </div>
+            </div>
             <div id="toplevel">
                 <div class="title">
                     <div id="logo">
