@@ -31,7 +31,6 @@ function posst(){
 
     //make sure our post text is not 0 and less than 250
     if((posttext.length <= 250 && posttext.length > 0) || file != null){
-        postingpopup();
         //if we have a file selected
         if(file){
 
@@ -42,6 +41,7 @@ function posst(){
             if(!['png','jpg','gif','jpeg','mp4','quicktime','mov'].includes(type)){
                 //if not approved extension tell the user
                 alert('Invalid Image Format! You can only submit png jpg or gifs, not "'+String(type)+'"!')
+                currentlyPosting = false;
                 return;
             }
 
@@ -49,8 +49,10 @@ function posst(){
             if (file.size > 10000000) {
                 //if the file is more than 10 mb
                 alert('Your image is way too big! Please keep the size under 10mb. Google "image compressor" to make it smaller.')
+                currentlyPosting = false;
                 return; //break the post function
             }
+            postingpopup();
 
             var data = {
                 "USER": String(name),
@@ -65,6 +67,7 @@ function posst(){
         }
         //if we are doing a normal text post
         else{
+            postingpopup();
             //set defualts with the text data user has entered
             var data = {
                 "USER": String(name),
@@ -78,6 +81,8 @@ function posst(){
             })
             .catch(function (err) {
                 console.error('An error occured!', err.statusText);
+                alert("An error has occured. (Err xhr_notext)")
+                location.reload();
             });
         }
     }
