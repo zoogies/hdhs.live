@@ -74,6 +74,18 @@ function renderContent(response){
                 //    }
                 //    console.log(finalcontent);
                 //}
+                // finalcontent = '';
+                // tmp = post_content.split(' ');
+                // for (word in tmp){
+                //     if(tmp[word.charAt(0)].charAt(0) == '#'){
+                //         console.log('TAG')
+                //         console.log(tmp[word.charAt(0)].charAt(0))
+                //         finalcontent += '<font color="0051BA"><b>' + tmp[word.charAt(0)] + ' </b></font>'
+                //     }
+                //     else{
+                //         finalcontent += tmp[word] + ' ';
+                //     }
+                // }
                 finalcontent = post_content;
                 header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
             }
@@ -86,7 +98,7 @@ function renderContent(response){
             //set our post content presets
             var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
             var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://hdhs.live/static/resources/joy.png"/></div>'
-            var footer = '<div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
+            var footer = '<div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
             
             //if our current post contains an attachment
             if (attachment_id != null){
@@ -129,10 +141,10 @@ function renderContent(response){
             //define a limited post where the content is banned and append it to our main container
             //if our post has comments in it allow it to have the expand button
             if(num_comments != 0){
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
             }
             else{
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
             }
             //append the post to the container
             document.getElementById("container").insertAdjacentHTML('beforeend',header);
