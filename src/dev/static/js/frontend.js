@@ -189,7 +189,7 @@ function renderComments(id,data){
         // if the deleted status of the comment is 0 (not banned at all)
         if(data[comment][6] == 0){
             // awful, disgusting string of a comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.insertAdjacentHTML('beforeend',content);
@@ -197,7 +197,7 @@ function renderComments(id,data){
         // else if the deleted status of the comment is 1 (directly banned)
         else if (data[comment][6] == 1){
             // awful, disgusting string of a visible banned comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt" style="color: red;">[Removed By Moderator]</p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt" style="color: red;">[Removed By Moderator]</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.insertAdjacentHTML('beforeend',content);
