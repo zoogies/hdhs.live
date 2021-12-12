@@ -11,9 +11,9 @@ function loadicon() {
     }
     if(!scrolledtobottom){
         //append to the bottom of our container a fun little easter egg post telling the user they reached the end
-        document.getElementById("container").innerHTML += '<div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>'
+        document.getElementById("container").insertAdjacentHTML('beforeend','<div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>');
     }
     else{
-        document.getElementById("container").innerHTML += '<div id="endcard" style="padding-bottom:90px;"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>';
+        document.getElementById("container").insertAdjacentHTML('beforeend','<div id="endcard" style="padding-bottom:90px;"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>');
     }
 }

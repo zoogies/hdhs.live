@@ -327,14 +327,30 @@ h1 {
 }
 
 .ID{
+    color: rgb(0 81 186);
+    margin: 0px;
+    padding-top: 12px;
+    padding-left: 8px;
+    font-weight: bold;
+}
+
+.commentid{
+    color:rgb(0 81 186);
+    font-weight: bold;
+}
+
+.stamp{
     color:gray;
     margin: 0px;
     padding-top: 12px;
     padding-left: 8px;
+    font-weight: unset;
 }
 
 #charlim {
     padding-top:16px;
+    font-weight: unset;
+    color:gray;
 }
 
 .heart{

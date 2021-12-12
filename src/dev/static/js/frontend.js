@@ -67,13 +67,21 @@ function renderContent(response){
         if(deleted_status == 0){ 
             //define a basic post without decorators
             if(post_content != ''){
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="spaced">'+post_content+'</p>'
+                //if(post_content.includes('#')){
+                //    finalcontent = post_content.split('#')[0] + '<font color="0051BA"><b>#' + post_content.split('#')[1].split(' ')[0] + '</b></font>';
+                //    for(i=1;i<post_content.split('#')[1].split(' ').length;i++){
+                //        finalcontent += ' ' + post_content.split('#')[1].split(' ')[i]
+                //    }
+                //    console.log(finalcontent);
+                //}
+                finalcontent = post_content;
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
             }
             else{
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div>'
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div>'
             }
             //append our generated post to the container
-            document.getElementById("container").innerHTML += header;
+            document.getElementById("container").insertAdjacentHTML('beforeend',header);
 
             //set our post content presets
             var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
@@ -96,12 +104,12 @@ function renderContent(response){
                 //if its an allowed video
                 if(videotypes.includes(attachmentExtension)){
                     //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
-                    document.getElementById(post_id).innerHTML+='<div class="embed"><video preload="none" poster="http://hdhs.live/static/resources/hidden.png" class="attachment" controls><source src="'+path+'"></video></div>'
+                    document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://hdhs.live/static/resources/hidden.png" class="attachment" controls><source src="'+path+'"></video></div>');
                 }
                 //else if its an allowed photo
                 else if(phototypes.includes(attachmentExtension)){
                     //embed a photo with a src of our attachment to post
-                    document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+path+'"/></div>'
+                    document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><img class="attachment" src="'+path+'"/></div>');
                 }
                 //throw an error to make my life easier
                 else{
@@ -109,25 +117,25 @@ function renderContent(response){
                 }
                 
                 //embed the defualt footer to the post
-                document.getElementById(post_id).innerHTML+=footer;
+                document.getElementById(post_id).insertAdjacentHTML('beforeend',footer);
             }
             //if post does not have image
             else{
                 //append the normal footer without the attachment to our container
-                document.getElementById(post_id).innerHTML+=footer;
+                document.getElementById(post_id).insertAdjacentHTML('beforeend',footer);
             }
         }
         else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
             //define a limited post where the content is banned and append it to our main container
             //if our post has comments in it allow it to have the expand button
             if(num_comments != 0){
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><p class="combtn deleted_post" id="comclick" onclick="refreshcomments('+post_id+')"><b>View Comments</b></p></div></div>';
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
             }
             else{
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
+                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
             }
             //append the post to the container
-            document.getElementById("container").innerHTML += header;
+            document.getElementById("container").insertAdjacentHTML('beforeend',header);
         }
     }
 
@@ -149,19 +157,15 @@ function renderComments(id,data){
     reqpost = document.getElementById(id);
 
     //add our top level comments container to the post
-    reqpost.innerHTML += document.createElement('div').innerHTML = '<div class="comments"></div>';
+    reqpost.insertAdjacentHTML('beforeend',document.createElement('div').innerHTML = '<div class="comments"></div>');
 
     //grab the top level container we just created
     reqbox = reqpost.querySelector('.comments');
 
-    //append a div allowing the user to reply with a comment to our selected post
-    reqbox.innerHTML += '<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>' //TODO onclick
-    
     //if this post is deleted we should not allow the option to leave additional comments
-    if(document.getElementById(id).querySelector('#comclick').classList.contains('deleted_post')){
-        reqpost.querySelector('.leavea').remove();
-        reqpost.querySelector('.commentbox').remove();
-        reqpost.querySelector('.postcom').remove();
+    if (!document.getElementById(id).querySelector('#comclick').classList.contains('deleted_post')){
+        //append a div allowing the user to reply with a comment to our selected post
+        reqbox.insertAdjacentHTML('beforeend','<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>'); //TODO onclick
     }
 
     //generate our comment actions
@@ -176,15 +180,15 @@ function renderComments(id,data){
             content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
-            reqbox.innerHTML += (content);
+            reqbox.insertAdjacentHTML('beforeend',content);
         }
         // else if the deleted status of the comment is 1 (directly banned)
         else if (data[comment][6] == 1){
             // awful, disgusting string of a visible banned comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt"><p style="color:red;"><b>[Removed By Moderator]</b></p></p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0])+'">'+String(data[comment][3])+' Laughs</p></div></div>';
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt" style="color: red;">[Removed By Moderator]</p><div class="commentactionbound"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
-            reqbox.innerHTML += (content);
+            reqbox.insertAdjacentHTML('beforeend',content);
         }
         else {
             // nothing should happen here because that means the post was likely shadowbanned and should not be rendered at all
