@@ -97,7 +97,7 @@ function posst(){
 //function to comment under a post
 function leavecomment(id){
     //gather our comment box text so we can post it
-    var posttext = document.getElementById("commentbox").value
+    var posttext = document.getElementById("commentbox_"+id).value
 
     //check that our post is below the max and above 0
     if(posttext.length <= 250 && posttext.length > 0){

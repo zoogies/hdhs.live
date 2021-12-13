@@ -618,4 +618,55 @@ h1 {
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
-  }
+}
+
+.searchtop{
+    padding:10px;
+    display:flex;
+    padding-bottom: 0px;
+    text-align: center;
+    padding-top:0px;
+    height:41px;
+    padding-bottom: 4px;
+}
+.searchbar{
+    background-color: white;
+    border-radius: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size:16px;
+    border-style: solid;
+    border-color:black;
+    display:flex;
+    justify-content: space-evenly;
+    width:100%;
+}
+.searchinput{
+    margin-top: 4px;
+    margin-bottom: 4px;
+    width:60%;
+}
+.Searchbtn{
+    width:30%;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    text-align: center;
+    border-radius: 12px;
+    padding:1px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.search_sel{
+    width:30%;
+    background-color: rgb(184, 184, 184);
+    color: black;
+    text-align: center;
+    border-radius: 12px;
+    padding:1px;
+    border-style: solid;
+    border-color: black;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

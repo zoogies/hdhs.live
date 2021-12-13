@@ -41,113 +41,121 @@ function renderContent(response){
     numloaded += content.length;
     //console.log('loaded',numloaded)
 
-    //iterate over all our loaded posts and render them
-    for (p in content){
-        //set current post to the row of content we are indexing from our lump json
-        var post = content[p]
+    if(content == "search 0 results"){
+        nothing = '<div><h1>Nothing Found</h1></div>'
+        document.getElementById("container").insertAdjacentHTML('beforeend',nothing);    }
+    else{
+        //iterate over all our loaded posts and render them
+        for (p in content){
+            //set current post to the row of content we are indexing from our lump json
+            var post = content[p]
 
-        if(post[0] == 'end'){
-            scrolledtobottom = true;
-            loadicon();
-            return;
-        }
-
-        //assign instance variables for each loop to concatenate easier
-        post_id = post[0]
-        post_user = post[1]
-        post_content = post[2]
-        comments = post[3]
-        likes = post[4]
-        stamp = post[5]
-        deleted_status = post[6]
-        attachment_id = post[7]
-        num_comments = post[8]
-
-        //if post completely visible
-        if(deleted_status == 0){ 
-            //define a basic post without decorators
-            if(post_content != ''){
-                //if(post_content.includes('#')){
-                //    finalcontent = post_content.split('#')[0] + '<font color="0051BA"><b>#' + post_content.split('#')[1].split(' ')[0] + '</b></font>';
-                //    for(i=1;i<post_content.split('#')[1].split(' ').length;i++){
-                //        finalcontent += ' ' + post_content.split('#')[1].split(' ')[i]
-                //    }
-                //    console.log(finalcontent);
-                //}
-                // finalcontent = '';
-                // tmp = post_content.split(' ');
-                // for (word in tmp){
-                //     if(tmp[word.charAt(0)].charAt(0) == '#'){
-                //         console.log('TAG')
-                //         console.log(tmp[word.charAt(0)].charAt(0))
-                //         finalcontent += '<font color="0051BA"><b>' + tmp[word.charAt(0)] + ' </b></font>'
-                //     }
-                //     else{
-                //         finalcontent += tmp[word] + ' ';
-                //     }
-                // }
-                finalcontent = post_content;
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
+            if(post[0] == 'end'){
+                scrolledtobottom = true;
+                loadicon();
+                return;
             }
-            else{
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div>'
-            }
-            //append our generated post to the container
-            document.getElementById("container").insertAdjacentHTML('beforeend',header);
 
-            //set our post content presets
-            var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
-            var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://hdhs.live/static/resources/joy.png"/></div>'
-            var footer = '<div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
-            
-            //if our current post contains an attachment
-            if (attachment_id != null){
-                //console.log(post_id)
-                try{
-                    var attachmentExtension = attachment_table[attachment_id][2].split('.')[1]
-                    path = 'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]
-                    //console.log(path)
-                }
-                catch{
-                    var attachmentExtension = 'png'
-                    path = 'http://hdhs.live/static/resources/error.png'
-                }
+            //assign instance variables for each loop to concatenate easier
+            post_id = post[0]
+            post_user = post[1]
+            post_content = post[2]
+            comments = post[3]
+            likes = post[4]
+            stamp = post[5]
+            deleted_status = post[6]
+            attachment_id = post[7]
+            num_comments = post[8]
 
-                //if its an allowed video
-                if(videotypes.includes(attachmentExtension)){
-                    //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
-                    document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://hdhs.live/static/resources/hidden.png" class="attachment" controls><source src="'+path+'"></video></div>');
+            //if post completely visible
+            if(deleted_status == 0){ 
+                //define a basic post without decorators
+                if(post_content != ''){
+                    //if(post_content.includes('#')){
+                    //    finalcontent = post_content.split('#')[0] + '<font color="0051BA"><b>#' + post_content.split('#')[1].split(' ')[0] + '</b></font>';
+                    //    for(i=1;i<post_content.split('#')[1].split(' ').length;i++){
+                    //        finalcontent += ' ' + post_content.split('#')[1].split(' ')[i]
+                    //    }
+                    //    console.log(finalcontent);
+                    //}
+                    // finalcontent = '';
+                    // tmp = post_content.split(' ');
+                    // for (word in tmp){
+                    //     if(tmp[word.charAt(0)].charAt(0) == '#'){
+                    //         console.log('TAG')
+                    //         console.log(tmp[word.charAt(0)].charAt(0))
+                    //         finalcontent += '<font color="0051BA"><b>' + tmp[word.charAt(0)] + ' </b></font>'
+                    //     }
+                    //     else{
+                    //         finalcontent += tmp[word] + ' ';
+                    //     }
+                    // }
+                    finalcontent = post_content;
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
                 }
-                //else if its an allowed photo
-                else if(phototypes.includes(attachmentExtension)){
-                    //embed a photo with a src of our attachment to post
-                    document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><img class="attachment" src="'+path+'"/></div>');
-                }
-                //throw an error to make my life easier
                 else{
-                    console.error('bad attachment type recieved for post '+post_id+' with attachmentid '+attachment_id)
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div>'
                 }
+                //append our generated post to the container
+                document.getElementById("container").insertAdjacentHTML('beforeend',header);
+
+                //set our post content presets
+                var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
+                var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="http://hdhs.live/static/resources/joy.png"/></div>'
+                var footer = '<div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
                 
-                //embed the defualt footer to the post
-                document.getElementById(post_id).insertAdjacentHTML('beforeend',footer);
+                //if our current post contains an attachment
+                if (attachment_id != null){
+                    //console.log(post_id)
+                    try{
+                        var attachmentExtension = attachment_table[attachment_id][2].split('.')[1]
+                        path = 'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]
+                        //console.log(path)
+                    }
+                    catch{
+                        var attachmentExtension = 'png'
+                        path = 'http://hdhs.live/static/resources/error.png'
+                    }
+
+                    //if its an allowed video
+                    if(videotypes.includes(attachmentExtension)){
+                        //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
+                        document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://hdhs.live/static/resources/hidden.png" class="attachment" controls><source src="'+path+'"></video></div>');
+                    }
+                    //else if its an allowed photo
+                    else if(phototypes.includes(attachmentExtension)){
+                        //embed a photo with a src of our attachment to post
+                        document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><img class="attachment" src="'+path+'"/></div>');
+                    }
+                    //throw an error to make my life easier
+                    else{
+                        console.error('bad attachment type recieved for post '+post_id+' with attachmentid '+attachment_id)
+                    }
+                    
+                    //embed the defualt footer to the post
+                    document.getElementById(post_id).insertAdjacentHTML('beforeend',footer);
+                }
+                //if post does not have image
+                else{
+                    //append the normal footer without the attachment to our container
+                    document.getElementById(post_id).insertAdjacentHTML('beforeend',footer);
+                }
             }
-            //if post does not have image
-            else{
-                //append the normal footer without the attachment to our container
-                document.getElementById(post_id).insertAdjacentHTML('beforeend',footer);
+            else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
+                //define a limited post where the content is banned and append it to our main container
+                //if our post has comments in it allow it to have the expand button
+                if(num_comments != 0){
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
+                }
+                else{
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
+                }
+                //append the post to the container
+                document.getElementById("container").insertAdjacentHTML('beforeend',header);
             }
         }
-        else if(deleted_status == 1){ //if post is removed but not shadowbanned render it limited
-            //define a limited post where the content is banned and append it to our main container
-            //if our post has comments in it allow it to have the expand button
-            if(num_comments != 0){
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
-            }
-            else{
-                header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
-            }
-            //append the post to the container
-            document.getElementById("container").insertAdjacentHTML('beforeend',header);
+        if(section == 'search'){
+            document.getElementById("container").insertAdjacentHTML('beforeend','<div id="endcard" style="padding-bottom:90px;"><img id="end" src="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/end.png?raw=true"/></div>');
         }
     }
 
@@ -177,7 +185,7 @@ function renderComments(id,data){
     //if this post is deleted we should not allow the option to leave additional comments
     if (!document.getElementById(id).querySelector('#comclick').classList.contains('deleted_post')){
         //append a div allowing the user to reply with a comment to our selected post
-        reqbox.insertAdjacentHTML('beforeend','<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>'); //TODO onclick
+        reqbox.insertAdjacentHTML('beforeend','<p class="leavea" >Leave a comment:</p><div style="display:flex; flex-wrap:nowrap;"><input autocomplete="off" maxlength="250" id="commentbox_'+id+'" class="commentbox" type="text"/><a class="postcom" onclick="leavecomment('+id+')">Comment</a></div>'); //TODO onclick
     }
 
     //generate our comment actions
@@ -218,7 +226,7 @@ function refreshcomments(post){
     //if our box is not open
     if (!handler.classList.contains('opened')){
         //fetch a comment box from the document
-        box = document.getElementById('commentbox'); 
+        box = document.getElementById('commentbox_' + post); 
         //if that box exists
         if(box){
             //change the text back to closed text
@@ -285,7 +293,9 @@ function trackscroll(){
         //console.log(percentScroll);
         //if the user has scrolled past 70% of the posts we need to load more
         if(percentScroll >= .50){
-            loadMore();
+            if(!section == 'search'){
+                loadMore();
+            }
             //console.log('loading more')
         }
     }

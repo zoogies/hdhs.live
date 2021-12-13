@@ -276,83 +276,94 @@ def fetchposts():
         order = request.json["order"]
         start = request.json["start"]
         numloaded = int(request.json["numloaded"])
-
-        # if we are doing a first load or type change do the standard procedure
-        if start == "fresh":
-            if order == "old":
-                logmaker("daily").log("fetch old", request.remote_addr)
-                return json.dumps(
-                    query_db(
-                        "select * from main where deleted != 2 order by ID asc LIMIT 15"
-                    )
-                )
-            elif order == "new":
-                logmaker("daily").log("fetch new", request.remote_addr)
-                return json.dumps(
-                    query_db(
-                        "select * from main where deleted != 2 order by ID desc LIMIT 15"
-                    )
-                )
-            elif order == "pop":
-                logmaker("daily").log("fetch pop", request.remote_addr)
-                return json.dumps(
-                    query_db(
-                        "select * from main where deleted != 2 order by likes desc LIMIT 15"
-                    )
-                )
-            else:
-                logmaker("daily").log("failure bad_request", request.remote_addr)
-                return "bad request"
+        if order == "search":
+            logmaker("daily").log("search - " + str(start), request.remote_addr)
+            results = query_db(
+                "SELECT * FROM MAIN WHERE CONTENT LIKE "
+                + "'%"
+                + str(start)
+                + "%' AND DELETED=0"
+            )
+            if len(results) == 0:
+                return json.dumps("search 0 results")
+            return json.dumps(results)
         else:
-            start = int(start)
-            if order == "old":
-                logmaker("daily").log("fetch old", request.remote_addr)
-
-                value = query_db(
-                    "select * from main where deleted != 2 AND id >= "
-                    + str(start + 1)
-                    + " LIMIT 15"
-                )
-
-                if len(value) < 15:
-                    value.append(["end"])
-
-                return json.dumps(value)
-            elif order == "new":
-                logmaker("daily").log("fetch new", request.remote_addr)
-
-                value = query_db(
-                    "select * from main where deleted != 2 and id<= "
-                    + str(start - 1)
-                    + " order by ID desc LIMIT 15"
-                )
-                if len(value) < 15:
-                    value.append(["end"])
-
-                # if numloaded == value[len(value) - 1][0]: #if the users cached count of the db for that tab is equal
-
-                return json.dumps(value)
-            elif order == "pop":
-                logmaker("daily").log("fetch pop", request.remote_addr)
-                # grab all posts in desc order of popular
-                result = query_db(
-                    "select * from main where deleted != 2 order by likes desc"
-                )
-                final = []  # create blank list
-                # run loop 15 times
-                for i in range(15):
-                    try:
-                        final.append(
-                            result[i + numloaded]
-                        )  # add 15 next posts in the correct order
-                    except:
-                        final.append(["end"])
-                        break
-                print(len(final))
-                return json.dumps(final)
+            # if we are doing a first load or type change do the standard procedure
+            if start == "fresh":
+                if order == "old":
+                    logmaker("daily").log("fetch old", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 2 order by ID asc LIMIT 15"
+                        )
+                    )
+                elif order == "new":
+                    logmaker("daily").log("fetch new", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 2 order by ID desc LIMIT 15"
+                        )
+                    )
+                elif order == "pop":
+                    logmaker("daily").log("fetch pop", request.remote_addr)
+                    return json.dumps(
+                        query_db(
+                            "select * from main where deleted != 2 order by likes desc LIMIT 15"
+                        )
+                    )
+                else:
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
+                    return "bad request"
             else:
-                logmaker("daily").log("failure bad_request", request.remote_addr)
-                return "bad request"
+                start = int(start)
+                if order == "old":
+                    logmaker("daily").log("fetch old", request.remote_addr)
+
+                    value = query_db(
+                        "select * from main where deleted != 2 AND id >= "
+                        + str(start + 1)
+                        + " LIMIT 15"
+                    )
+
+                    if len(value) < 15:
+                        value.append(["end"])
+
+                    return json.dumps(value)
+                elif order == "new":
+                    logmaker("daily").log("fetch new", request.remote_addr)
+
+                    value = query_db(
+                        "select * from main where deleted != 2 and id<= "
+                        + str(start - 1)
+                        + " order by ID desc LIMIT 15"
+                    )
+                    if len(value) < 15:
+                        value.append(["end"])
+
+                    # if numloaded == value[len(value) - 1][0]: #if the users cached count of the db for that tab is equal
+
+                    return json.dumps(value)
+                elif order == "pop":
+                    logmaker("daily").log("fetch pop", request.remote_addr)
+                    # grab all posts in desc order of popular
+                    result = query_db(
+                        "select * from main where deleted != 2 order by likes desc"
+                    )
+                    final = []  # create blank list
+                    # run loop 15 times
+                    for i in range(15):
+                        try:
+                            final.append(
+                                result[i + numloaded]
+                            )  # add 15 next posts in the correct order
+                        except:
+                            final.append(["end"])
+                            break
+                    print(len(final))
+                    return json.dumps(final)
+                else:
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
+                    return "bad request"
     except Exception as e:
         logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")

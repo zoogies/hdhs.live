@@ -12,6 +12,8 @@ function fresh(){
         document.getElementById('new').classList.remove('nav_btn');
         document.getElementById('pop').classList.remove('nav_sel');
         document.getElementById('pop').classList.remove('nav_btn');
+        document.getElementById('Searchbtn').classList.remove('search_sel');
+        document.getElementById('Searchbtn').classList.remove('Searchbtn');
         
         //reset our numloaded
         numloaded = 0;
@@ -20,6 +22,28 @@ function fresh(){
     }
     catch{
         alert('Something went wrong')
+    }
+}
+
+function s_search(){
+    try{
+        //content
+        loadicon();
+        flushcontainer();
+        getContent("search",document.getElementById('searchbar').value);
+
+        //nav
+        fresh();
+        document.getElementById('pop').classList.add('nav_btn');
+        document.getElementById('new').classList.add('nav_btn');
+        document.getElementById('old').classList.add('nav_btn');
+        document.getElementById('Searchbtn').classList.add('search_sel');
+
+        //update global
+        section = 'search';
+    }
+    catch{
+        alert("Something went wrong :(");
     }
 }
 
@@ -35,6 +59,7 @@ function s_new(){
         document.getElementById('pop').classList.add('nav_btn');
         document.getElementById('new').classList.add('nav_sel');
         document.getElementById('old').classList.add('nav_btn');
+        document.getElementById('Searchbtn').classList.add('Searchbtn');
 
         //update global
         section = 'new';
@@ -56,6 +81,8 @@ function s_old(){
         document.getElementById('new').classList.add('nav_btn');
         document.getElementById('old').classList.add('nav_sel');
         document.getElementById('pop').classList.add('nav_btn');
+        document.getElementById('Searchbtn').classList.add('Searchbtn');
+
 
         //update global
         section = 'old';
@@ -76,6 +103,8 @@ function s_pop(){
         document.getElementById('new').classList.add('nav_btn');
         document.getElementById('old').classList.add('nav_btn');
         document.getElementById('pop').classList.add('nav_sel');
+        document.getElementById('Searchbtn').classList.add('Searchbtn');
+
 
         //update global
         section = 'pop';
