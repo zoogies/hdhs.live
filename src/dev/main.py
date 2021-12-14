@@ -464,7 +464,7 @@ def laugh():
             )
             execute_db(
                 "update main set likes=("
-                + str(int(val) + 1)
+                + str(int(val) + int(request.json["amount"]))
                 + ') where id="'
                 + request.json["id"]
                 + '"'
@@ -479,12 +479,12 @@ def laugh():
             )
             execute_db(
                 "update comments set likes=("
-                + str(int(val) + 1)
+                + str(int(val) + int(request.json["amount"]))
                 + ') where id="'
                 + request.json["id"]
                 + '"'
             )
-            return str(int(val) + 1)
+            return str(int(val) + int(request.json["amount"]))
         else:
             logmaker("daily").log("failure bad_request", request.remote_addr)
             return "ERROR SOME SHIT GOIN ON IN THE SERVER"

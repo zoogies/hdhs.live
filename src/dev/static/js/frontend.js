@@ -1,6 +1,8 @@
 var attachment_table;
 var scrolledtobottom = false;
 
+const regex = /\B(\#[0-9]+\b)(?!;)/gm;
+
 function getContent(sort,start){
     //send a xhr request using our async function we wrote and act based on the result
 
@@ -90,7 +92,8 @@ function renderContent(response){
                     //         finalcontent += tmp[word] + ' ';
                     //     }
                     // }
-                    finalcontent = post_content;
+    
+                    finalcontent = post_content.replace(regex, function(m){return '<font color="0051BA"><b>'+m+'</b></font>';});
                     header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
                 }
                 else{
@@ -196,8 +199,9 @@ function renderComments(id,data){
 
         // if the deleted status of the comment is 0 (not banned at all)
         if(data[comment][6] == 0){
+            finalcomtxt = String(data[comment][2]).replace(regex, function(m){return '<font color="0051BA"><b>'+m+'</b></font>';});
             // awful, disgusting string of a comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+String(data[comment][2])+'</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://hdhs.live/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+finalcomtxt+'</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.insertAdjacentHTML('beforeend',content);
@@ -293,7 +297,7 @@ function trackscroll(){
         //console.log(percentScroll);
         //if the user has scrolled past 70% of the posts we need to load more
         if(percentScroll >= .50){
-            if(!section == 'search'){
+            if(section != 'search'){
                 loadMore();
             }
             //console.log('loading more')
