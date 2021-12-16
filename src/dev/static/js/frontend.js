@@ -123,7 +123,7 @@ function renderContent(response){
                     //if its an allowed video
                     if(videotypes.includes(attachmentExtension)){
                         //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://hdhs.live/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
-                        document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://hdhs.live/static/resources/hidden.png" class="attachment" controls><source src="'+path+'"></video></div>');
+                        document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://hdhs.live/static/attachments/previews/'+attachment_id +'.jpg" class="attachment" controls><source src="'+path+'"></video></div>');
                     }
                     //else if its an allowed photo
                     else if(phototypes.includes(attachmentExtension)){

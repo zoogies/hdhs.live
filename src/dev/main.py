@@ -3,9 +3,12 @@ import sqlite3
 import datetime
 import re
 import json
+import ffmpeg
+from typing import Counter
 from requests.structures import CaseInsensitiveDict
 from flask import Flask, render_template
 from flask import g, request
+import time
 
 # import custom logging class
 from logs import logmaker
@@ -572,6 +575,18 @@ def postimg():
                 + postid
                 + '"'
             )
+
+            # probe and get width of our file and then get the first frame of it
+            # to save it as a preview for the thumbnail
+            width = ffmpeg.probe("static/attachments/" + newfilename)["streams"][0][
+                "width"
+            ]
+            ffmpeg.input("static/attachments/" + newfilename, ss=0).filter(
+                "scale", width, -1
+            ).output(
+                "static/attachments/previews/" + attachmentid + ".jpg", vframes=1
+            ).run()
+
         return render_template("index.html")
     except Exception as e:
         logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
