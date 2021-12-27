@@ -574,7 +574,7 @@ def postimg():
                 + '"'
             )
 
-            #idk why i felt the need to use a python module when the command line argunments are so much easier
+            # idk why i felt the need to use a python module when the command line argunments are so much easier
             os.system(
                 "ffmpeg -i static/attachments/"
                 + str(newfilename)

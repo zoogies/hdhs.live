@@ -556,6 +556,7 @@ h1 {
     margin:0px;
     padding-left: 4px;
     padding-top:12px;
+    white-space: nowrap;
 }
 
 .settingsbtn {

@@ -50,7 +50,7 @@
     <body onload="init()">
         <div id="page">
             <!-- posting popup -->
-            <div id="popup" class="hide">
+            <div id="popup" class="hide noselect">
                 <div class="pupHead">
                     <img id="pupLogo" src="{{ url_for('static', filename='resources/icon.png') }}">
                     <h1 class="pupText">Posting...</h1>
@@ -60,20 +60,20 @@
                 </div>
             </div>
             <div id="toplevel">
-                <div class="title">
+                <div class="title noselect">
                     <div id="logo">
                         <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
                     </div>
                     <h1 id="titletext">HDHS LIVE</h1>
                     <!--<p class="tagline">A social media website for davidson students</p>-->
                 </div>
-                <div class="searchtop">
+                <div class="searchtop noselect">
                     <div class="searchbar">
                         <input id="searchbar" class="searchinput" type="text" maxlength="250" style="font-family:roboto;"/>
                         <div onclick="s_search();" id="Searchbtn" class="Searchbtn">Search</div>
                     </div>
                 </div>
-                <div class="bartl">
+                <div class="bartl noselect">
                     <div class="bar">
                         <div onclick="s_new();" id="new" class="nav_sel">
                             <p class="navtxt">New</p>
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div id="container">
-                    <div id="save" class="poster post">
+                    <div id="save" class="poster post noselect">
                         <div class="posterhead">
                             <p>Share what's on your mind:</p>
                             <p id="charlim" class="ID">0/250 characters</p>
