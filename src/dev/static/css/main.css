@@ -297,6 +297,7 @@ h1 {
     display: flex;
     align-content:flex-start;
     padding:3px;
+    padding-left: 6px;
 }
 .post {
     background-color: white;
@@ -519,7 +520,7 @@ h1 {
 }
 .postbar{
     display:flex;
-    justify-content:space-between;
+    justify-content:left;
     text-align: center;
 }
 
@@ -530,15 +531,21 @@ h1 {
 
 .labels{
     display:flex;
-    padding-left: 43px;
+    padding-left: 6px;
     padding-right: 43px;
-    justify-content: space-between;
+    justify-content: left;
+}
+
+.notreq{
+    color:gray;
+    padding-left: 8px;
 }
 
 .label{
     margin:0px;
     margin-top:10px;
     margin-bottom: 4px;
+    white-space: nowrap;
 }
 
 .ptxt{
@@ -609,6 +616,11 @@ h1 {
 #pupLoad{
     width:180px;
     height:180px;
+}
+
+.uploadfile{
+    padding-left: 10px;
+    width:50%;
 }
 
 .noselect {

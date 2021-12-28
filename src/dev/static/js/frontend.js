@@ -1,7 +1,7 @@
 var attachment_table;
 var scrolledtobottom = false;
 
-const regex = /\B(\#[0-9]+\b)(?!;)/gm;
+const regex = /\B(\#[0-9]+\b)(?!;)/gm; //average regex user: (insert chad image)
 
 function getContent(sort,start){
     //send a xhr request using our async function we wrote and act based on the result
