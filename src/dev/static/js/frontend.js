@@ -283,24 +283,18 @@ function trackchar(){
     elem.innerText = document.getElementById("field").value.length + "/250 characters"; //change to reflect new value entered in textbox
 }
 
-//function that tracks users scroll progress and will request more content be appended if the user is within 80% of the end of the timeline
-//updates every second
-function trackscroll(){
+//function that tracks users scroll progress and will request more content be appended if the user is within a specific amount of the end of the timeline
+window.onscroll = function (){
     if(!scrolledtobottom){
-        //attempt to path to our divs if they are not loaded yet
-        if(tl == null || ctn == null){
-            var tl = document.getElementById('toplevel');
-            var ctn = document.getElementById('container');
-        }
-        //get percentage of content the user has scrolled through
-        var percentScroll = tl.scrollTop / ctn.offsetHeight;
-        //console.log(percentScroll);
-        //if the user has scrolled past 70% of the posts we need to load more
+        var h = document.documentElement, 
+        b = document.body,
+        st = 'scrollTop',
+        sh = 'scrollHeight';
+        percentScroll = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight);
         if(percentScroll >= .50){
             if(section != 'search'){
                 loadMore();
             }
-            //console.log('loading more')
         }
     }
 }

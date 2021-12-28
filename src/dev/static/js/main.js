@@ -11,6 +11,6 @@ function init(){
 
         //intialize our character input tracking function to run in a loop every 100ms
         var chartrack=setInterval(trackchar,100);
-        var scrolltrack=setInterval(trackscroll,1000);
+        //var scrolltrack=setInterval(trackscroll,1000);
     }
 }
