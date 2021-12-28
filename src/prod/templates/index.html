@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Normal Tag Stuff -->
+        <title>hdhs live</title>
+        <link rel="icon" href="{{ url_for('static', filename='resources/icon.png') }}">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <!-- Javascript-->
+        <script src="{{url_for('static', filename='js/main.js')}}"></script>
+        <script src="{{url_for('static', filename='js/rewrite.js')}}"></script>
+        <script src="{{url_for('static', filename='js/navbar.js')}}"></script>
+        <script src="{{url_for('static', filename='js/reporting.js')}}"></script>
+        <script src="{{url_for('static', filename='js/laughing.js')}}"></script>
+        <script src="{{url_for('static', filename='js/loading.js')}}"></script>
+        <script src="{{url_for('static', filename='js/posting.js')}}"></script>
+        <script src="{{url_for('static', filename='js/frontend.js')}}"></script>
+
+        <!-- Overscroll ios -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <!-- header color ios -->
+        <meta name="theme-color" content="#001AAC">
+
+        <!-- Roboto font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+
+        <!-- Metadata for embeds -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://hdhs.live/">
+        <meta property="og:title" content="HDHS Live">
+        <meta property="og:description" content="A davidson student only anonymous social network.">
+        <meta property="og:image" content="https://github.com/Yoyolick/hdhs.live/blob/main/src/dev/static/resources/icon.png?raw=true">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1RQ9YW8KR"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P1RQ9YW8KR');
+        </script>
+    </head>
+    <body onload="init()" id="body_id">
+        <div id="page">
+            <!-- posting popup -->
+            <div id="popup" class="hide noselect">
+                <div class="pupHead">
+                    <img id="pupLogo" src="{{ url_for('static', filename='resources/icon.png') }}">
+                    <h1 class="pupText">Posting...</h1>
+                </div>
+                <div class="pupHead">
+                    <img id="pupLoad" src="{{ url_for('static', filename='resources/load.gif') }}">
+                </div>
+            </div>
+            <div id="toplevel">
+                <div class="title noselect">
+                    <div id="logo">
+                        <img id="logo" src="{{ url_for('static', filename='resources/icon.png') }}">
+                    </div>
+                    <h1 id="titletext">HDHS LIVE</h1>
+                    <!--<p class="tagline">A social media website for davidson students</p>-->
+                </div>
+                <div class="searchtop noselect">
+                    <div class="searchbar">
+                        <input autocomplete="off" placeholder="Search for ... " id="searchbar" class="searchinput" type="text" maxlength="250" style="font-family:roboto;"/>
+                        <div onclick="s_search();" id="Searchbtn" class="Searchbtn">Search</div>
+                    </div>
+                </div>
+                <div class="bartl noselect">
+                    <div class="bar">
+                        <div onclick="s_new();" id="new" class="nav_sel">
+                            <p class="navtxt">New</p>
+                        </div>
+                        <div onclick="s_old();" id="old" class="nav_btn">
+                            <p class="navtxt">Old</p>
+                        </div>
+                        <div onclick="s_pop();" id="pop" class="nav_btn">
+                            <p class="navtxt">Popular</p>
+                        </div>
+                        <!--
+                            <div class="nav_btn setbtn">
+                                <img class="settingsbtn" src="{{url_for('static', filename='resources/settings.png')}}">
+                                <p style="padding-top:1px;" class="navtxt">Settings</p>
+                            </div>
+                        -->
+                    </div>
+                </div>
+                <div id="container">
+                    <div id="save" class="poster post noselect">
+                        <div class="posterhead">
+                            <p>Share what's on your mind:</p>
+                            <p id="charlim" class="ID">0/250 characters</p>
+                        </div>
+                        <div class="inputter">
+                            <textarea autocomplete="off" id="field" style="font-family:roboto; resize: none;" maxlength="250"></textarea>
+                        </div>
+                        <div class="labels">
+                            <p class="label">Pick a username or upload a file:</p>
+                            <p class="notreq label">(not required)</p>
+                        </div>
+                        <div class="postbar">
+                            <div class="name">
+                                <input placeholder="Anonymous" id="name" type="text" maxlength="12" autocomplete="off">
+                            </div>
+                            <div class="uploadfile">
+                                <input id="selector" style="width:100%;" name="file" type="file"/>
+                            </div>
+                        </div>
+                        <div class="pbtn hvr-fade" onclick="posst()">
+                            <p class="ptxt">POST</p>
+                        </div>
+                    </div>
+                    <div id="loading"><img id="end" src="http://hdhs.live/static/resources/load.gif"/></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
