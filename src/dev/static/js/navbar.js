@@ -30,7 +30,7 @@ function s_search(){
         //content
         loadicon();
         flushcontainer();
-        getContent("search",document.getElementById('searchbar').value);
+        getContent("search",document.getElementById('searchbar').value.replace('#',''));
 
         //nav
         fresh();

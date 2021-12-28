@@ -283,6 +283,8 @@ def fetchposts():
                 "SELECT * FROM MAIN WHERE CONTENT LIKE "
                 + "'%"
                 + str(start)
+                + "%' OR ID LIKE '%"
+                + str(start)
                 + "%' AND DELETED=0"
             )
             if len(results) == 0:
