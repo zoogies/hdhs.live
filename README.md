@@ -1,5 +1,7 @@
 # HDHS Live
 [![wakatime](https://wakatime.com/badge/github/Yoyolick/hdhs.live.svg)](https://wakatime.com/badge/github/Yoyolick/hdhs.live)
+![upordown](https://img.shields.io/website?down_color=red&down_message=down&up_message=up&url=https%3A%2F%2Fhdhs.live)
+![python](https://img.shields.io/badge/python-3.7.3-brightgreen)
 
 ## What is this?
 
@@ -28,8 +30,11 @@ The site has a few distinguishing features such as:
 - the ability to search for posts using id's or keywords found in usernames and post content.
 
 ## What does the site look like?
+mobile | desktop
+:-------------------------:|:-------------------------:
+![mobile1](https://github.com/Yoyolick/hdhs.live/blob/141cefd7fe5f3a6aa632dd9e5fbb90b317bd1a1b/docs/mobile1.png) | ![desktop1](https://github.com/Yoyolick/hdhs.live/blob/141cefd7fe5f3a6aa632dd9e5fbb90b317bd1a1b/docs/desktop1.png)
+![mobile2](https://github.com/Yoyolick/hdhs.live/blob/141cefd7fe5f3a6aa632dd9e5fbb90b317bd1a1b/docs/mobile2.png) | ![desktop2](https://github.com/Yoyolick/hdhs.live/blob/141cefd7fe5f3a6aa632dd9e5fbb90b317bd1a1b/docs/desktop2.png)
 
-... TODO
 ## Skills that I learned creating this:
 
 - Flask
