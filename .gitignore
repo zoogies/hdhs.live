@@ -1,2 +1,5 @@
 src/dev/secretkey.txt
 src/dev/__pycache__/
+src/prod/secretkey.txt
+src/prod/private.key
+src/prod/ssl-bundle.crt

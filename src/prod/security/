@@ -1,0 +1,12 @@
+[0;1;31m●[0m nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+   Active: [0;1;31mfailed[0m (Result: exit-code) since Wed 2021-12-29 14:04:26 EST; 1min 26s ago
+     Docs: man:nginx(8)
+  Process: 15480 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; [0;1;31m(code=exited, status=1/FAILURE)[0m
+
+Dec 29 14:04:26 raspberrypi systemd[1]: Starting A high performance web server and a reverse proxy server...
+Dec 29 14:04:26 raspberrypi nginx[15480]: nginx: [emerg] BIO_new_file("/media/usb/hdhs.live/src/prod/ssl-bundle.crt") failed (SSL: error:02001002:system library:fopen:No such file or directory:fopen('/media/usb/hdhs.live/src/prod/ssl-bundle.crt','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+Dec 29 14:04:26 raspberrypi nginx[15480]: nginx: configuration file /etc/nginx/nginx.conf test failed
+Dec 29 14:04:26 raspberrypi systemd[1]: [0;1;39m[0;1;31m[0;1;39mnginx.service: Control process exited, code=exited, status=1/FAILURE[0m
+Dec 29 14:04:26 raspberrypi systemd[1]: [0;1;39m[0;1;31m[0;1;39mnginx.service: Failed with result 'exit-code'.[0m
+Dec 29 14:04:26 raspberrypi systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start A high performance web server and a reverse proxy server.[0m
