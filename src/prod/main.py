@@ -61,7 +61,7 @@ def query_db(query, args=(), one=False):
 
 # main flask top level function
 app = Flask(__name__, instance_relative_config=True)
-
+app.config["MAX_CONTENT_LENGTH"] = 10000000  # 10mb content length
 ##########################################################################
 
 # defualt route to server

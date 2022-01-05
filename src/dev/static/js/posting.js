@@ -93,14 +93,15 @@ function posst(){
     //reset our state variable
     currentlyPosting = false;
 }
-
+var commenting = false;
 //function to comment under a post
 function leavecomment(id){
     //gather our comment box text so we can post it
     var posttext = document.getElementById("commentbox_"+id).value
 
     //check that our post is below the max and above 0
-    if(posttext.length <= 250 && posttext.length > 0){
+    if(posttext.length <= 250 && posttext.length > 0 && commenting ==false){
+        commenting = true;
         //set our header data with our variables
         var data = {
             "POST": String(id),
@@ -111,6 +112,7 @@ function leavecomment(id){
         //send a xhr request using our async function we wrote and act based on the result
         basicxhr('comment', data)
         .then(function (response) {
+            commenting = false;
             //call our waterfall of frontend functions to refresh the comment content without a hard refresh
             setTimeout(() => {refreshcomments(id);}, 1); //first time unloads box
             setTimeout(() => {refreshcomments(id);}, 250); //second time reloads box
