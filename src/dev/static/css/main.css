@@ -142,6 +142,9 @@ h1 {
     justify-content: space-evenly;
     width:100%;
 }
+.red {
+    background-color: red;
+}
 
 .title{
     display:flex;
@@ -169,6 +172,15 @@ h1 {
 }
 
 .bartl {
+    padding:10px;
+    display:flex;
+    justify-content: space-between;
+    padding-bottom: 0px;
+    text-align: center;
+    padding-top:0px;
+}
+
+.alert {
     padding:10px;
     display:flex;
     justify-content: space-between;
