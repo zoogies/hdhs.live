@@ -16,13 +16,13 @@ function laugh(id,type){
     //update the display count only
     if (type == 'post'){
         //get new laugh num
-        var num = parseInt(document.getElementById(id).querySelector('#liketext').innerText.split(' ')[0]) + 1;
-        document.getElementById(id).querySelector('#liketext').innerText = num + ' Laughs';
+        var num = parseInt(document.getElementById(id).querySelector('#liketext').innerText.split(' ')[0].replace(/,/g, '')) + 1;
+        document.getElementById(id).querySelector('#liketext').innerText = commatize(num) + ' Laughs';
     }
     else if (type == 'comment') {
         //get new laugh num
-        var num = parseInt(document.getElementById('comment_'+id).innerText.split(' ')[0]) + 1;
-        document.getElementById('comment_' + id).innerText = num + ' Laughs';
+        var num = parseInt(document.getElementById('comment_'+id).innerText.split(' ')[0].replace(/,/g, '')) + 1;
+        document.getElementById('comment_' + id).innerText = commatize(num) + ' Laughs';
     }
     else {
         throw 'Laugh content type is invalid'

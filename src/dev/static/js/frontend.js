@@ -85,7 +85,7 @@ function renderContent(response){
                 //set our post content presets
                 var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
                 var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><p>Laugh</p><img class="joy" src="https://hdhs.live/static/resources/joy.png"/></div>'
-                var footer = '<div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
+                var footer = '<div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
                 
                 //if our current post contains an attachment
                 if (attachment_id != null){
@@ -128,10 +128,10 @@ function renderContent(response){
                 //define a limited post where the content is banned and append it to our main container
                 //if our post has comments in it allow it to have the expand button
                 if(num_comments != 0){
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="https://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="https://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
                 }
                 else{
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="https://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+likes+'  Laughs'+'</p></div></div>';
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="https://hdhs.live/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p></div></div>';
                 }
                 //append the post to the container
                 document.getElementById("container").insertAdjacentHTML('beforeend',header);
@@ -224,6 +224,7 @@ function refreshcomments(post){
         
         //normal behavior
         querycomments(post); //intiate waterfall to get comments and render them
+        document.getElementById(post).insertAdjacentHTML('beforeend',document.createElement('div').innerHTML = '<div id="loadcom" class="loadcom"><img src="https://hdhs.live/static/resources/load.gif"/></div>');
 
         //change box text to show its currently opened
         handler.innerText = "Click To Hide Comments";
@@ -266,6 +267,8 @@ function trackchar(){
     elem.innerText = document.getElementById("field").value.length + "/250 characters"; //change to reflect new value entered in textbox
 }
 
+
+var jumpbtn = false;
 //function that tracks users scroll progress and will request more content be appended if the user is within a specific amount of the end of the timeline
 window.onscroll = function (){
     if(!scrolledtobottom){
@@ -279,7 +282,24 @@ window.onscroll = function (){
                 loadMore();
             }
         }
+
+
+        //scroll to top button
+        if(percentScroll >= .2 && jumpbtn == false){
+            jumpbtn = true;
+            document.getElementById('page').innerHTML += '<div onclick="jumppage()" class="noselect fade-in-image" id="jumpscroll"><img class="jumpimg noselect fade-in-image" src="https://hdhs.live/static/resources/jumptotop.png"/></div>';
+        }
+        if(percentScroll<= .2 && jumpbtn == true){
+            jumpbtn = false;
+            document.getElementById('jumpscroll').remove();
+        }
     }
+}
+
+function jumppage(){
+    jumpbtn = false;
+    window.scrollTo(0,0);
+    document.getElementById('jumpscroll').remove();
 }
 
 //declare bool to ensure we dont trigger this twice before loadcompletes 
@@ -330,6 +350,7 @@ function querycomments(id){
     //send a xhr request using our async function we wrote and act based on the result
     basicxhr('commentsnew', data)
     .then(function (response) {
+        document.getElementById(id).querySelector('#loadcom').remove();
         //pass our json return of comments assosciated with post id to be rendered
         commentReturn = JSON.parse(response)
         renderComments(id,commentReturn)

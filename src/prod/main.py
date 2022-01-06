@@ -482,7 +482,7 @@ def laugh():
                 + request.json["id"]
                 + '"'
             )
-            return "done"  # str(int(val) + 1)
+            return "done"
         elif request.json["type"] == "comment":
             logmaker("daily").log("laugh comment", request.remote_addr)
             val = json.dumps(
@@ -497,7 +497,7 @@ def laugh():
                 + request.json["id"]
                 + '"'
             )
-            return "done"  # str(int(val) + int(request.json["amount"]))
+            return "done"
         else:
             logmaker("daily").log("failure bad_request", request.remote_addr)
             return "ERROR SOME SHIT GOIN ON IN THE SERVER"
