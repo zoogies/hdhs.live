@@ -1,0 +1,593 @@
+12/30/2021 00:20:25 -  - fetch attachment_table
+12/30/2021 00:20:25 - INTERNAL - database query
+12/30/2021 00:20:25 - INTERNAL - database connect
+12/30/2021 00:20:25 -  - fetch new
+12/30/2021 00:20:25 - INTERNAL - database query
+12/30/2021 00:20:25 - INTERNAL - database connect
+12/30/2021 00:20:25 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 00:43:48 -  - route main
+12/30/2021 00:43:48 - INTERNAL - database connect
+12/30/2021 01:15:05 -  - fetch attachment_table
+12/30/2021 01:15:05 - INTERNAL - database query
+12/30/2021 01:15:05 - INTERNAL - database connect
+12/30/2021 01:15:05 -  - fetch new
+12/30/2021 01:15:05 - INTERNAL - database query
+12/30/2021 01:15:05 - INTERNAL - database connect
+12/30/2021 02:33:53 -  - route main
+12/30/2021 02:33:53 - INTERNAL - database connect
+12/30/2021 02:33:53 -  - fetch attachment_table
+12/30/2021 02:33:53 - INTERNAL - database query
+12/30/2021 02:33:53 - INTERNAL - database connect
+12/30/2021 02:33:53 -  - fetch new
+12/30/2021 02:33:53 - INTERNAL - database query
+12/30/2021 02:33:53 - INTERNAL - database connect
+12/30/2021 02:34:00 -  - laugh post
+12/30/2021 02:34:00 - INTERNAL - database query
+12/30/2021 02:34:00 - INTERNAL - database connect
+12/30/2021 02:34:00 - INTERNAL - database execute
+12/30/2021 02:34:01 -  - laugh post
+12/30/2021 02:34:01 - INTERNAL - database query
+12/30/2021 02:34:01 - INTERNAL - database connect
+12/30/2021 02:34:01 - INTERNAL - database execute
+12/30/2021 02:34:11 -  - fetch new_comments
+12/30/2021 02:34:11 - INTERNAL - database query
+12/30/2021 02:34:11 - INTERNAL - database connect
+12/30/2021 02:34:18 -  - fetch new
+12/30/2021 02:34:18 - INTERNAL - database query
+12/30/2021 02:34:18 - INTERNAL - database connect
+12/30/2021 02:34:19 -  - laugh post
+12/30/2021 02:34:19 - INTERNAL - database query
+12/30/2021 02:34:19 - INTERNAL - database connect
+12/30/2021 02:34:19 - INTERNAL - database execute
+12/30/2021 02:34:24 -  - fetch new_comments
+12/30/2021 02:34:24 - INTERNAL - database query
+12/30/2021 02:34:24 - INTERNAL - database connect
+12/30/2021 02:34:26 -  - laugh post
+12/30/2021 02:34:26 - INTERNAL - database query
+12/30/2021 02:34:26 - INTERNAL - database connect
+12/30/2021 02:34:26 - INTERNAL - database execute
+12/30/2021 02:34:35 -  - laugh post
+12/30/2021 02:34:35 - INTERNAL - database query
+12/30/2021 02:34:35 - INTERNAL - database connect
+12/30/2021 02:34:35 - INTERNAL - database execute
+12/30/2021 02:34:41 -  - fetch new_comments
+12/30/2021 02:34:41 - INTERNAL - database query
+12/30/2021 02:34:41 - INTERNAL - database connect
+12/30/2021 02:34:41 -  - laugh post
+12/30/2021 02:34:41 - INTERNAL - database query
+12/30/2021 02:34:41 - INTERNAL - database connect
+12/30/2021 02:34:41 - INTERNAL - database execute
+12/30/2021 02:34:47 -  - laugh comment
+12/30/2021 02:34:47 - INTERNAL - database query
+12/30/2021 02:34:47 - INTERNAL - database connect
+12/30/2021 02:34:47 - INTERNAL - database execute
+12/30/2021 02:34:50 -  - fetch new
+12/30/2021 02:34:50 - INTERNAL - database query
+12/30/2021 02:34:50 - INTERNAL - database connect
+12/30/2021 02:34:54 -  - laugh post
+12/30/2021 02:34:54 - INTERNAL - database query
+12/30/2021 02:34:54 - INTERNAL - database connect
+12/30/2021 02:34:54 - INTERNAL - database execute
+12/30/2021 02:34:56 -  - fetch new_comments
+12/30/2021 02:34:56 - INTERNAL - database query
+12/30/2021 02:34:56 - INTERNAL - database connect
+12/30/2021 02:34:58 -  - laugh post
+12/30/2021 02:34:58 - INTERNAL - database query
+12/30/2021 02:34:58 - INTERNAL - database connect
+12/30/2021 02:34:58 - INTERNAL - database execute
+12/30/2021 02:35:02 -  - fetch new_comments
+12/30/2021 02:35:02 - INTERNAL - database query
+12/30/2021 02:35:02 - INTERNAL - database connect
+12/30/2021 02:35:03 -  - laugh post
+12/30/2021 02:35:03 - INTERNAL - database query
+12/30/2021 02:35:03 - INTERNAL - database connect
+12/30/2021 02:35:03 - INTERNAL - database execute
+12/30/2021 02:35:10 -  - laugh post
+12/30/2021 02:35:10 - INTERNAL - database query
+12/30/2021 02:35:10 - INTERNAL - database connect
+12/30/2021 02:35:10 - INTERNAL - database execute
+12/30/2021 02:35:13 -  - laugh post
+12/30/2021 02:35:13 - INTERNAL - database query
+12/30/2021 02:35:13 - INTERNAL - database connect
+12/30/2021 02:35:13 - INTERNAL - database execute
+12/30/2021 02:35:14 -  - laugh post
+12/30/2021 02:35:14 - INTERNAL - database query
+12/30/2021 02:35:14 - INTERNAL - database connect
+12/30/2021 02:35:14 - INTERNAL - failure - invalid literal for int() with base 10: 'undefined' - 
+12/30/2021 02:35:16 -  - laugh post
+12/30/2021 02:35:16 - INTERNAL - database query
+12/30/2021 02:35:16 - INTERNAL - database connect
+12/30/2021 02:35:16 - INTERNAL - database execute
+12/30/2021 02:35:17 -  - laugh post
+12/30/2021 02:35:17 - INTERNAL - database query
+12/30/2021 02:35:17 - INTERNAL - database connect
+12/30/2021 02:35:17 - INTERNAL - failure - invalid literal for int() with base 10: 'undefined' - 
+12/30/2021 02:35:19 -  - laugh post
+12/30/2021 02:35:19 - INTERNAL - database query
+12/30/2021 02:35:19 - INTERNAL - database connect
+12/30/2021 02:35:19 - INTERNAL - database execute
+12/30/2021 02:35:20 -  - laugh post
+12/30/2021 02:35:20 - INTERNAL - database query
+12/30/2021 02:35:20 - INTERNAL - database connect
+12/30/2021 02:35:20 - INTERNAL - failure - invalid literal for int() with base 10: 'undefined' - 
+12/30/2021 02:35:20 -  - laugh post
+12/30/2021 02:35:20 - INTERNAL - database query
+12/30/2021 02:35:20 - INTERNAL - database connect
+12/30/2021 02:35:20 - INTERNAL - failure - invalid literal for int() with base 10: 'undefined' - 
+12/30/2021 02:35:21 -  - laugh post
+12/30/2021 02:35:21 - INTERNAL - database query
+12/30/2021 02:35:21 - INTERNAL - database connect
+12/30/2021 02:35:21 - INTERNAL - database execute
+12/30/2021 02:35:22 -  - laugh post
+12/30/2021 02:35:22 - INTERNAL - database query
+12/30/2021 02:35:22 - INTERNAL - database connect
+12/30/2021 02:35:22 - INTERNAL - database execute
+12/30/2021 02:35:23 -  - laugh post
+12/30/2021 02:35:23 - INTERNAL - database query
+12/30/2021 02:35:23 - INTERNAL - database connect
+12/30/2021 02:35:23 - INTERNAL - failure - invalid literal for int() with base 10: 'undefined' - 
+12/30/2021 02:35:26 -  - laugh post
+12/30/2021 02:35:26 - INTERNAL - database query
+12/30/2021 02:35:26 - INTERNAL - database connect
+12/30/2021 02:35:26 - INTERNAL - database execute
+12/30/2021 02:35:28 -  - laugh post
+12/30/2021 02:35:28 - INTERNAL - database query
+12/30/2021 02:35:28 - INTERNAL - database connect
+12/30/2021 02:35:28 - INTERNAL - database execute
+12/30/2021 02:35:29 -  - laugh post
+12/30/2021 02:35:29 - INTERNAL - database query
+12/30/2021 02:35:29 - INTERNAL - database connect
+12/30/2021 02:35:29 - INTERNAL - database execute
+12/30/2021 02:35:30 -  - fetch new_comments
+12/30/2021 02:35:30 - INTERNAL - database query
+12/30/2021 02:35:30 - INTERNAL - database connect
+12/30/2021 02:35:32 -  - laugh post
+12/30/2021 02:35:32 - INTERNAL - database query
+12/30/2021 02:35:32 - INTERNAL - database connect
+12/30/2021 02:35:32 - INTERNAL - failure - invalid literal for int() with base 10: 'undefined' - 
+12/30/2021 02:35:35 -  - laugh comment
+12/30/2021 02:35:35 - INTERNAL - database query
+12/30/2021 02:35:35 - INTERNAL - database connect
+12/30/2021 02:35:35 - INTERNAL - database execute
+12/30/2021 02:35:37 -  - laugh comment
+12/30/2021 02:35:37 - INTERNAL - database query
+12/30/2021 02:35:37 - INTERNAL - database connect
+12/30/2021 02:35:37 - INTERNAL - database execute
+12/30/2021 02:35:47 -  - laugh post
+12/30/2021 02:35:47 - INTERNAL - database query
+12/30/2021 02:35:47 - INTERNAL - database connect
+12/30/2021 02:35:47 - INTERNAL - database execute
+12/30/2021 02:35:48 -  - fetch new
+12/30/2021 02:35:48 - INTERNAL - database query
+12/30/2021 02:35:48 - INTERNAL - database connect
+12/30/2021 02:35:51 -  - laugh post
+12/30/2021 02:35:51 - INTERNAL - database query
+12/30/2021 02:35:51 - INTERNAL - database connect
+12/30/2021 02:35:51 - INTERNAL - database execute
+12/30/2021 02:35:55 -  - laugh post
+12/30/2021 02:35:55 - INTERNAL - database query
+12/30/2021 02:35:55 - INTERNAL - database connect
+12/30/2021 02:35:55 - INTERNAL - database execute
+12/30/2021 02:36:06 -  - fetch new_comments
+12/30/2021 02:36:06 - INTERNAL - database query
+12/30/2021 02:36:06 - INTERNAL - database connect
+12/30/2021 02:36:07 -  - route main
+12/30/2021 02:36:07 - INTERNAL - database connect
+12/30/2021 02:36:08 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 02:36:08 -  - route main
+12/30/2021 02:36:08 - INTERNAL - database connect
+12/30/2021 02:36:08 -  - fetch attachment_table
+12/30/2021 02:36:08 - INTERNAL - database query
+12/30/2021 02:36:08 - INTERNAL - database connect
+12/30/2021 02:36:08 -  - fetch new
+12/30/2021 02:36:08 - INTERNAL - database query
+12/30/2021 02:36:08 - INTERNAL - database connect
+12/30/2021 02:36:12 -  - post comment
+12/30/2021 02:36:12 - INTERNAL - database query
+12/30/2021 02:36:12 - INTERNAL - database connect
+12/30/2021 02:36:12 - INTERNAL - database execute
+12/30/2021 02:36:12 - INTERNAL - database query
+12/30/2021 02:36:12 - INTERNAL - database connect
+12/30/2021 02:36:12 - INTERNAL - database execute
+12/30/2021 02:36:12 -  - fetch num_comments
+12/30/2021 02:36:12 - INTERNAL - database query
+12/30/2021 02:36:12 - INTERNAL - database connect
+12/30/2021 02:36:13 -  - fetch new_comments
+12/30/2021 02:36:13 - INTERNAL - database query
+12/30/2021 02:36:13 - INTERNAL - database connect
+12/30/2021 02:36:20 -  - laugh post
+12/30/2021 02:36:20 - INTERNAL - database query
+12/30/2021 02:36:20 - INTERNAL - database connect
+12/30/2021 02:36:20 - INTERNAL - database execute
+12/30/2021 02:36:31 -  - laugh post
+12/30/2021 02:36:31 - INTERNAL - database query
+12/30/2021 02:36:31 - INTERNAL - database connect
+12/30/2021 02:36:31 - INTERNAL - database execute
+12/30/2021 03:03:26 -  - fetch attachment_table
+12/30/2021 03:03:26 - INTERNAL - database query
+12/30/2021 03:03:26 - INTERNAL - database connect
+12/30/2021 03:03:26 -  - fetch new
+12/30/2021 03:03:26 - INTERNAL - database query
+12/30/2021 03:03:26 - INTERNAL - database connect
+12/30/2021 03:20:38 -  - route main
+12/30/2021 03:20:38 - INTERNAL - database connect
+12/30/2021 05:21:49 -  - route main
+12/30/2021 05:21:49 - INTERNAL - database connect
+12/30/2021 07:41:26 -  - route main
+12/30/2021 07:41:26 - INTERNAL - database connect
+12/30/2021 07:46:32 -  - route main
+12/30/2021 07:46:32 - INTERNAL - database connect
+12/30/2021 07:46:33 -  - fetch attachment_table
+12/30/2021 07:46:33 - INTERNAL - database query
+12/30/2021 07:46:33 - INTERNAL - database connect
+12/30/2021 07:46:33 -  - fetch new
+12/30/2021 07:46:33 - INTERNAL - database query
+12/30/2021 07:46:33 - INTERNAL - database connect
+12/30/2021 07:46:47 -  - laugh post
+12/30/2021 07:46:47 - INTERNAL - database query
+12/30/2021 07:46:47 - INTERNAL - database connect
+12/30/2021 07:46:47 - INTERNAL - database execute
+12/30/2021 07:46:49 -  - fetch new
+12/30/2021 07:46:49 - INTERNAL - database query
+12/30/2021 07:46:49 - INTERNAL - database connect
+12/30/2021 07:46:49 -  - laugh post
+12/30/2021 07:46:49 - INTERNAL - database query
+12/30/2021 07:46:49 - INTERNAL - database connect
+12/30/2021 07:46:49 - INTERNAL - database execute
+12/30/2021 07:46:52 -  - laugh post
+12/30/2021 07:46:52 - INTERNAL - database query
+12/30/2021 07:46:52 - INTERNAL - database connect
+12/30/2021 07:46:52 - INTERNAL - database execute
+12/30/2021 07:46:53 -  - fetch new_comments
+12/30/2021 07:46:53 - INTERNAL - database query
+12/30/2021 07:46:53 - INTERNAL - database connect
+12/30/2021 07:46:54 -  - fetch num_comments
+12/30/2021 07:46:54 - INTERNAL - database query
+12/30/2021 07:46:54 - INTERNAL - database connect
+12/30/2021 07:46:56 -  - laugh post
+12/30/2021 07:46:56 - INTERNAL - database query
+12/30/2021 07:46:56 - INTERNAL - database connect
+12/30/2021 07:46:56 - INTERNAL - database execute
+12/30/2021 08:27:24 -  - fetch attachment_table
+12/30/2021 08:27:24 - INTERNAL - database query
+12/30/2021 08:27:24 - INTERNAL - database connect
+12/30/2021 08:27:24 -  - fetch new
+12/30/2021 08:27:24 - INTERNAL - database query
+12/30/2021 08:27:24 - INTERNAL - database connect
+12/30/2021 08:27:24 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 08:53:29 -  - fetch attachment_table
+12/30/2021 08:53:29 - INTERNAL - database query
+12/30/2021 08:53:29 - INTERNAL - database connect
+12/30/2021 08:53:29 -  - fetch new
+12/30/2021 08:53:29 - INTERNAL - database query
+12/30/2021 08:53:29 - INTERNAL - database connect
+12/30/2021 08:53:29 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 09:52:12 -  - fetch attachment_table
+12/30/2021 09:52:12 - INTERNAL - database query
+12/30/2021 09:52:12 - INTERNAL - database connect
+12/30/2021 09:52:12 -  - fetch new
+12/30/2021 09:52:12 - INTERNAL - database query
+12/30/2021 09:52:12 - INTERNAL - database connect
+12/30/2021 09:52:12 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 10:18:11 -  - route main
+12/30/2021 10:18:11 - INTERNAL - database connect
+12/30/2021 10:18:12 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 10:18:12 -  - route main
+12/30/2021 10:18:12 - INTERNAL - database connect
+12/30/2021 10:18:12 -  - fetch attachment_table
+12/30/2021 10:18:12 - INTERNAL - database query
+12/30/2021 10:18:12 - INTERNAL - database connect
+12/30/2021 10:18:12 -  - fetch new
+12/30/2021 10:18:12 - INTERNAL - database query
+12/30/2021 10:18:12 - INTERNAL - database connect
+12/30/2021 10:26:05 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 10:26:05 -  - fetch attachment_table
+12/30/2021 10:26:05 - INTERNAL - database query
+12/30/2021 10:26:05 - INTERNAL - database connect
+12/30/2021 10:26:05 -  - fetch new
+12/30/2021 10:26:05 - INTERNAL - database query
+12/30/2021 10:26:05 - INTERNAL - database connect
+12/30/2021 10:33:22 -  - fetch attachment_table
+12/30/2021 10:33:22 - INTERNAL - database query
+12/30/2021 10:33:22 - INTERNAL - database connect
+12/30/2021 10:33:22 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 10:33:22 -  - fetch new
+12/30/2021 10:33:22 - INTERNAL - database query
+12/30/2021 10:33:22 - INTERNAL - database connect
+12/30/2021 11:03:34 -  - route main
+12/30/2021 11:03:34 - INTERNAL - database connect
+12/30/2021 11:03:34 -  - fetch attachment_table
+12/30/2021 11:03:34 - INTERNAL - database query
+12/30/2021 11:03:34 - INTERNAL - database connect
+12/30/2021 11:03:41 -  - route main
+12/30/2021 11:03:41 - INTERNAL - database connect
+12/30/2021 11:03:41 -  - fetch attachment_table
+12/30/2021 11:03:41 - INTERNAL - database query
+12/30/2021 11:03:41 - INTERNAL - database connect
+12/30/2021 11:03:41 -  - fetch new
+12/30/2021 11:03:41 - INTERNAL - database query
+12/30/2021 11:03:41 - INTERNAL - database connect
+12/30/2021 11:03:53 -  - route main
+12/30/2021 11:03:53 - INTERNAL - database connect
+12/30/2021 11:03:53 -  - fetch attachment_table
+12/30/2021 11:03:53 - INTERNAL - database query
+12/30/2021 11:03:53 - INTERNAL - database connect
+12/30/2021 11:03:53 -  - fetch new
+12/30/2021 11:03:53 - INTERNAL - database query
+12/30/2021 11:03:53 - INTERNAL - database connect
+12/30/2021 11:03:56 -  - fetch new
+12/30/2021 11:03:56 - INTERNAL - database query
+12/30/2021 11:03:56 - INTERNAL - database connect
+12/30/2021 11:03:56 -  - fetch attachment_table
+12/30/2021 11:03:56 - INTERNAL - database query
+12/30/2021 11:03:56 - INTERNAL - database connect
+12/30/2021 11:03:56 -  - fetch new
+12/30/2021 11:03:56 - INTERNAL - database query
+12/30/2021 11:03:56 - INTERNAL - database connect
+12/30/2021 11:03:56 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 11:04:00 -  - fetch new_comments
+12/30/2021 11:04:00 - INTERNAL - database query
+12/30/2021 11:04:00 - INTERNAL - database connect
+12/30/2021 11:04:01 -  - fetch num_comments
+12/30/2021 11:04:01 - INTERNAL - database query
+12/30/2021 11:04:01 - INTERNAL - database connect
+12/30/2021 11:04:03 -  - fetch new
+12/30/2021 11:04:03 - INTERNAL - database query
+12/30/2021 11:04:03 - INTERNAL - database connect
+12/30/2021 11:04:12 -  - fetch new
+12/30/2021 11:04:12 - INTERNAL - database query
+12/30/2021 11:04:12 - INTERNAL - database connect
+12/30/2021 11:16:42 -  - route main
+12/30/2021 11:16:42 - INTERNAL - database connect
+12/30/2021 11:16:43 -  - fetch attachment_table
+12/30/2021 11:16:43 - INTERNAL - database query
+12/30/2021 11:16:43 - INTERNAL - database connect
+12/30/2021 11:16:43 -  - fetch new
+12/30/2021 11:16:43 - INTERNAL - database query
+12/30/2021 11:16:43 - INTERNAL - database connect
+12/30/2021 11:16:56 -  - fetch new_comments
+12/30/2021 11:16:56 - INTERNAL - database query
+12/30/2021 11:16:56 - INTERNAL - database connect
+12/30/2021 11:17:19 -  - post comment
+12/30/2021 11:17:19 - INTERNAL - database query
+12/30/2021 11:17:19 - INTERNAL - database connect
+12/30/2021 11:17:19 - INTERNAL - database execute
+12/30/2021 11:17:20 - INTERNAL - database query
+12/30/2021 11:17:20 - INTERNAL - database connect
+12/30/2021 11:17:20 - INTERNAL - database execute
+12/30/2021 11:17:20 -  - fetch num_comments
+12/30/2021 11:17:20 - INTERNAL - database query
+12/30/2021 11:17:20 - INTERNAL - database connect
+12/30/2021 11:17:20 -  - fetch new_comments
+12/30/2021 11:17:20 - INTERNAL - database query
+12/30/2021 11:17:20 - INTERNAL - database connect
+12/30/2021 11:17:27 -  - fetch new_comments
+12/30/2021 11:17:27 - INTERNAL - database query
+12/30/2021 11:17:27 - INTERNAL - database connect
+12/30/2021 11:17:34 -  - post comment
+12/30/2021 11:17:34 - INTERNAL - database query
+12/30/2021 11:17:34 - INTERNAL - database connect
+12/30/2021 11:17:34 - INTERNAL - database execute
+12/30/2021 11:17:34 - INTERNAL - database query
+12/30/2021 11:17:34 - INTERNAL - database connect
+12/30/2021 11:17:34 - INTERNAL - database execute
+12/30/2021 11:17:35 -  - fetch num_comments
+12/30/2021 11:17:35 - INTERNAL - database query
+12/30/2021 11:17:35 - INTERNAL - database connect
+12/30/2021 11:17:35 -  - fetch new_comments
+12/30/2021 11:17:35 - INTERNAL - database query
+12/30/2021 11:17:35 - INTERNAL - database connect
+12/30/2021 11:17:36 -  - fetch new
+12/30/2021 11:17:36 - INTERNAL - database query
+12/30/2021 11:17:36 - INTERNAL - database connect
+12/30/2021 11:17:47 -  - fetch new_comments
+12/30/2021 11:17:47 - INTERNAL - database query
+12/30/2021 11:17:47 - INTERNAL - database connect
+12/30/2021 11:17:50 -  - laugh post
+12/30/2021 11:17:50 - INTERNAL - database query
+12/30/2021 11:17:50 - INTERNAL - database connect
+12/30/2021 11:17:50 - INTERNAL - database execute
+12/30/2021 11:18:00 -  - fetch new_comments
+12/30/2021 11:18:00 - INTERNAL - database query
+12/30/2021 11:18:00 - INTERNAL - database connect
+12/30/2021 11:18:09 -  - fetch new
+12/30/2021 11:18:09 - INTERNAL - database query
+12/30/2021 11:18:09 - INTERNAL - database connect
+12/30/2021 11:18:17 -  - laugh post
+12/30/2021 11:18:17 - INTERNAL - database query
+12/30/2021 11:18:17 - INTERNAL - database connect
+12/30/2021 11:18:17 - INTERNAL - database execute
+12/30/2021 11:18:17 -  - fetch new_comments
+12/30/2021 11:18:17 - INTERNAL - database query
+12/30/2021 11:18:17 - INTERNAL - database connect
+12/30/2021 11:18:20 -  - laugh post
+12/30/2021 11:18:20 - INTERNAL - database query
+12/30/2021 11:18:20 - INTERNAL - database connect
+12/30/2021 11:18:20 - INTERNAL - database execute
+12/30/2021 11:18:22 -  - fetch new_comments
+12/30/2021 11:18:22 - INTERNAL - database query
+12/30/2021 11:18:22 - INTERNAL - database connect
+12/30/2021 11:18:25 -  - laugh post
+12/30/2021 11:18:25 - INTERNAL - database query
+12/30/2021 11:18:25 - INTERNAL - database connect
+12/30/2021 11:18:25 - INTERNAL - database execute
+12/30/2021 11:18:32 -  - laugh post
+12/30/2021 11:18:32 - INTERNAL - database query
+12/30/2021 11:18:32 - INTERNAL - database connect
+12/30/2021 11:18:32 - INTERNAL - database execute
+12/30/2021 11:18:51 -  - fetch attachment_table
+12/30/2021 11:18:51 - INTERNAL - database query
+12/30/2021 11:18:51 - INTERNAL - database connect
+12/30/2021 11:18:51 -  - fetch pop
+12/30/2021 11:18:51 - INTERNAL - database query
+12/30/2021 11:18:51 - INTERNAL - database connect
+12/30/2021 11:18:54 -  - fetch attachment_table
+12/30/2021 11:18:54 - INTERNAL - database query
+12/30/2021 11:18:54 - INTERNAL - database connect
+12/30/2021 11:18:54 -  - fetch new
+12/30/2021 11:18:54 - INTERNAL - database query
+12/30/2021 11:18:54 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:24 -  - route main
+12/30/2021 11:29:24 - INTERNAL - database connect
+12/30/2021 11:29:37 -  - route main
+12/30/2021 11:29:37 - INTERNAL - database connect
+12/30/2021 11:39:24 -  - route main
+12/30/2021 11:39:24 - INTERNAL - database connect
+12/30/2021 12:10:35 -  - fetch attachment_table
+12/30/2021 12:10:35 - INTERNAL - database query
+12/30/2021 12:10:35 - INTERNAL - database connect
+12/30/2021 12:17:03 -  - route main
+12/30/2021 12:17:03 - INTERNAL - database connect
+12/30/2021 12:17:03 -  - fetch attachment_table
+12/30/2021 12:17:03 - INTERNAL - database query
+12/30/2021 12:17:03 - INTERNAL - database connect
+12/30/2021 12:17:03 -  - fetch new
+12/30/2021 12:17:03 - INTERNAL - database query
+12/30/2021 12:17:03 - INTERNAL - database connect
+12/30/2021 12:17:12 -  - route main
+12/30/2021 12:17:12 - INTERNAL - database connect
+12/30/2021 12:18:24 -  - route main
+12/30/2021 12:18:24 - INTERNAL - database connect
+12/30/2021 12:18:32 -  - fetch attachment_table
+12/30/2021 12:18:32 - INTERNAL - database query
+12/30/2021 12:18:32 - INTERNAL - database connect
+12/30/2021 12:18:33 -  - fetch new
+12/30/2021 12:18:33 - INTERNAL - database query
+12/30/2021 12:18:33 - INTERNAL - database connect
+12/30/2021 12:22:15 -  - route main
+12/30/2021 12:22:15 - INTERNAL - database connect
+12/30/2021 12:27:30 -  - route main
+12/30/2021 12:27:30 - INTERNAL - database connect
+12/30/2021 12:28:19 -  - route main
+12/30/2021 12:28:19 - INTERNAL - database connect
+12/30/2021 12:28:21 -  - fetch attachment_table
+12/30/2021 12:28:21 - INTERNAL - database query
+12/30/2021 12:28:21 - INTERNAL - database connect
+12/30/2021 12:28:21 -  - fetch new
+12/30/2021 12:28:21 - INTERNAL - database query
+12/30/2021 12:28:21 - INTERNAL - database connect
+12/30/2021 12:28:21 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 12:30:13 -  - route main
+12/30/2021 12:30:13 - INTERNAL - database connect
+12/30/2021 12:36:18 -  - fetch attachment_table
+12/30/2021 12:36:18 - INTERNAL - database query
+12/30/2021 12:36:18 - INTERNAL - database connect
+12/30/2021 12:36:18 -  - fetch new
+12/30/2021 12:36:18 - INTERNAL - database query
+12/30/2021 12:36:18 - INTERNAL - database connect
+12/30/2021 12:41:44 -  - route main
+12/30/2021 12:41:44 - INTERNAL - database connect
+12/30/2021 12:41:44 -  - fetch attachment_table
+12/30/2021 12:41:44 - INTERNAL - database query
+12/30/2021 12:41:44 - INTERNAL - database connect
+12/30/2021 12:41:44 -  - fetch new
+12/30/2021 12:41:44 - INTERNAL - database query
+12/30/2021 12:41:44 - INTERNAL - database connect
+12/30/2021 12:43:47 -  - route main
+12/30/2021 12:43:47 - INTERNAL - database connect
+12/30/2021 13:02:00 -  - route main
+12/30/2021 13:02:00 - INTERNAL - database connect
+12/30/2021 14:10:06 -  - fetch attachment_table
+12/30/2021 14:10:06 - INTERNAL - database query
+12/30/2021 14:10:06 - INTERNAL - database connect
+12/30/2021 14:10:06 -  - fetch new
+12/30/2021 14:10:06 - INTERNAL - database query
+12/30/2021 14:10:06 - INTERNAL - database connect
+12/30/2021 14:34:42 -  - route main
+12/30/2021 14:34:42 - INTERNAL - database connect
+12/30/2021 14:34:43 -  - fetch attachment_table
+12/30/2021 14:34:43 - INTERNAL - database query
+12/30/2021 14:34:43 - INTERNAL - database connect
+12/30/2021 14:34:43 -  - fetch new
+12/30/2021 14:34:43 - INTERNAL - database query
+12/30/2021 14:34:43 - INTERNAL - database connect
+12/30/2021 14:46:08 -  - fetch attachment_table
+12/30/2021 14:46:08 - INTERNAL - database query
+12/30/2021 14:46:08 - INTERNAL - database connect
+12/30/2021 14:46:08 -  - fetch new
+12/30/2021 14:46:08 - INTERNAL - database query
+12/30/2021 14:46:08 - INTERNAL - database connect
+12/30/2021 14:46:08 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 15:55:10 -  - route main
+12/30/2021 15:55:10 - INTERNAL - database connect
+12/30/2021 15:55:13 -  - route main
+12/30/2021 15:55:13 - INTERNAL - database connect
+12/30/2021 16:09:33 -  - route main
+12/30/2021 16:09:33 - INTERNAL - database connect
+12/30/2021 16:45:58 -  - route main
+12/30/2021 16:45:58 - INTERNAL - database connect
+12/30/2021 16:53:07 -  - route main
+12/30/2021 16:53:07 - INTERNAL - database connect
+12/30/2021 16:53:08 -  - fetch attachment_table
+12/30/2021 16:53:08 - INTERNAL - database query
+12/30/2021 16:53:08 - INTERNAL - database connect
+12/30/2021 16:53:08 -  - fetch new
+12/30/2021 16:53:08 - INTERNAL - database query
+12/30/2021 16:53:08 - INTERNAL - database connect
+12/30/2021 16:53:13 -  - laugh post
+12/30/2021 16:53:13 - INTERNAL - database query
+12/30/2021 16:53:13 - INTERNAL - database connect
+12/30/2021 16:53:13 - INTERNAL - database execute
+12/30/2021 16:53:15 -  - fetch new_comments
+12/30/2021 16:53:15 - INTERNAL - database query
+12/30/2021 16:53:15 - INTERNAL - database connect
+12/30/2021 16:53:18 -  - fetch new_comments
+12/30/2021 16:53:18 - INTERNAL - database query
+12/30/2021 16:53:18 - INTERNAL - database connect
+12/30/2021 16:53:23 -  - laugh comment
+12/30/2021 16:53:23 - INTERNAL - database query
+12/30/2021 16:53:23 - INTERNAL - database connect
+12/30/2021 16:53:23 - INTERNAL - database execute
+12/30/2021 18:28:32 -  - fetch attachment_table
+12/30/2021 18:28:32 - INTERNAL - database query
+12/30/2021 18:28:32 - INTERNAL - database connect
+12/30/2021 18:28:32 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 18:28:32 -  - fetch new
+12/30/2021 18:28:32 - INTERNAL - database query
+12/30/2021 18:28:32 - INTERNAL - database connect
+12/30/2021 20:43:07 -  - route main
+12/30/2021 20:43:07 - INTERNAL - database connect
+12/30/2021 20:43:07 -  - fetch attachment_table
+12/30/2021 20:43:07 - INTERNAL - database query
+12/30/2021 20:43:07 - INTERNAL - database connect
+12/30/2021 20:43:07 -  - fetch new
+12/30/2021 20:43:07 - INTERNAL - database query
+12/30/2021 20:43:07 - INTERNAL - database connect
+12/30/2021 21:05:42 -  - route main
+12/30/2021 21:05:42 - INTERNAL - database connect
+12/30/2021 21:14:38 -  - route main
+12/30/2021 21:14:38 - INTERNAL - database connect
+12/30/2021 21:47:22 -  - fetch attachment_table
+12/30/2021 21:47:22 - INTERNAL - database query
+12/30/2021 21:47:22 - INTERNAL - database connect
+12/30/2021 21:47:22 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 21:47:22 -  - fetch new
+12/30/2021 21:47:22 - INTERNAL - database query
+12/30/2021 21:47:22 - INTERNAL - database connect
+12/30/2021 23:12:01 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/30/2021 23:12:01 -  - fetch attachment_table
+12/30/2021 23:12:01 - INTERNAL - database query
+12/30/2021 23:12:01 - INTERNAL - database connect
+12/30/2021 23:12:02 -  - fetch new
+12/30/2021 23:12:02 - INTERNAL - database query
+12/30/2021 23:12:02 - INTERNAL - database connect

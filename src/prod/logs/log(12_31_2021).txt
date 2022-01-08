@@ -1,0 +1,526 @@
+12/31/2021 00:39:42 -  - route main
+12/31/2021 00:39:42 - INTERNAL - database connect
+12/31/2021 00:39:42 -  - fetch attachment_table
+12/31/2021 00:39:42 - INTERNAL - database query
+12/31/2021 00:39:42 - INTERNAL - database connect
+12/31/2021 00:39:42 -  - fetch new
+12/31/2021 00:39:42 - INTERNAL - database query
+12/31/2021 00:39:42 - INTERNAL - database connect
+12/31/2021 00:40:47 -  - post image
+12/31/2021 00:40:47 - INTERNAL - database query
+12/31/2021 00:40:47 - INTERNAL - database connect
+12/31/2021 00:40:47 - INTERNAL - database execute
+12/31/2021 00:40:47 - INTERNAL - database query
+12/31/2021 00:40:47 - INTERNAL - database connect
+12/31/2021 00:40:47 - INTERNAL - database execute
+12/31/2021 00:40:47 - INTERNAL - database execute
+12/31/2021 00:40:47 -  - route main
+12/31/2021 00:40:47 - INTERNAL - database connect
+12/31/2021 00:40:48 -  - fetch attachment_table
+12/31/2021 00:40:48 - INTERNAL - database query
+12/31/2021 00:40:48 - INTERNAL - database connect
+12/31/2021 00:40:48 -  - fetch new
+12/31/2021 00:40:48 - INTERNAL - database query
+12/31/2021 00:40:48 - INTERNAL - database connect
+12/31/2021 00:40:55 -  - laugh post
+12/31/2021 00:40:55 - INTERNAL - database query
+12/31/2021 00:40:55 - INTERNAL - database connect
+12/31/2021 00:40:55 - INTERNAL - database execute
+12/31/2021 00:40:58 -  - laugh post
+12/31/2021 00:40:58 - INTERNAL - database query
+12/31/2021 00:40:58 - INTERNAL - database connect
+12/31/2021 00:40:58 - INTERNAL - database execute
+12/31/2021 00:41:15 -  - report post
+12/31/2021 00:41:15 - INTERNAL - database query
+12/31/2021 00:41:15 - INTERNAL - database connect
+12/31/2021 00:41:15 - INTERNAL - database execute
+12/31/2021 00:41:19 -  - report post
+12/31/2021 00:41:19 - INTERNAL - database query
+12/31/2021 00:41:19 - INTERNAL - database connect
+12/31/2021 00:41:19 - INTERNAL - database execute
+12/31/2021 00:41:21 -  - report post
+12/31/2021 00:41:21 - INTERNAL - database query
+12/31/2021 00:41:21 - INTERNAL - database connect
+12/31/2021 00:41:21 - INTERNAL - database execute
+12/31/2021 00:41:27 -  - fetch new
+12/31/2021 00:41:27 - INTERNAL - database query
+12/31/2021 00:41:27 - INTERNAL - database connect
+12/31/2021 00:41:29 -  - fetch new
+12/31/2021 00:41:29 - INTERNAL - database query
+12/31/2021 00:41:29 - INTERNAL - database connect
+12/31/2021 00:41:37 -  - report post
+12/31/2021 00:41:37 - INTERNAL - database query
+12/31/2021 00:41:37 - INTERNAL - database connect
+12/31/2021 00:41:37 - INTERNAL - database execute
+12/31/2021 00:41:44 -  - fetch new
+12/31/2021 00:41:44 - INTERNAL - database query
+12/31/2021 00:41:44 - INTERNAL - database connect
+12/31/2021 00:41:46 -  - route main
+12/31/2021 00:41:46 - INTERNAL - database connect
+12/31/2021 00:41:46 -  - fetch attachment_table
+12/31/2021 00:41:46 - INTERNAL - database query
+12/31/2021 00:41:46 - INTERNAL - database connect
+12/31/2021 00:41:47 -  - fetch new
+12/31/2021 00:41:47 - INTERNAL - database query
+12/31/2021 00:41:47 - INTERNAL - database connect
+12/31/2021 00:41:53 -  - route main
+12/31/2021 00:41:53 - INTERNAL - database connect
+12/31/2021 00:41:53 -  - fetch attachment_table
+12/31/2021 00:41:53 - INTERNAL - database query
+12/31/2021 00:41:53 - INTERNAL - database connect
+12/31/2021 00:41:53 -  - fetch new
+12/31/2021 00:41:53 - INTERNAL - database query
+12/31/2021 00:41:53 - INTERNAL - database connect
+12/31/2021 00:42:00 -  - route admin
+12/31/2021 00:42:06 - INTERNAL - failure - [Errno 2] No such file or directory: 'secretkey.txt' - 
+12/31/2021 00:42:09 -  - fetch attachment_table
+12/31/2021 00:42:09 - INTERNAL - database query
+12/31/2021 00:42:09 - INTERNAL - database connect
+12/31/2021 00:42:09 -  - fetch new
+12/31/2021 00:42:09 - INTERNAL - database query
+12/31/2021 00:42:09 - INTERNAL - database connect
+12/31/2021 00:42:14 -  - route admin
+12/31/2021 00:42:19 - INTERNAL - failure - [Errno 2] No such file or directory: 'secretkey.txt' - 
+12/31/2021 00:42:20 -  - fetch attachment_table
+12/31/2021 00:42:20 - INTERNAL - database query
+12/31/2021 00:42:20 - INTERNAL - database connect
+12/31/2021 00:42:21 -  - fetch new
+12/31/2021 00:42:21 - INTERNAL - database query
+12/31/2021 00:42:21 - INTERNAL - database connect
+12/31/2021 00:42:26 -  - route admin
+12/31/2021 00:42:29 - INTERNAL - failure - [Errno 2] No such file or directory: 'secretkey.txt' - 
+12/31/2021 00:42:32 -  - fetch attachment_table
+12/31/2021 00:42:32 - INTERNAL - database query
+12/31/2021 00:42:32 - INTERNAL - database connect
+12/31/2021 00:42:32 -  - fetch new
+12/31/2021 00:42:32 - INTERNAL - database query
+12/31/2021 00:42:32 - INTERNAL - database connect
+12/31/2021 00:44:26 -  - route admin
+12/31/2021 00:44:29 -  - auth pass
+12/31/2021 00:44:29 -  - fetch num_reports
+12/31/2021 00:44:29 - INTERNAL - database query
+12/31/2021 00:44:29 - INTERNAL - database connect
+12/31/2021 00:44:31 -  - fetch reports
+12/31/2021 00:44:31 - INTERNAL - database query
+12/31/2021 00:44:31 - INTERNAL - database connect
+12/31/2021 00:44:56 -  - route main
+12/31/2021 00:44:56 - INTERNAL - database connect
+12/31/2021 00:45:18 - INTERNAL - database query
+12/31/2021 00:45:18 - INTERNAL - database connect
+12/31/2021 00:45:18 -  - report invisible
+12/31/2021 00:45:18 - INTERNAL - database execute
+12/31/2021 00:45:18 - INTERNAL - database execute
+12/31/2021 00:45:18 -  - fetch num_reports
+12/31/2021 00:45:18 - INTERNAL - database query
+12/31/2021 00:45:18 - INTERNAL - database connect
+12/31/2021 00:45:19 -  - fetch reports
+12/31/2021 00:45:19 - INTERNAL - database query
+12/31/2021 00:45:19 - INTERNAL - database connect
+12/31/2021 00:45:22 - INTERNAL - database query
+12/31/2021 00:45:22 - INTERNAL - database connect
+12/31/2021 00:45:22 -  - report invisible
+12/31/2021 00:45:22 - INTERNAL - database execute
+12/31/2021 00:45:22 - INTERNAL - database execute
+12/31/2021 00:45:22 -  - fetch num_reports
+12/31/2021 00:45:22 - INTERNAL - database query
+12/31/2021 00:45:22 - INTERNAL - database connect
+12/31/2021 00:45:23 -  - fetch reports
+12/31/2021 00:45:23 - INTERNAL - database query
+12/31/2021 00:45:23 - INTERNAL - database connect
+12/31/2021 00:45:25 - INTERNAL - database query
+12/31/2021 00:45:25 - INTERNAL - database connect
+12/31/2021 00:45:25 -  - report invisible
+12/31/2021 00:45:25 - INTERNAL - database execute
+12/31/2021 00:45:25 - INTERNAL - database execute
+12/31/2021 00:45:25 -  - fetch num_reports
+12/31/2021 00:45:25 - INTERNAL - database query
+12/31/2021 00:45:25 - INTERNAL - database connect
+12/31/2021 00:45:25 -  - fetch reports
+12/31/2021 00:45:25 - INTERNAL - database query
+12/31/2021 00:45:25 - INTERNAL - database connect
+12/31/2021 00:45:28 - INTERNAL - database query
+12/31/2021 00:45:28 - INTERNAL - database connect
+12/31/2021 00:45:28 -  - report invisible
+12/31/2021 00:45:28 - INTERNAL - database execute
+12/31/2021 00:45:28 - INTERNAL - database execute
+12/31/2021 00:45:28 -  - fetch num_reports
+12/31/2021 00:45:28 - INTERNAL - database query
+12/31/2021 00:45:28 - INTERNAL - database connect
+12/31/2021 00:45:30 -  - route main
+12/31/2021 00:45:30 - INTERNAL - database connect
+12/31/2021 00:45:30 -  - fetch attachment_table
+12/31/2021 00:45:30 - INTERNAL - database query
+12/31/2021 00:45:30 - INTERNAL - database connect
+12/31/2021 00:45:30 -  - fetch new
+12/31/2021 00:45:30 - INTERNAL - database query
+12/31/2021 00:45:30 - INTERNAL - database connect
+12/31/2021 00:45:37 -  - fetch new_comments
+12/31/2021 00:45:37 - INTERNAL - database query
+12/31/2021 00:45:37 - INTERNAL - database connect
+12/31/2021 00:45:37 -  - fetch num_comments
+12/31/2021 00:45:37 - INTERNAL - database query
+12/31/2021 00:45:37 - INTERNAL - database connect
+12/31/2021 00:45:41 -  - laugh post
+12/31/2021 00:45:41 - INTERNAL - database query
+12/31/2021 00:45:41 - INTERNAL - database connect
+12/31/2021 00:45:41 - INTERNAL - database execute
+12/31/2021 00:45:42 -  - fetch new_comments
+12/31/2021 00:45:42 - INTERNAL - database query
+12/31/2021 00:45:42 - INTERNAL - database connect
+12/31/2021 00:45:47 -  - laugh comment
+12/31/2021 00:45:47 - INTERNAL - database query
+12/31/2021 00:45:47 - INTERNAL - database connect
+12/31/2021 00:45:47 - INTERNAL - database execute
+12/31/2021 00:45:52 -  - post comment
+12/31/2021 00:45:52 - INTERNAL - database query
+12/31/2021 00:45:52 - INTERNAL - database connect
+12/31/2021 00:45:52 - INTERNAL - database execute
+12/31/2021 00:45:52 - INTERNAL - database query
+12/31/2021 00:45:52 - INTERNAL - database connect
+12/31/2021 00:45:52 - INTERNAL - database execute
+12/31/2021 00:45:52 -  - fetch num_comments
+12/31/2021 00:45:52 - INTERNAL - database query
+12/31/2021 00:45:52 - INTERNAL - database connect
+12/31/2021 00:45:52 -  - fetch new_comments
+12/31/2021 00:45:52 - INTERNAL - database query
+12/31/2021 00:45:52 - INTERNAL - database connect
+12/31/2021 00:45:54 -  - fetch num_comments
+12/31/2021 00:45:54 - INTERNAL - database query
+12/31/2021 00:45:54 - INTERNAL - database connect
+12/31/2021 00:45:55 -  - fetch new
+12/31/2021 00:45:55 - INTERNAL - database query
+12/31/2021 00:45:55 - INTERNAL - database connect
+12/31/2021 00:46:01 -  - fetch new_comments
+12/31/2021 00:46:01 - INTERNAL - database query
+12/31/2021 00:46:01 - INTERNAL - database connect
+12/31/2021 00:46:13 -  - post comment
+12/31/2021 00:46:13 - INTERNAL - database query
+12/31/2021 00:46:13 - INTERNAL - database connect
+12/31/2021 00:46:13 - INTERNAL - database execute
+12/31/2021 00:46:13 - INTERNAL - database query
+12/31/2021 00:46:13 - INTERNAL - database connect
+12/31/2021 00:46:13 - INTERNAL - database execute
+12/31/2021 00:46:13 -  - fetch num_comments
+12/31/2021 00:46:13 - INTERNAL - database query
+12/31/2021 00:46:13 - INTERNAL - database connect
+12/31/2021 00:46:13 -  - fetch new_comments
+12/31/2021 00:46:13 - INTERNAL - database query
+12/31/2021 00:46:13 - INTERNAL - database connect
+12/31/2021 00:46:15 -  - fetch num_comments
+12/31/2021 00:46:15 - INTERNAL - database query
+12/31/2021 00:46:15 - INTERNAL - database connect
+12/31/2021 00:46:19 -  - fetch new_comments
+12/31/2021 00:46:19 - INTERNAL - database query
+12/31/2021 00:46:19 - INTERNAL - database connect
+12/31/2021 00:46:20 -  - fetch num_comments
+12/31/2021 00:46:20 - INTERNAL - database query
+12/31/2021 00:46:20 - INTERNAL - database connect
+12/31/2021 00:46:23 -  - fetch new_comments
+12/31/2021 00:46:23 - INTERNAL - database query
+12/31/2021 00:46:23 - INTERNAL - database connect
+12/31/2021 00:46:24 -  - fetch num_comments
+12/31/2021 00:46:24 - INTERNAL - database query
+12/31/2021 00:46:24 - INTERNAL - database connect
+12/31/2021 00:46:32 -  - fetch new
+12/31/2021 00:46:32 - INTERNAL - database query
+12/31/2021 00:46:32 - INTERNAL - database connect
+12/31/2021 00:46:43 -  - fetch new_comments
+12/31/2021 00:46:43 - INTERNAL - database query
+12/31/2021 00:46:43 - INTERNAL - database connect
+12/31/2021 00:46:46 -  - fetch num_comments
+12/31/2021 00:46:46 - INTERNAL - database query
+12/31/2021 00:46:46 - INTERNAL - database connect
+12/31/2021 00:47:02 -  - fetch new_comments
+12/31/2021 00:47:02 - INTERNAL - database query
+12/31/2021 00:47:02 - INTERNAL - database connect
+12/31/2021 00:47:12 -  - post comment
+12/31/2021 00:47:12 - INTERNAL - database query
+12/31/2021 00:47:12 - INTERNAL - database connect
+12/31/2021 00:47:12 - INTERNAL - database execute
+12/31/2021 00:47:12 - INTERNAL - database query
+12/31/2021 00:47:12 - INTERNAL - database connect
+12/31/2021 00:47:12 - INTERNAL - database execute
+12/31/2021 00:47:12 -  - fetch num_comments
+12/31/2021 00:47:12 - INTERNAL - database query
+12/31/2021 00:47:12 - INTERNAL - database connect
+12/31/2021 00:47:13 -  - fetch new_comments
+12/31/2021 00:47:13 - INTERNAL - database query
+12/31/2021 00:47:13 - INTERNAL - database connect
+12/31/2021 00:47:15 -  - fetch num_comments
+12/31/2021 00:47:15 - INTERNAL - database query
+12/31/2021 00:47:15 - INTERNAL - database connect
+12/31/2021 00:47:19 -  - laugh post
+12/31/2021 00:47:19 - INTERNAL - database query
+12/31/2021 00:47:19 - INTERNAL - database connect
+12/31/2021 00:47:19 - INTERNAL - database execute
+12/31/2021 00:47:22 -  - laugh post
+12/31/2021 00:47:22 - INTERNAL - database query
+12/31/2021 00:47:22 - INTERNAL - database connect
+12/31/2021 00:47:22 - INTERNAL - database execute
+12/31/2021 00:47:24 -  - fetch new
+12/31/2021 00:47:24 - INTERNAL - database query
+12/31/2021 00:47:24 - INTERNAL - database connect
+12/31/2021 00:47:25 -  - laugh post
+12/31/2021 00:47:25 - INTERNAL - database query
+12/31/2021 00:47:25 - INTERNAL - database connect
+12/31/2021 00:47:25 - INTERNAL - database execute
+12/31/2021 00:47:27 -  - fetch new_comments
+12/31/2021 00:47:27 - INTERNAL - database query
+12/31/2021 00:47:27 - INTERNAL - database connect
+12/31/2021 00:47:28 -  - fetch num_comments
+12/31/2021 00:47:28 - INTERNAL - database query
+12/31/2021 00:47:28 - INTERNAL - database connect
+12/31/2021 00:47:29 -  - fetch new_comments
+12/31/2021 00:47:29 - INTERNAL - database query
+12/31/2021 00:47:29 - INTERNAL - database connect
+12/31/2021 00:47:32 -  - fetch num_comments
+12/31/2021 00:47:32 - INTERNAL - database query
+12/31/2021 00:47:32 - INTERNAL - database connect
+12/31/2021 00:47:34 -  - fetch new_comments
+12/31/2021 00:47:34 - INTERNAL - database query
+12/31/2021 00:47:34 - INTERNAL - database connect
+12/31/2021 00:47:34 -  - fetch num_comments
+12/31/2021 00:47:34 - INTERNAL - database query
+12/31/2021 00:47:34 - INTERNAL - database connect
+12/31/2021 00:47:36 -  - fetch new_comments
+12/31/2021 00:47:36 - INTERNAL - database query
+12/31/2021 00:47:36 - INTERNAL - database connect
+12/31/2021 00:47:38 -  - fetch num_comments
+12/31/2021 00:47:38 - INTERNAL - database query
+12/31/2021 00:47:38 - INTERNAL - database connect
+12/31/2021 00:47:39 -  - fetch new_comments
+12/31/2021 00:47:39 - INTERNAL - database query
+12/31/2021 00:47:39 - INTERNAL - database connect
+12/31/2021 00:47:40 -  - fetch num_comments
+12/31/2021 00:47:40 - INTERNAL - database query
+12/31/2021 00:47:40 - INTERNAL - database connect
+12/31/2021 00:47:41 -  - fetch new_comments
+12/31/2021 00:47:41 - INTERNAL - database query
+12/31/2021 00:47:41 - INTERNAL - database connect
+12/31/2021 00:47:42 -  - fetch num_comments
+12/31/2021 00:47:42 - INTERNAL - database query
+12/31/2021 00:47:42 - INTERNAL - database connect
+12/31/2021 00:47:43 -  - fetch new_comments
+12/31/2021 00:47:43 - INTERNAL - database query
+12/31/2021 00:47:43 - INTERNAL - database connect
+12/31/2021 00:47:46 -  - fetch num_comments
+12/31/2021 00:47:46 - INTERNAL - database query
+12/31/2021 00:47:46 - INTERNAL - database connect
+12/31/2021 00:48:00 -  - route main
+12/31/2021 00:48:00 - INTERNAL - database connect
+12/31/2021 00:48:00 -  - fetch attachment_table
+12/31/2021 00:48:00 - INTERNAL - database query
+12/31/2021 00:48:00 - INTERNAL - database connect
+12/31/2021 00:48:00 -  - fetch new
+12/31/2021 00:48:00 - INTERNAL - database query
+12/31/2021 00:48:00 - INTERNAL - database connect
+12/31/2021 01:36:24 -  - route main
+12/31/2021 01:36:24 - INTERNAL - database connect
+12/31/2021 01:47:21 -  - route main
+12/31/2021 01:47:21 - INTERNAL - database connect
+12/31/2021 02:41:02 -  - route main
+12/31/2021 02:41:02 - INTERNAL - database connect
+12/31/2021 03:21:40 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/31/2021 03:21:40 -  - fetch attachment_table
+12/31/2021 03:21:40 - INTERNAL - database query
+12/31/2021 03:21:40 - INTERNAL - database connect
+12/31/2021 03:21:41 -  - fetch new
+12/31/2021 03:21:41 - INTERNAL - database query
+12/31/2021 03:21:41 - INTERNAL - database connect
+12/31/2021 03:44:33 -  - route main
+12/31/2021 03:44:33 - INTERNAL - database connect
+12/31/2021 04:37:52 -  - route main
+12/31/2021 04:37:52 - INTERNAL - database connect
+12/31/2021 05:22:15 -  - route main
+12/31/2021 05:22:15 - INTERNAL - database connect
+12/31/2021 06:05:34 -  - route main
+12/31/2021 06:05:34 - INTERNAL - database connect
+12/31/2021 06:48:30 -  - route main
+12/31/2021 06:48:30 - INTERNAL - database connect
+12/31/2021 07:56:00 -  - route main
+12/31/2021 07:56:00 - INTERNAL - database connect
+12/31/2021 07:57:40 -  - route main
+12/31/2021 07:57:40 - INTERNAL - database connect
+12/31/2021 07:57:41 -  - route main
+12/31/2021 07:57:41 - INTERNAL - database connect
+12/31/2021 08:46:09 -  - route main
+12/31/2021 08:46:09 - INTERNAL - database connect
+12/31/2021 09:01:29 -  - route main
+12/31/2021 09:01:29 - INTERNAL - database connect
+12/31/2021 09:11:52 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/31/2021 09:11:52 -  - fetch attachment_table
+12/31/2021 09:11:52 - INTERNAL - database query
+12/31/2021 09:11:52 - INTERNAL - database connect
+12/31/2021 09:11:52 -  - fetch new
+12/31/2021 09:11:52 - INTERNAL - database query
+12/31/2021 09:11:52 - INTERNAL - database connect
+12/31/2021 09:12:04 -  - fetch new
+12/31/2021 09:12:04 - INTERNAL - database query
+12/31/2021 09:12:04 - INTERNAL - database connect
+12/31/2021 09:12:08 -  - fetch new
+12/31/2021 09:12:08 - INTERNAL - database query
+12/31/2021 09:12:08 - INTERNAL - database connect
+12/31/2021 09:12:14 -  - fetch new
+12/31/2021 09:12:14 - INTERNAL - database query
+12/31/2021 09:12:14 - INTERNAL - database connect
+12/31/2021 09:19:48 -  - route main
+12/31/2021 09:19:48 - INTERNAL - database connect
+12/31/2021 09:33:35 -  - fetch attachment_table
+12/31/2021 09:33:35 - INTERNAL - database query
+12/31/2021 09:33:35 - INTERNAL - database connect
+12/31/2021 09:33:35 -  - fetch new
+12/31/2021 09:33:35 - INTERNAL - database query
+12/31/2021 09:33:35 - INTERNAL - database connect
+12/31/2021 09:33:35 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/31/2021 10:16:34 -  - route main
+12/31/2021 10:16:34 - INTERNAL - database connect
+12/31/2021 10:16:34 -  - route main
+12/31/2021 10:16:34 - INTERNAL - database connect
+12/31/2021 10:16:34 -  - route main
+12/31/2021 10:16:34 - INTERNAL - database connect
+12/31/2021 10:16:34 -  - fetch attachment_table
+12/31/2021 10:16:34 - INTERNAL - database query
+12/31/2021 10:16:34 - INTERNAL - database connect
+12/31/2021 10:16:34 -  - fetch new
+12/31/2021 10:16:34 - INTERNAL - database query
+12/31/2021 10:16:34 - INTERNAL - database connect
+12/31/2021 10:16:39 -  - route main
+12/31/2021 10:16:39 - INTERNAL - database connect
+12/31/2021 10:16:40 -  - route main
+12/31/2021 10:16:40 - INTERNAL - database connect
+12/31/2021 10:16:40 -  - route main
+12/31/2021 10:16:40 - INTERNAL - database connect
+12/31/2021 10:16:40 -  - route main
+12/31/2021 10:16:40 - INTERNAL - database connect
+12/31/2021 10:16:40 -  - fetch attachment_table
+12/31/2021 10:16:40 - INTERNAL - database query
+12/31/2021 10:16:40 - INTERNAL - database connect
+12/31/2021 10:16:41 -  - fetch new
+12/31/2021 10:16:41 - INTERNAL - database query
+12/31/2021 10:16:41 - INTERNAL - database connect
+12/31/2021 10:16:43 -  - route main
+12/31/2021 10:16:43 - INTERNAL - database connect
+12/31/2021 10:16:44 -  - route main
+12/31/2021 10:16:44 - INTERNAL - database connect
+12/31/2021 10:16:44 -  - route main
+12/31/2021 10:16:44 - INTERNAL - database connect
+12/31/2021 10:16:44 -  - fetch attachment_table
+12/31/2021 10:16:44 - INTERNAL - database query
+12/31/2021 10:16:44 - INTERNAL - database connect
+12/31/2021 10:16:44 -  - fetch new
+12/31/2021 10:16:44 - INTERNAL - database query
+12/31/2021 10:16:44 - INTERNAL - database connect
+12/31/2021 10:16:49 -  - route admin
+12/31/2021 10:16:55 -  - auth pass
+12/31/2021 10:16:55 -  - fetch num_reports
+12/31/2021 10:16:55 - INTERNAL - database query
+12/31/2021 10:16:55 - INTERNAL - database connect
+12/31/2021 10:17:22 -  - fetch reports
+12/31/2021 10:17:22 - INTERNAL - database query
+12/31/2021 10:17:22 - INTERNAL - database connect
+12/31/2021 10:17:46 -  - route main
+12/31/2021 10:17:46 - INTERNAL - database connect
+12/31/2021 10:17:46 -  - route main
+12/31/2021 10:17:46 - INTERNAL - database connect
+12/31/2021 10:17:47 -  - route main
+12/31/2021 10:17:47 - INTERNAL - database connect
+12/31/2021 10:17:47 -  - fetch attachment_table
+12/31/2021 10:17:47 - INTERNAL - database query
+12/31/2021 10:17:47 - INTERNAL - database connect
+12/31/2021 10:17:47 -  - fetch new
+12/31/2021 10:17:47 - INTERNAL - database query
+12/31/2021 10:17:47 - INTERNAL - database connect
+12/31/2021 10:17:52 -  - fetch new
+12/31/2021 10:17:52 - INTERNAL - database query
+12/31/2021 10:17:52 - INTERNAL - database connect
+12/31/2021 10:23:08 -  - route main
+12/31/2021 10:23:08 - INTERNAL - database connect
+12/31/2021 10:23:08 -  - route main
+12/31/2021 10:23:08 - INTERNAL - database connect
+12/31/2021 10:59:21 -  - fetch attachment_table
+12/31/2021 10:59:21 - INTERNAL - database query
+12/31/2021 10:59:21 - INTERNAL - database connect
+12/31/2021 10:59:21 -  - fetch new
+12/31/2021 10:59:21 - INTERNAL - database query
+12/31/2021 10:59:21 - INTERNAL - database connect
+12/31/2021 10:59:21 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+12/31/2021 12:29:06 -  - route main
+12/31/2021 12:29:06 - INTERNAL - database connect
+12/31/2021 13:19:33 -  - route main
+12/31/2021 13:19:33 - INTERNAL - database connect
+12/31/2021 13:50:45 -  - route main
+12/31/2021 13:50:45 - INTERNAL - database connect
+12/31/2021 14:23:48 -  - route main
+12/31/2021 14:23:48 - INTERNAL - database connect
+12/31/2021 16:19:43 -  - route main
+12/31/2021 16:19:43 - INTERNAL - database connect
+12/31/2021 16:35:49 -  - route main
+12/31/2021 16:35:49 - INTERNAL - database connect
+12/31/2021 16:35:49 -  - fetch attachment_table
+12/31/2021 16:35:49 - INTERNAL - database query
+12/31/2021 16:35:49 - INTERNAL - database connect
+12/31/2021 16:35:49 -  - fetch new
+12/31/2021 16:35:49 - INTERNAL - database query
+12/31/2021 16:35:49 - INTERNAL - database connect
+12/31/2021 16:35:53 -  - fetch new
+12/31/2021 16:35:53 - INTERNAL - database query
+12/31/2021 16:35:53 - INTERNAL - database connect
+12/31/2021 16:35:54 -  - fetch new
+12/31/2021 16:35:54 - INTERNAL - database query
+12/31/2021 16:35:54 - INTERNAL - database connect
+12/31/2021 16:35:58 -  - fetch new
+12/31/2021 16:35:58 - INTERNAL - database query
+12/31/2021 16:35:58 - INTERNAL - database connect
+12/31/2021 16:36:00 -  - fetch new_comments
+12/31/2021 16:36:00 - INTERNAL - database query
+12/31/2021 16:36:00 - INTERNAL - database connect
+12/31/2021 16:36:15 -  - post comment
+12/31/2021 16:36:15 - INTERNAL - database query
+12/31/2021 16:36:15 - INTERNAL - database connect
+12/31/2021 16:36:15 - INTERNAL - database execute
+12/31/2021 16:36:16 - INTERNAL - database query
+12/31/2021 16:36:16 - INTERNAL - database connect
+12/31/2021 16:36:16 - INTERNAL - database execute
+12/31/2021 16:36:17 -  - fetch num_comments
+12/31/2021 16:36:17 - INTERNAL - database query
+12/31/2021 16:36:17 - INTERNAL - database connect
+12/31/2021 16:36:17 -  - fetch new_comments
+12/31/2021 16:36:17 - INTERNAL - database query
+12/31/2021 16:36:17 - INTERNAL - database connect
+12/31/2021 16:36:21 -  - fetch num_comments
+12/31/2021 16:36:21 - INTERNAL - database query
+12/31/2021 16:36:21 - INTERNAL - database connect
+12/31/2021 17:07:14 -  - route main
+12/31/2021 17:07:14 - INTERNAL - database connect
+12/31/2021 18:11:30 -  - route main
+12/31/2021 18:11:30 - INTERNAL - database connect
+12/31/2021 18:11:32 -  - route main
+12/31/2021 18:11:32 - INTERNAL - database connect
+12/31/2021 18:11:33 -  - fetch attachment_table
+12/31/2021 18:11:33 - INTERNAL - database query
+12/31/2021 18:11:33 - INTERNAL - database connect
+12/31/2021 18:11:33 -  - fetch new
+12/31/2021 18:11:33 - INTERNAL - database query
+12/31/2021 18:11:33 - INTERNAL - database connect
+12/31/2021 18:13:13 -  - route main
+12/31/2021 18:13:13 - INTERNAL - database connect
+12/31/2021 18:13:15 -  - route main
+12/31/2021 18:13:15 - INTERNAL - database connect
+12/31/2021 18:13:16 -  - fetch attachment_table
+12/31/2021 18:13:16 - INTERNAL - database query
+12/31/2021 18:13:16 - INTERNAL - database connect
+12/31/2021 18:13:17 -  - fetch new
+12/31/2021 18:13:17 - INTERNAL - database query
+12/31/2021 18:13:17 - INTERNAL - database connect
+12/31/2021 18:23:33 -  - fetch attachment_table
+12/31/2021 18:23:33 - INTERNAL - database query
+12/31/2021 18:23:33 - INTERNAL - database connect
+12/31/2021 18:23:33 -  - fetch new
+12/31/2021 18:23:33 - INTERNAL - database query
+12/31/2021 18:23:33 - INTERNAL - database connect
+12/31/2021 22:37:53 -  - route main
+12/31/2021 22:37:53 - INTERNAL - database connect
+12/31/2021 22:44:45 -  - route main
+12/31/2021 22:44:45 - INTERNAL - database connect
+12/31/2021 23:11:30 -  - route main
+12/31/2021 23:11:30 - INTERNAL - database connect

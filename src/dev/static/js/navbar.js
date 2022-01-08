@@ -4,7 +4,7 @@ var section = 'new'; //its new because thats the default section
 //navbar shit
 function fresh(){
     try{
-        document.getElementById("container").insertAdjacentHTML('beforeend','<div id="loading"><img id="end" src="https://hdhs.live/static/resources/load.gif"/></div>');
+        document.getElementById("container").insertAdjacentHTML('beforeend','<div id="loading"><img id="end" src="http://192.168.50.213/static/resources/load.gif"/></div>');
 
         document.getElementById('old').classList.remove('nav_sel');
         document.getElementById('old').classList.remove('nav_btn');

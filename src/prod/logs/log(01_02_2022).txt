@@ -1,0 +1,78 @@
+01/02/2022 00:00:51 -  - route main
+01/02/2022 00:00:51 - INTERNAL - database connect
+01/02/2022 00:54:44 -  - route main
+01/02/2022 00:54:44 - INTERNAL - database connect
+01/02/2022 01:15:33 -  - route main
+01/02/2022 01:15:33 - INTERNAL - database connect
+01/02/2022 02:32:12 -  - route main
+01/02/2022 02:32:12 - INTERNAL - database connect
+01/02/2022 06:29:08 -  - route main
+01/02/2022 06:29:08 - INTERNAL - database connect
+01/02/2022 08:07:22 -  - route main
+01/02/2022 08:07:22 - INTERNAL - database connect
+01/02/2022 08:26:16 -  - route main
+01/02/2022 08:26:16 - INTERNAL - database connect
+01/02/2022 08:26:17 -  - route main
+01/02/2022 08:26:17 - INTERNAL - database connect
+01/02/2022 09:08:15 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+01/02/2022 09:08:15 -  - fetch attachment_table
+01/02/2022 09:08:15 - INTERNAL - database query
+01/02/2022 09:08:15 - INTERNAL - database connect
+01/02/2022 09:08:15 -  - fetch new
+01/02/2022 09:08:15 - INTERNAL - database query
+01/02/2022 09:08:15 - INTERNAL - database connect
+01/02/2022 09:48:42 - INTERNAL - failure - invalid literal for int() with base 10: 'NaN' - 
+01/02/2022 09:48:42 -  - fetch attachment_table
+01/02/2022 09:48:42 - INTERNAL - database query
+01/02/2022 09:48:42 - INTERNAL - database connect
+01/02/2022 09:48:43 -  - fetch new
+01/02/2022 09:48:43 - INTERNAL - database query
+01/02/2022 09:48:43 - INTERNAL - database connect
+01/02/2022 11:58:38 -  - fetch attachment_table
+01/02/2022 11:58:38 - INTERNAL - database query
+01/02/2022 11:58:38 - INTERNAL - database connect
+01/02/2022 11:58:38 -  - fetch new
+01/02/2022 11:58:38 - INTERNAL - database query
+01/02/2022 11:58:38 - INTERNAL - database connect
+01/02/2022 12:33:17 -  - route main
+01/02/2022 12:33:17 - INTERNAL - database connect
+01/02/2022 15:26:18 -  - route main
+01/02/2022 15:26:18 - INTERNAL - database connect
+01/02/2022 16:05:24 -  - route main
+01/02/2022 16:05:24 - INTERNAL - database connect
+01/02/2022 16:45:03 -  - route main
+01/02/2022 16:45:03 - INTERNAL - database connect
+01/02/2022 18:45:56 -  - route main
+01/02/2022 18:45:56 - INTERNAL - database connect
+01/02/2022 19:57:23 -  - route main
+01/02/2022 19:57:23 - INTERNAL - database connect
+01/02/2022 19:57:23 -  - route main
+01/02/2022 19:57:23 - INTERNAL - database connect
+01/02/2022 19:57:31 -  - route main
+01/02/2022 19:57:31 - INTERNAL - database connect
+01/02/2022 20:17:43 -  - route main
+01/02/2022 20:17:43 - INTERNAL - database connect
+01/02/2022 20:17:49 -  - route main
+01/02/2022 20:17:49 - INTERNAL - database connect
+01/02/2022 20:17:50 -  - fetch attachment_table
+01/02/2022 20:17:50 - INTERNAL - database query
+01/02/2022 20:17:50 - INTERNAL - database connect
+01/02/2022 20:17:50 -  - fetch new
+01/02/2022 20:17:50 - INTERNAL - database query
+01/02/2022 20:17:50 - INTERNAL - database connect
+01/02/2022 20:59:59 -  - route main
+01/02/2022 20:59:59 - INTERNAL - database connect
+01/02/2022 21:10:57 -  - route main
+01/02/2022 21:10:57 - INTERNAL - database connect
+01/02/2022 21:45:17 -  - route main
+01/02/2022 21:45:17 - INTERNAL - database connect
+01/02/2022 22:34:46 -  - route main
+01/02/2022 22:34:46 - INTERNAL - database connect
+01/02/2022 22:34:46 -  - route main
+01/02/2022 22:34:46 - INTERNAL - database connect
+01/02/2022 23:07:12 -  - route main
+01/02/2022 23:07:12 - INTERNAL - database connect
+01/02/2022 23:10:49 -  - route main
+01/02/2022 23:10:49 - INTERNAL - database connect
+01/02/2022 23:10:50 -  - route main
+01/02/2022 23:10:50 - INTERNAL - database connect

@@ -2,7 +2,7 @@ function admin_init(){
     psk = window.prompt('hey buddy. im gonna need to see some identification for you to proceed:');
 
     var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://hdhs.live/auth");
+        xhr.open("POST", "http://192.168.50.213/auth");
 
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -31,7 +31,7 @@ function admin_init(){
 
 function admin_querydb(value){
     //load all posts from main
-    fetch("https://hdhs.live/fetch" + value)
+    fetch("http://192.168.50.213/fetch" + value)
         .then(response => {
         return response.json();
         }).then(cs => {  
@@ -76,7 +76,7 @@ function admin_querydb(value){
 function moderate(id,type,action){
     console.log(id,type,action)
     var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://hdhs.live/moderate");
+        xhr.open("POST", "http://192.168.50.213/moderate");
 
         xhr.setRequestHeader("Accept", "application/json");
         xhr.setRequestHeader("Content-Type", "application/json");
