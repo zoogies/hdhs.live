@@ -74,18 +74,18 @@ function renderContent(response){
                 //define a basic post without decorators
                 if(post_content != ''){
                     finalcontent = post_content.replace(regex, function(m){return '<font color="0051BA"><b>'+m+'</b></font>';});
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="spaced">'+finalcontent+'</p>'
                 }
                 else{
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div>'
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div>'
                 }
                 //append our generated post to the container
                 document.getElementById("container").insertAdjacentHTML('beforeend',header);
 
                 //set our post content presets
                 var postreportbtn = '<div onclick="report(\'' +post_id+ '\',\'' + 'post'+ '\')" class="reportbtn"><p class="report_txt">Report</p></div>'
-                var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><img class="joy" src="http://192.168.50.213/static/resources/joy.png"/></div>'
-                var postnotfunnybtn = '<div onclick="notfunny(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><img class="joy" src="http://192.168.50.213/static/resources/joy.png"/></div>'
+                var postlaughbtn = '<div onclick="laugh(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><img class="joy" src="http://192.168.50.213:5000/static/resources/joy.png"/></div>'
+                var postnotfunnybtn = '<div onclick="notfunny(\'' +post_id+ '\',\'' + 'post'+ '\')" class="combtn laughbtn"><img class="joy" src="http://192.168.50.213:5000/static/resources/joy.png"/></div>'
                 var footer = '<div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p>'+postlaughbtn+'<div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>'+postreportbtn+'</div></div>'
                 
                 //if our current post contains an attachment
@@ -93,18 +93,18 @@ function renderContent(response){
                     //console.log(post_id)
                     try{
                         var attachmentExtension = attachment_table[attachment_id][2].split('.')[1]
-                        path = 'http://192.168.50.213/static/attachments/'+attachment_table[attachment_id][2]
+                        path = 'http://192.168.50.213:5000/static/attachments/'+attachment_table[attachment_id][2]
                         //console.log(path)
                     }
                     catch{
                         var attachmentExtension = 'png'
-                        path = 'http://192.168.50.213/static/resources/error.png'
+                        path = 'http://192.168.50.213:5000/static/resources/error.png'
                     }
 
                     //if its an allowed video
                     if(videotypes.includes(attachmentExtension)){
-                        //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://192.168.50.213/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
-                        document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://192.168.50.213/static/attachments/previews/'+attachment_id +'.jpg" class="attachment" controls><source src="'+path+'"></video></div>');
+                        //document.getElementById(post_id).innerHTML+='<div class="embed"><img class="attachment" src="'+'http://192.168.50.213:5000/static/attachments/'+attachment_table[attachment_id][2]+'"/></div>'
+                        document.getElementById(post_id).insertAdjacentHTML('beforeend','<div class="embed"><video preload="none" poster="http://192.168.50.213:5000/static/attachments/previews/'+attachment_id +'.jpg" class="attachment" controls><source src="'+path+'"></video></div>');
                     }
                     //else if its an allowed photo
                     else if(phototypes.includes(attachmentExtension)){
@@ -129,10 +129,10 @@ function renderContent(response){
                 //define a limited post where the content is banned and append it to our main container
                 //if our post has comments in it allow it to have the expand button
                 if(num_comments != 0){
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p><div class="combtn" id="comclick" onclick="refreshcomments('+post_id+')"><p class="viewcom">View '+num_comments+' Comments</p></div>';
                 }
                 else{
-                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p></div></div>';
+                    header = '<div class="post" id="'+post_id+'"><div class="p_header"><img class="icon" src="http://192.168.50.213:5000/static/resources/user.png"/><p class="uname">'+post_user+'</p><p class="ID">'+'#'+post_id+'</p><p class="ID stamp">'+stamp+'</p></div><p class="" style="color:red;"><b>[Post Removed By Moderator]</b></p><div class="p_footer noselect"><p id="liketext" class="laughtxt">'+commatize(likes)+'  Laughs'+'</p></div></div>';
                 }
                 //append the post to the container
                 document.getElementById("container").insertAdjacentHTML('beforeend',header);
@@ -176,13 +176,13 @@ function renderComments(id,data){
     for(comment in data){
         //declare our static preset elements for comment actions
         var comreportbtn = '<p onclick="report(\'' +data[comment][0]+ '\',\'' + 'comment'+ '\')" class="reportbtncom">Report</p>'
-        var comlaughbtn = '<div onclick="laugh(\'' +data[comment][0]+ '\',\'' + 'comment'+ '\')" class="comlaughbtn"><p>Laugh</p><img class="joy" src="http://192.168.50.213/static/resources/joy.png"/></div>'
+        var comlaughbtn = '<div onclick="laugh(\'' +data[comment][0]+ '\',\'' + 'comment'+ '\')" class="comlaughbtn"><p>Laugh</p><img class="joy" src="http://192.168.50.213:5000/static/resources/joy.png"/></div>'
 
         // if the deleted status of the comment is 0 (not banned at all)
         if(data[comment][6] == 0){
             finalcomtxt = String(data[comment][2]).replace(regex, function(m){return '<font color="0051BA"><b>'+m+'</b></font>';});
             // awful, disgusting string of a comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://192.168.50.213/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+finalcomtxt+'</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://192.168.50.213:5000/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt">'+finalcomtxt+'</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.insertAdjacentHTML('beforeend',content);
@@ -190,7 +190,7 @@ function renderComments(id,data){
         // else if the deleted status of the comment is 1 (directly banned)
         else if (data[comment][6] == 1){
             // awful, disgusting string of a visible banned comment preset with its data filled in
-            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://192.168.50.213/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt" style="color: red;">[Removed By Moderator]</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
+            content = document.createElement('div').innerHTML='<div class="comment"><div class="comheader"><img class="compfp" src="http://192.168.50.213:5000/static/resources/user.png"/><p class="commentid">#'+String(data[comment][0])+'</p><p class="comname">'+String(data[comment][5])+':</p></div><p class="comdate">'+String(data[comment][4])+'</p><p class="comtxt" style="color: red;">[Removed By Moderator]</p><div class="commentactionbound noselect"><p class="comliketxt" id="comment_'+String(data[comment][0]+'">'+String(data[comment][3])+' Laughs</p>'+comlaughbtn+comreportbtn+'</div></div>');
             
             //append our comment to the parent post container
             reqbox.insertAdjacentHTML('beforeend',content);
@@ -221,11 +221,11 @@ function refreshcomments(post){
             box.closest('.comments').remove();
         }
 
-        //document.getElementById(post).innerHTML += '<img id="comloadgif" src="http://192.168.50.213/static/resources/load.gif"/>';
+        //document.getElementById(post).innerHTML += '<img id="comloadgif" src="http://192.168.50.213:5000/static/resources/load.gif"/>';
         
         //normal behavior
         querycomments(post); //intiate waterfall to get comments and render them
-        document.getElementById(post).insertAdjacentHTML('beforeend',document.createElement('div').innerHTML = '<div id="loadcom" class="loadcom"><img src="http://192.168.50.213/static/resources/load.gif"/></div>');
+        document.getElementById(post).insertAdjacentHTML('beforeend',document.createElement('div').innerHTML = '<div id="loadcom" class="loadcom"><img src="http://192.168.50.213:5000/static/resources/load.gif"/></div>');
 
         //change box text to show its currently opened
         handler.innerText = "Click To Hide Comments";
@@ -288,7 +288,7 @@ window.onscroll = function (){
         //scroll to top button
         if(percentScroll >= .2 && jumpbtn == false){
             jumpbtn = true;
-            document.getElementById('page').innerHTML += '<div onclick="jumppage()" class="noselect fade-in-image" id="jumpscroll"><img class="jumpimg noselect fade-in-image" src="http://192.168.50.213/static/resources/jumptotop.png"/></div>';
+            document.getElementById('page').innerHTML += '<div onclick="jumppage()" class="noselect fade-in-image" id="jumpscroll"><img class="jumpimg noselect fade-in-image" src="http://192.168.50.213:5000/static/resources/jumptotop.png"/></div>';
         }
         if(percentScroll<= .2 && jumpbtn == true){
             jumpbtn = false;

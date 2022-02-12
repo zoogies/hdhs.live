@@ -11,7 +11,7 @@ function loadicon() {
     }
     if(!scrolledtobottom){
         if(section != 'search'){
-            document.getElementById("container").insertAdjacentHTML('beforeend','<div id="loading"><img id="end" src="http://192.168.50.213/static/resources/load.gif"/></div>');
+            document.getElementById("container").insertAdjacentHTML('beforeend','<div id="loading"><img id="end" src="http://192.168.50.213:5000/static/resources/load.gif"/></div>');
         }
     }
     else{
