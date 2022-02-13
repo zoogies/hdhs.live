@@ -5,7 +5,7 @@ import os
 import re
 import json
 from requests.structures import CaseInsensitiveDict
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from flask import g, request
 
 # import custom logging class
@@ -60,23 +60,18 @@ def query_db(query, args=(), one=False):
 
 
 # main flask top level function
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__, instance_relative_config=True,static_folder='ui/build')
 app.config["MAX_CONTENT_LENGTH"] = 10000000 #10mb content length
 ##########################################################################
 
-# defualt route to server
-@app.route("/")
-def main():
-    try:
-        #logmaker("daily").log("route main", request.remote_addr)
-
-        # create cursor to probe db with
-        cur = get_db().cursor()
-
-        return render_template("index.html")
-    except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
-        return "bad"
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    cur = get_db().cursor()
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 ##########################################################################
@@ -617,4 +612,4 @@ def getattachment():
 ##########################################################################
 
 if __name__ == "__main__":
-    app.run(host="192.168.50.213", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)
