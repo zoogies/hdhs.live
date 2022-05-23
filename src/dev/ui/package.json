@@ -17,7 +17,7 @@
       "patterns": [
         "src"
       ],
-      "extensions": "js,jsx,css"
+      "extensions": "js,jsx"
     }
   },
   "scripts": {
