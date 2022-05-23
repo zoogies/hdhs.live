@@ -1,0 +1,47 @@
+<html>
+    <head><title>Admin panel</title><link rel="icon" href="https://cdn.realsport101.com/images/ncavvykf/epicstream/350743122ada19bf2654bdc6aa3f4bd36991ef78-760x400.png?rect=25,0,711,400&w=686&h=386&auto=format">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&display=swap" rel="stylesheet">
+        <script src="{{url_for('static', filename='js/min.js')}}"></script>
+
+         <!-- Overscroll ios -->
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+        <!-- header color ios -->
+        <meta name="theme-color" content="#001AAC">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1RQ9YW8KR"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-P1RQ9YW8KR');
+        </script>
+    </head>
+    <body onload="admin_init()" style="background-color:blanchedalmond">
+        <div style="display:flex;flex-wrap:nowrap; width:700px; padding-bottom:50px;">
+            <img style="width:25%;" src="https://cdn.discordapp.com/attachments/490659176909897729/904178160474685441/B554D12D-4071-428A-A409-A6E223E9783F.jpg">
+            <img style="width:25%;" src="https://cdn.discordapp.com/attachments/490659176909897729/904178203915075604/AB64F6A3-52A4-4B07-80E7-F607671BAC5B.jpg">
+            <h1 style="font-family: 'Noto Serif KR', serif; padding-left:100px; color:red; font-size:60px;">관리자 패널</h1>
+            <h1>(ADMIN PANEL)</h1>
+            <img style="width:25%;" src="https://cdn.discordapp.com/attachments/694352117476884570/903780492040622100/3x.gif">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/AWOyEIuVzzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div id="admincontent">
+            <div id="reportcnt"></div>
+            <button onclick="admin_querydb('new')">Sort New</button>
+            <button onclick="admin_querydb('old')">Sort Old</button>
+            <button onclick="admin_querydb('pop')">Sort Popular</button>
+            <button onclick="admin_querydb('reports')">Show Reports</button>
+            <button onclick="admin_querydb('allcomments')">Show Comments</button>
+        </div>
+        <div style="display:flex;flex-wrap:nowrap; padding-top:50px;">
+            <img src="https://c.tenor.com/l-g2WQZOZkQAAAAC/pla-prc.gif">
+            <h1>I LOVE CHINA!!!!!!!!!!</h1>
+            <img src="https://i.pinimg.com/originals/d7/70/46/d770461a74c1932765569b3989a5ce06.gif">
+        </div>
+    </body>
+</html>

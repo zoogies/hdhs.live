@@ -12,7 +12,7 @@ from flask import g, request
 from logs import logmaker
 
 # log a server restart
-#logmaker("daily").log("server reset", "INTERNAL")
+logmaker("daily").log("server reset", "INTERNAL")
 
 # global variables
 DATABASE = "danarchy.db"
@@ -23,39 +23,39 @@ headers["Authorization"] = "Bearer f3213625c42436"
 # connecting to our db
 def get_db():
     try:
-        #logmaker("daily").log("database connect", "INTERNAL")
+        logmaker("daily").log("database connect", "INTERNAL")
         db = getattr(g, "_database", None)
         if db is None:
             db = g._database = sqlite3.connect(DATABASE)
         return db
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
         return "bad"
 
 
 # executing a db change
 def execute_db(cmd):
     try:
-        #logmaker("daily").log("database execute", "INTERNAL")
+        logmaker("daily").log("database execute", "INTERNAL")
         con = sqlite3.connect(DATABASE)
         c = con.cursor()
         c.execute(cmd)
         con.commit()
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
         return "bad"
 
 
 # probing db for data
 def query_db(query, args=(), one=False):
     try:
-        #logmaker("daily").log("database query", "INTERNAL")
+        logmaker("daily").log("database query", "INTERNAL")
         cur = get_db().execute(query, args)
         rv = cur.fetchall()
         cur.close()
         return (rv[0] if rv else None) if one else rv
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e), "INTERNAL")
+        logmaker("daily").log("failure - " + str(e), "INTERNAL")
         return "bad"
 
 
@@ -68,14 +68,14 @@ app.config["MAX_CONTENT_LENGTH"] = 10000000 #10mb content length
 @app.route("/")
 def main():
     try:
-        #logmaker("daily").log("route main", request.remote_addr)
+        logmaker("daily").log("route main", request.remote_addr)
 
         # create cursor to probe db with
         cur = get_db().cursor()
 
         return render_template("index.html")
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return "bad"
 
 
@@ -85,10 +85,10 @@ def main():
 @app.route("/admin")
 def admin():
     try:
-        #logmaker("daily").log("route admin", request.remote_addr)
+        logmaker("daily").log("route admin", request.remote_addr)
         return render_template("admin.html")
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return "bad"
 
 
@@ -99,13 +99,13 @@ def auth():
         with open("secretkey.txt") as f:
             serverkey = f.read()
             if serverkey == request.json["psk"]:
-                #logmaker("daily").log("auth pass", request.remote_addr)
+                logmaker("daily").log("auth pass", request.remote_addr)
                 return "true"
             else:
-                #logmaker("daily").log("auth fail", request.remote_addr)
+                logmaker("daily").log("auth fail", request.remote_addr)
                 return "false"
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return "bad"
 
 
@@ -130,7 +130,7 @@ def moderate():
         try:
             if mod_action == "delete":
                 try:
-                    #logmaker("daily").log("report delete", request.remote_addr)
+                    logmaker("daily").log("report delete", request.remote_addr)
                     if mod_type == "post":
                         execute_db(
                             'update main set deleted="1" where id="' + mod_id + '"'
@@ -146,14 +146,14 @@ def moderate():
                     return "bad"
             elif mod_action == "dismiss":
                 try:
-                    #logmaker("daily").log("report dismiss", request.remote_addr)
+                    logmaker("daily").log("report dismiss", request.remote_addr)
                     execute_db('DELETE FROM reports WHERE content_id="' + mod_id + '"')
                     return "ok"
                 except:
                     return "bad"
             elif mod_action == "no_render":
                 try:
-                    #logmaker("daily").log("report invisible", request.remote_addr)
+                    logmaker("daily").log("report invisible", request.remote_addr)
                     if mod_type == "post":
                         execute_db(
                             'update main set deleted="2" where id="' + mod_id + '"'
@@ -187,14 +187,14 @@ def moderate():
                     execute_db('DELETE FROM reports WHERE content_id="' + mod_id + '"')
                     return "ok"
                 except:
-                    #logmaker("daily").log("failure bad_request", request.remote_addr)
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
                     return "bad"
         except Exception as e:
             print(e)
             return "bad"
 
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return "bad"
     return "wtf"
 
@@ -205,10 +205,10 @@ def moderate():
 @app.route("/fetchreports")
 def fetchreports():
     try:
-        #logmaker("daily").log("fetch reports", request.remote_addr)
+        logmaker("daily").log("fetch reports", request.remote_addr)
         return json.dumps(query_db("select * from reports"))
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return "bad"
 
 
@@ -216,7 +216,7 @@ def fetchreports():
 def report():
     try:
         if request.json["type"] == "post":
-            #logmaker("daily").log("report post", request.remote_addr)
+            logmaker("daily").log("report post", request.remote_addr)
             execute_db(
                 "insert into reports (content_id,reason,content,type) values ("
                 + request.json["id"]
@@ -232,7 +232,7 @@ def report():
             )
             return json.dumps("ok")
         elif request.json["type"] == "comment":
-            #logmaker("daily").log("report comment", request.remote_addr)
+            logmaker("daily").log("report comment", request.remote_addr)
             execute_db(
                 "insert into reports (content_id,reason,content,type) values ("
                 + request.json["id"]
@@ -248,10 +248,10 @@ def report():
             )
             return json.dumps("ok")
         else:
-            #logmaker("daily").log("failure bad_request", request.remote_addr)
+            logmaker("daily").log("failure bad_request", request.remote_addr)
             return json.dumps("bad")
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -259,10 +259,10 @@ def report():
 @app.route("/fetchnumreps")
 def fetchnumreps():
     try:
-        #logmaker("daily").log("fetch num_reports", request.remote_addr)
+        logmaker("daily").log("fetch num_reports", request.remote_addr)
         return json.dumps(query_db("SELECT COUNT(*) FROM reports")[0][0])
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -286,7 +286,7 @@ def fetchposts():
         start = request.json["start"]
         numloaded = int(request.json["numloaded"])
         if order == "search":
-            #logmaker("daily").log("search - " + str(start), request.remote_addr)
+            logmaker("daily").log("search - " + str(start), request.remote_addr)
             results = query_db(
                 "SELECT * FROM MAIN WHERE CONTENT LIKE "
                 + "'%"
@@ -304,33 +304,33 @@ def fetchposts():
             # if we are doing a first load or type change do the standard procedure
             if start == "fresh":
                 if order == "old":
-                    #logmaker("daily").log("fetch old", request.remote_addr)
+                    logmaker("daily").log("fetch old", request.remote_addr)
                     return json.dumps(
                         query_db(
                             "select * from main where deleted != 2 order by ID asc LIMIT 15"
                         )
                     )
                 elif order == "new":
-                    #logmaker("daily").log("fetch new", request.remote_addr)
+                    logmaker("daily").log("fetch new", request.remote_addr)
                     return json.dumps(
                         query_db(
                             "select * from main where deleted != 2 order by ID desc LIMIT 15"
                         )
                     )
                 elif order == "pop":
-                    #logmaker("daily").log("fetch pop", request.remote_addr)
+                    logmaker("daily").log("fetch pop", request.remote_addr)
                     return json.dumps(
                         query_db(
                             "select * from main where deleted != 2 order by likes desc LIMIT 15"
                         )
                     )
                 else:
-                    #logmaker("daily").log("failure bad_request", request.remote_addr)
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
                     return "bad request"
             else:
                 start = int(start)
                 if order == "old":
-                    #logmaker("daily").log("fetch old", request.remote_addr)
+                    logmaker("daily").log("fetch old", request.remote_addr)
 
                     value = query_db(
                         "select * from main where deleted != 2 AND id >= "
@@ -343,7 +343,7 @@ def fetchposts():
 
                     return json.dumps(value)
                 elif order == "new":
-                    #logmaker("daily").log("fetch new", request.remote_addr)
+                    logmaker("daily").log("fetch new", request.remote_addr)
 
                     value = query_db(
                         "select * from main where deleted != 2 and id<= "
@@ -357,7 +357,7 @@ def fetchposts():
 
                     return json.dumps(value)
                 elif order == "pop":
-                    #logmaker("daily").log("fetch pop", request.remote_addr)
+                    logmaker("daily").log("fetch pop", request.remote_addr)
                     # grab all posts in desc order of popular
                     result = query_db(
                         "select * from main where deleted != 2 order by likes desc"
@@ -375,10 +375,10 @@ def fetchposts():
                     print(len(final))
                     return json.dumps(final)
                 else:
-                    #logmaker("daily").log("failure bad_request", request.remote_addr)
+                    logmaker("daily").log("failure bad_request", request.remote_addr)
                     return "bad request"
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -388,12 +388,12 @@ def fetchposts():
 @app.route("/commentsnew", methods=["GET", "POST"])
 def comments():
     try:
-        #logmaker("daily").log("fetch new_comments", request.remote_addr)
+        logmaker("daily").log("fetch new_comments", request.remote_addr)
         return json.dumps(
             query_db('select * from comments where post="' + request.json["id"] + '"')
         )
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -401,31 +401,31 @@ def comments():
 @app.route("/fetchallcomments", methods=["GET", "POST"])
 def allcomments():
     try:
-        #logmaker("daily").log("fetch all_comments", request.remote_addr)
+        logmaker("daily").log("fetch all_comments", request.remote_addr)
         return json.dumps(query_db("select * from comments"))
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
 @app.route("/numcomments", methods=["GET", "POST"])
 def numcomments():
     try:
-        #logmaker("daily").log("fetch num_comments", request.remote_addr)
+        logmaker("daily").log("fetch num_comments", request.remote_addr)
         return str(
             query_db(
                 'select comment_count from main where id="' + request.json["id"] + '"'
             )[0][0]
         )
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
 @app.route("/comment", methods=["GET", "POST"])
 def leavecomment():
     try:
-        #logmaker("daily").log("post comment", request.remote_addr)
+        logmaker("daily").log("post comment", request.remote_addr)
         req = request.json
         # execute the comment to the comment table
         execute_db(
@@ -458,7 +458,7 @@ def leavecomment():
         )
         return "commented"
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -469,7 +469,7 @@ def leavecomment():
 def laugh():
     try:
         if request.json["type"] == "post":
-            #logmaker("daily").log("laugh post", request.remote_addr)
+            logmaker("daily").log("laugh post", request.remote_addr)
             val = json.dumps(
                 query_db(
                     'select likes from main where id="' + request.json["id"] + '"'
@@ -484,7 +484,7 @@ def laugh():
             )
             return "done"  # str(int(val) + 1)
         elif request.json["type"] == "comment":
-            #logmaker("daily").log("laugh comment", request.remote_addr)
+            logmaker("daily").log("laugh comment", request.remote_addr)
             val = json.dumps(
                 query_db(
                     'select likes from comments where id="' + request.json["id"] + '"'
@@ -499,10 +499,10 @@ def laugh():
             )
             return "done"  # str(int(val) + int(request.json["amount"]))
         else:
-            #logmaker("daily").log("failure bad_request", request.remote_addr)
+            logmaker("daily").log("failure bad_request", request.remote_addr)
             return "ERROR SOME SHIT GOIN ON IN THE SERVER"
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -512,7 +512,7 @@ def laugh():
 @app.route("/post", methods=["GET", "POST"])
 def post():
     try:
-        #logmaker("daily").log("post text", request.remote_addr)
+        logmaker("daily").log("post text", request.remote_addr)
         req = request.json
         postid = str(query_db("SELECT Count(*) FROM main")[0][0])
         execute_db(
@@ -530,14 +530,14 @@ def post():
         )
         return "done"
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
 @app.route("/postimage", methods=["POST"])
 def postimg():
     try:
-        #logmaker("daily").log("post image", request.remote_addr)
+        logmaker("daily").log("post image", request.remote_addr)
         # detect if theres a file in the request
         if request.files["file"]:
             # nab the file from the request
@@ -597,7 +597,7 @@ def postimg():
 
         return render_template("index.html")
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
@@ -607,10 +607,10 @@ def postimg():
 @app.route("/getattachment", methods=["GET", "POST"])
 def getattachment():
     try:
-        #logmaker("daily").log("fetch attachment_table", request.remote_addr)
+        logmaker("daily").log("fetch attachment_table", request.remote_addr)
         return json.dumps(query_db("select * from attachments"))
     except Exception as e:
-        #logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
+        logmaker("daily").log("failure - " + str(e) + " - ", "INTERNAL")
         return json.dumps("bad")
 
 
